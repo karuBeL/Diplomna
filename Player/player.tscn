@@ -1,6 +1,6 @@
-[gd_scene load_steps=38 format=3 uid="uid://b8bco488vq7mi"]
+[gd_scene load_steps=38 format=3 uid="uid://cdy4cghohpe0p"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_0xddf"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_g7hk5"]
 [ext_resource type="Texture2D" uid="uid://cbuabnbxvl0qk" path="res://assets/character_sprite_test.png" id="2_v8wcy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pb3c2"]
@@ -291,7 +291,7 @@ animations = [{
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.810647, 0)
 collision_layer = 2
 collision_mask = 3
-script = ExtResource("1_0xddf")
+script = ExtResource("1_g7hk5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.61385, 0)
@@ -305,4 +305,4 @@ billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_neafe")
 animation = &"testLeftCamera"
-frame_progress = 0.301032
+frame_progress = 0.150109

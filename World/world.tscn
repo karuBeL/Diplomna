@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cvfuic65orvui"]
 
-[ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://room.tscn" id="1_dnfyr"]
-[ext_resource type="PackedScene" uid="uid://b8bco488vq7mi" path="res://player.tscn" id="2_hmugm"]
-[ext_resource type="Script" path="res://CameraPlayer.gd" id="3_c17pr"]
+[ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
+[ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Player/player.tscn" id="2_hmugm"]
+[ext_resource type="Script" path="res://World/CameraPlayer.gd" id="3_c17pr"]
 
 [sub_resource type="Environment" id="Environment_ow6rj"]
 
