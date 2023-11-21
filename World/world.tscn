@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvfuic65orvui"]
+[gd_scene load_steps=8 format=3 uid="uid://cvfuic65orvui"]
 
 [ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
 [ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Player/player.tscn" id="2_hmugm"]
 [ext_resource type="Script" path="res://World/CameraPlayer.gd" id="3_c17pr"]
+[ext_resource type="PackedScene" uid="uid://dldpnhab6gjlh" path="res://Enemy/enemy.tscn" id="4_16yjw"]
 
 [sub_resource type="Environment" id="Environment_ow6rj"]
 
@@ -43,10 +44,15 @@ transform = Transform3D(0.98789, 0, 0.98789, 0, 1.39709, 0, -0.98789, 0, 0.98789
 shape = SubResource("BoxShape3D_3xpxu")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPlayer"]
-transform = Transform3D(-4.37114e-08, -0.707107, 0.707107, 0, 0.707107, 0.707107, -1, 3.09086e-08, -3.09086e-08, 5.88015, 6.88015, -1.13971e-07)
+transform = Transform3D(-4.37114e-08, -0.573576, 0.819152, 0, 0.819152, 0.573576, -1, 2.50718e-08, -3.58063e-08, 9.68578, 7.47188, -0.0560987)
 projection = 1
 size = 13.0
 script = SubResource("GDScript_f2u8x")
 
 [node name="Player" parent="." instance=ExtResource("2_hmugm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.066, -0.834199, -0.006)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("4_16yjw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28568, 0.0698544, 5.92774)
+
+[editable path="Player"]
