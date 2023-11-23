@@ -2,8 +2,10 @@ extends CharacterBody3D
 class_name Entity
 
 var max_health : int = 100
-var current_health : int  = 100
+var current_health : int = 100
 var speed : int = 10 
+var abilities = []
+
 
 func apply_damage(damage_amount):
 	if(current_health - damage_amount < 0):
@@ -16,7 +18,8 @@ func die():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
+ # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,4 +30,4 @@ func load_ability(name):
 	var scene = load("res://Abilities/" + name + "/" + name + ".tscn")
 	var sceneNode = scene.instantiate()
 	add_child(sceneNode)
-	return sceneNode
+	abilities.append(sceneNode)

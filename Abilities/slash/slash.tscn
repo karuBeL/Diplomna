@@ -1,19 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf01atcy4qha3"]
+[gd_scene load_steps=2 format=3 uid="uid://bf01atcy4qha3"]
 
 [ext_resource type="Script" path="res://Abilities/slash/slash.gd" id="1_h2hin"]
 
-[sub_resource type="Animation" id="Animation_3rfcf"]
-resource_name = "new_animation"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lm4jy"]
-_data = {
-"new_animation": SubResource("Animation_3rfcf")
-}
-
 [node name="slash" type="Node3D"]
 script = ExtResource("1_h2hin")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_lm4jy")
-}

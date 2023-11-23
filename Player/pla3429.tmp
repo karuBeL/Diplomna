@@ -298,7 +298,7 @@ alpha_cut = 3
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_neafe")
 animation = &"testBottomRight"
-frame_progress = 0.180464
+frame_progress = 0.0195862
 
 [node name="Weapon" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51813, 0)
