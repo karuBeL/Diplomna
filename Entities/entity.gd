@@ -27,7 +27,7 @@ func _process(delta):
 	pass
 
 func load_ability(name):
-	var scene = load("res://Abilities/" + name + "/" + name + ".tscn")
+	var scene = load("res://Player/PlayerAnimations/" + name + "/" + name + ".tscn")
 	var sceneNode = scene.instantiate()
 	add_child(sceneNode)
 	abilities.append(sceneNode)

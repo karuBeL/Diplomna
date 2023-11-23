@@ -297,8 +297,7 @@ billboard = 2
 alpha_cut = 3
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_neafe")
-animation = &"testBottomRight"
-frame_progress = 0.180464
+animation = &"testTowardsCamera"
 
 [node name="Weapon" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51813, 0)
