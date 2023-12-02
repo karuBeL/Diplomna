@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cf7rog708yxq6"]
-
-[ext_resource type="Script" path="res://Player/PlayerAnimations/slash/slash.gd" id="1_akiac"]
-
-[node name="Slash" type="Node"]
-script = ExtResource("1_akiac")

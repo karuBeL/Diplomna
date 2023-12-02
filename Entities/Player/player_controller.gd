@@ -5,8 +5,8 @@ func die():
 	pass
 
 func _ready():
-	pass
-	#set("speed", 13)
+	set("speed", 10)
+	add_to_group("player")
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta):

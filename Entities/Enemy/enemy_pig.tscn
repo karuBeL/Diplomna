@@ -1,0 +1,227 @@
+[gd_scene load_steps=26 format=3 uid="uid://u5ixnrgnfy8i"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/pig.gd" id="1_w0lma"]
+[ext_resource type="Texture2D" uid="uid://cos7exqxtwo4q" path="res://assets/everything.png" id="2_lk74j"]
+[ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="3_4o32v"]
+[ext_resource type="Script" path="res://Entities/Enemy/EnemyStates/EnemyIdle.gd" id="4_f6p6n"]
+[ext_resource type="Script" path="res://Entities/Enemy/EnemyStates/Pursue.gd" id="5_3yccv"]
+[ext_resource type="Script" path="res://Entities/Enemy/Attack.gd" id="6_14dgm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mxn22"]
+size = Vector3(1.7, 1.5, 1.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qtd0p"]
+height = 0.001
+radius = 10.0
+
+[sub_resource type="Animation" id="Animation_uteoo"]
+resource_name = "idle"
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_sejph"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_jjgwj"]
+resource_name = "pursue"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_mlbpe"]
+resource_name = "attack"
+length = 0.55
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [44, 45, 46, 47, 48]
+}
+
+[sub_resource type="Animation" id="Animation_xfhrk"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [33, 34, 35, 36]
+}
+
+[sub_resource type="Animation" id="Animation_cbteg"]
+resource_name = "get_hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [22, 23]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uliuc"]
+_data = {
+"RESET": SubResource("Animation_sejph"),
+"attack": SubResource("Animation_mlbpe"),
+"death": SubResource("Animation_xfhrk"),
+"get_hit": SubResource("Animation_cbteg"),
+"idle": SubResource("Animation_uteoo"),
+"pursue": SubResource("Animation_jjgwj")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_18jy2"]
+animation = &"get_hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5q4r5"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_r1rvg"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_oa12i"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gsbor"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_xbpgp"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ukgwl"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_guaw1"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x860d"]
+animation = &"pursue"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
+graph_offset = Vector2(-34.4323, 193.522)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_5q4r5")
+nodes/Animation/position = Vector2(680, 480)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_18jy2")
+"nodes/Animation 3/position" = Vector2(500, 420)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_r1rvg")
+nodes/Blend2/position = Vector2(520, 200)
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_oa12i")
+nodes/OneShot/position = Vector2(860, 320)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_gsbor")
+nodes/TimeScale/position = Vector2(360, 340)
+nodes/get_hit/node = SubResource("AnimationNodeOneShot_xbpgp")
+nodes/get_hit/position = Vector2(680, 240)
+nodes/idle_animation/node = SubResource("AnimationNodeAnimation_ukgwl")
+nodes/idle_animation/position = Vector2(140, 180)
+nodes/idle_time/node = SubResource("AnimationNodeTimeScale_guaw1")
+nodes/idle_time/position = Vector2(360, 180)
+nodes/output/position = Vector2(1040, 320)
+nodes/pursue_animation/node = SubResource("AnimationNodeAnimation_x860d")
+nodes/pursue_animation/position = Vector2(140, 360)
+node_connections = [&"Blend2", 0, &"idle_time", &"Blend2", 1, &"TimeScale", &"OneShot", 0, &"get_hit", &"OneShot", 1, &"Animation", &"TimeScale", 0, &"pursue_animation", &"get_hit", 0, &"Blend2", &"get_hit", 1, &"Animation 3", &"idle_time", 0, &"idle_animation", &"output", 0, &"OneShot"]
+
+[node name="Piggie" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_w0lma")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.195066, 1.25168, 0)
+pixel_size = 0.1
+billboard = 2
+texture_filter = 0
+texture = ExtResource("2_lk74j")
+hframes = 11
+vframes = 5
+frame = 12
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0315778, 1, -0.278325)
+shape = SubResource("BoxShape3D_mxn22")
+
+[node name="PursueRange" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PursueRange"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0581412, 1.1623, 0.0160874)
+shape = SubResource("CylinderShape3D_qtd0p")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_4o32v")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_f6p6n")
+
+[node name="Pursue" type="Node" parent="StateMachine"]
+script = ExtResource("5_3yccv")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("6_14dgm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uliuc")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uliuc")
+}
+tree_root = SubResource("AnimationNodeBlendTree_tgvfq")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Blend2/blend_amount = 1.0
+parameters/OneShot/active = false
+parameters/OneShot/internal_active = false
+parameters/OneShot/request = 0
+parameters/TimeScale/scale = 0.7
+parameters/get_hit/active = false
+parameters/get_hit/internal_active = false
+parameters/get_hit/request = 0
+parameters/idle_time/scale = 0.6

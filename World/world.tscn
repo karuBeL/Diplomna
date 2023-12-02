@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://cvfuic65orvui"]
 
 [ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
-[ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Player/player.tscn" id="2_hmugm"]
+[ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Entities/Player/player.tscn" id="2_hmugm"]
 [ext_resource type="Script" path="res://World/CameraPlayer.gd" id="3_c17pr"]
-[ext_resource type="PackedScene" uid="uid://dldpnhab6gjlh" path="res://Enemy/enemy.tscn" id="4_16yjw"]
+[ext_resource type="PackedScene" uid="uid://u5ixnrgnfy8i" path="res://Entities/Enemy/enemy_pig.tscn" id="4_16yjw"]
 
 [sub_resource type="Environment" id="Environment_ow6rj"]
 
@@ -50,7 +50,6 @@ size = 13.0
 script = SubResource("GDScript_f2u8x")
 
 [node name="Player" parent="." instance=ExtResource("2_hmugm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.066, -0.834199, -0.006)
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("4_16yjw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28568, 0.0698544, 5.92774)
