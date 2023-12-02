@@ -143,13 +143,13 @@ animation = &"idle"
 animation = &"pursue"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
-graph_offset = Vector2(-34.4323, 193.522)
+graph_offset = Vector2(-90.4323, 104.522)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_5q4r5")
 nodes/Animation/position = Vector2(680, 480)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_18jy2")
 "nodes/Animation 3/position" = Vector2(500, 420)
-nodes/Blend2/node = SubResource("AnimationNodeBlend2_r1rvg")
-nodes/Blend2/position = Vector2(520, 200)
+nodes/Idle_Pursue/node = SubResource("AnimationNodeBlend2_r1rvg")
+nodes/Idle_Pursue/position = Vector2(520, 200)
 nodes/OneShot/node = SubResource("AnimationNodeOneShot_oa12i")
 nodes/OneShot/position = Vector2(860, 320)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_gsbor")
@@ -163,7 +163,7 @@ nodes/idle_time/position = Vector2(360, 180)
 nodes/output/position = Vector2(1040, 320)
 nodes/pursue_animation/node = SubResource("AnimationNodeAnimation_x860d")
 nodes/pursue_animation/position = Vector2(140, 360)
-node_connections = [&"Blend2", 0, &"idle_time", &"Blend2", 1, &"TimeScale", &"OneShot", 0, &"get_hit", &"OneShot", 1, &"Animation", &"TimeScale", 0, &"pursue_animation", &"get_hit", 0, &"Blend2", &"get_hit", 1, &"Animation 3", &"idle_time", 0, &"idle_animation", &"output", 0, &"OneShot"]
+node_connections = [&"Idle_Pursue", 0, &"idle_time", &"Idle_Pursue", 1, &"TimeScale", &"OneShot", 0, &"get_hit", &"OneShot", 1, &"Animation", &"TimeScale", 0, &"pursue_animation", &"get_hit", 0, &"Idle_Pursue", &"get_hit", 1, &"Animation 3", &"idle_time", 0, &"idle_animation", &"output", 0, &"OneShot"]
 
 [node name="Piggie" type="CharacterBody3D"]
 collision_layer = 2
@@ -216,7 +216,7 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeBlendTree_tgvfq")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Blend2/blend_amount = 1.0
+parameters/Idle_Pursue/blend_amount = 0.0
 parameters/OneShot/active = false
 parameters/OneShot/internal_active = false
 parameters/OneShot/request = 0

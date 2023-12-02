@@ -50,6 +50,8 @@ size = 13.0
 script = SubResource("GDScript_f2u8x")
 
 [node name="Player" parent="." instance=ExtResource("2_hmugm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.68921, 0, -11.162)
+collision_layer = 2
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("4_16yjw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28568, 0.0698544, 5.92774)
