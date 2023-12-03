@@ -5,16 +5,16 @@ var max_health : int = 100
 var current_health : int = 100
 var speed : int = 5
 var abilities = []
-var hit_timer : SceneTreeTimer 
+#@onready var hit_timer : SceneTreeTimer = get_tree().create_timer(0.0)
 
 func _ready():
-	hit_timer = get_tree().create_timer(0.0)
+	pass
 
 func apply_damage(damage_amount):
-	if current_health - damage_amount > 0 && hit_timer.time_left == 0:
+	if current_health - damage_amount > 0:#&& hit_timer.time_left == 0
 		current_health -= damage_amount
 		print("kill the pig")
-		hit_timer = get_tree().create_timer(1.0)
+		#hit_timer = get_tree().create_timer(1.0)
 	else:
 		die()
 

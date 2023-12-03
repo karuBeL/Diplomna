@@ -56,4 +56,10 @@ collision_layer = 2
 [node name="CharacterBody3D" parent="." instance=ExtResource("4_16yjw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28568, 0.0698544, 5.92774)
 
+[node name="CharacterBody3D2" parent="." instance=ExtResource("4_16yjw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.44476, 0.0698544, 5.92774)
+
+[node name="CharacterBody3D3" parent="." instance=ExtResource("4_16yjw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05732, 0.0698544, 1.73682)
+
 [editable path="Player"]
