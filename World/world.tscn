@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvfuic65orvui"]
+[gd_scene load_steps=9 format=3 uid="uid://cvfuic65orvui"]
 
 [ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
 [ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Entities/Player/player.tscn" id="2_hmugm"]
@@ -24,10 +24,12 @@ func _process(delta):
 	pass
 "
 
-[node name="World" type="Node3D"]
+[sub_resource type="NavigationMesh" id="NavigationMesh_5o6dv"]
+vertices = PackedVector3Array(0.2598, 0.369515, -14.4902, -14.2402, 0.369515, -0.2402, -0.2402, 0.369515, 14.0098, 0.2598, 0.369515, 14.0098, 14.2598, 0.369515, 0.00979996, 14.2598, 0.369515, -0.4902)
+polygons = [PackedInt32Array(5, 4, 0), PackedInt32Array(0, 4, 3), PackedInt32Array(0, 3, 2), PackedInt32Array(0, 2, 1)]
+agent_radius = 0.1
 
-[node name="Room" parent="." instance=ExtResource("1_dnfyr")]
-transform = Transform3D(7.3701, 0, 7.3701, 0, 10.4229, 0, -7.3701, 0, 7.3701, 0, 0, 0)
+[node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ow6rj")
@@ -61,5 +63,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.44476, 0.0698544, 5.92774)
 
 [node name="CharacterBody3D3" parent="." instance=ExtResource("4_16yjw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05732, 0.0698544, 1.73682)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_5o6dv")
+
+[node name="Room" parent="NavigationRegion3D" instance=ExtResource("1_dnfyr")]
+transform = Transform3D(7.3701, 0, 7.3701, 0, 10.4229, 0, -7.3701, 0, 7.3701, 0, 0, 0)
+skeleton = NodePath("../..")
 
 [editable path="Player"]

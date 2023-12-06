@@ -2,7 +2,7 @@ extends State
 class_name Enemy
 
 var enemy: Entity
-var player
+var player : Entity
 
 func _ready() -> void:
 	await owner.ready
