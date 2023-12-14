@@ -1,11 +1,10 @@
-[gd_scene load_steps=46 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=48 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player_controller.gd" id="1_vwvnn"]
 [ext_resource type="Texture2D" uid="uid://dt7veps6tsb1g" path="res://assets/character_sprite_test2.png" id="2_t42ne"]
 [ext_resource type="Script" path="res://Entities/Player/WeaponCollision.gd" id="3_pbdme"]
 [ext_resource type="Script" path="res://Entities/Player/weapon_pivot.gd" id="4_xrc2g"]
 [ext_resource type="Texture2D" uid="uid://dfls0bph4ogpm" path="res://assets/18.png" id="5_ixdli"]
-[ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="6_tcnnh"]
 [ext_resource type="Script" path="res://Entities/Player/States/Idle.gd" id="7_3j838"]
 [ext_resource type="Script" path="res://Entities/Player/States/Run.gd" id="8_n2yyx"]
 [ext_resource type="Script" path="res://Entities/Player/States/executeAbility.gd" id="9_emi4u"]
@@ -284,6 +283,56 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_0kmws"]
 size = Vector3(1.2, 0.1, 1)
 
+[sub_resource type="GDScript" id="GDScript_6vswa"]
+script/source = "extends Node
+
+@export var initial_state : NodePath
+
+@onready var state : State = get_node(initial_state)
+
+
+func _ready() -> void:
+	await owner.ready
+	for child in get_children():
+		child.state_machine = self
+	state.enter()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	state.handle_input(event)
+
+
+func _process(delta: float) -> void:
+	state.update(delta)
+
+
+func _physics_process(delta: float) -> void:
+	state.physics_update(delta)
+
+func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
+	if not has_node(target_state_name):
+		return
+
+	state.exit()
+	state = get_node(target_state_name)
+	state.enter(msg)
+"
+
+[sub_resource type="Animation" id="Animation_8i8m0"]
+resource_name = "attack"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0.5, 1, 0, 180, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iw6nx"]
+_data = {
+"attack": SubResource("Animation_8i8m0")
+}
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 3
@@ -335,7 +384,7 @@ region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("6_tcnnh")
+script = SubResource("GDScript_6vswa")
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
@@ -349,3 +398,8 @@ script = ExtResource("9_emi4u")
 
 [node name="addAbility" type="Node" parent="StateMachine"]
 script = ExtResource("10_s5652")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iw6nx")
+}

@@ -194,9 +194,11 @@ script = ExtResource("1_w0lma")
 process_callback = 0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 2.0
 target_desired_distance = 10.0
 avoidance_enabled = true
 radius = 1.2
+max_speed = 5.0
 debug_enabled = true
 
 [node name="AttackCast" type="ShapeCast3D" parent="."]

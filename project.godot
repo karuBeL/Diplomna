@@ -13,7 +13,6 @@ config_version=5
 config/name="gem"
 run/main_scene="res://World/world.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
 
 [input]
 

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
 [ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Entities/Player/player.tscn" id="2_hmugm"]
 [ext_resource type="Script" path="res://World/CameraPlayer.gd" id="3_c17pr"]
-[ext_resource type="PackedScene" uid="uid://u5ixnrgnfy8i" path="res://Entities/Enemy/enemy_pig.tscn" id="4_16yjw"]
+[ext_resource type="PackedScene" uid="uid://u5ixnrgnfy8i" path="res://Entities/MeleePig/melee_pig.tscn" id="4_ifrh7"]
 
 [sub_resource type="Environment" id="Environment_ow6rj"]
 
@@ -48,21 +48,15 @@ shape = SubResource("BoxShape3D_3xpxu")
 [node name="Camera3D" type="Camera3D" parent="CameraPlayer"]
 transform = Transform3D(-4.37114e-08, -0.573576, 0.819152, 0, 0.819152, 0.573576, -1, 2.50718e-08, -3.58063e-08, 9.68578, 7.47188, -0.0560987)
 projection = 1
+current = true
 size = 13.0
 script = SubResource("GDScript_f2u8x")
 
 [node name="Player" parent="." instance=ExtResource("2_hmugm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.68921, 0, -11.162)
-collision_layer = 2
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("4_16yjw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28568, 0.0698544, 5.92774)
-
-[node name="CharacterBody3D2" parent="." instance=ExtResource("4_16yjw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.44476, 0.0698544, 5.92774)
-
-[node name="CharacterBody3D3" parent="." instance=ExtResource("4_16yjw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05732, 0.0698544, 1.73682)
+[node name="StateMachine" parent="Player" index="4"]
+initial_state = null
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_5o6dv")
@@ -70,5 +64,14 @@ navigation_mesh = SubResource("NavigationMesh_5o6dv")
 [node name="Room" parent="NavigationRegion3D" instance=ExtResource("1_dnfyr")]
 transform = Transform3D(7.3701, 0, 7.3701, 0, 10.4229, 0, -7.3701, 0, 7.3701, 0, 0, 0)
 skeleton = NodePath("../..")
+
+[node name="Piggie" parent="." instance=ExtResource("4_ifrh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.867178, 0, 10.9228)
+
+[node name="Piggie2" parent="." instance=ExtResource("4_ifrh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461369, 0, 9.89001)
+
+[node name="Piggie3" parent="." instance=ExtResource("4_ifrh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.99282, 0, 1.48023)
 
 [editable path="Player"]

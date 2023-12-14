@@ -11,7 +11,6 @@ func _physics_process(delta):
 	if distance != 0.0:	
 		#The vector that points from the camera to the player
 		var error_vector = Vector3(player.global_position.x - global_position.x, 0.0, player.global_position.z - global_position.z)
-		
 		if (abs(error_vector.x) < 0.01):
 			error_vector.x = 0
 			
@@ -21,5 +20,4 @@ func _physics_process(delta):
 		var control_output = Kp * (distance) #Using the proportional gain, we can control the desired separation between the two
 		var control_velocity = control_output * (error_vector / distance) #The vector that represents the velocity at which the camera needs to move to close the gap
 		velocity += control_velocity
-	
 	move_and_slide()

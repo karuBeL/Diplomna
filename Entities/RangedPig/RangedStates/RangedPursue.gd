@@ -9,7 +9,7 @@ func set_safe_velocity(safe_velocity):
 	
 
 func nav_timer():
-	if enemy.global_position.distance_to(player.global_position) > 2:
+	if enemy.global_position.distance_to(player.global_position) > 2.5:
 		nav_agent.target_position = player.global_position
 	nav_set_timer.wait_time = 0.25 + randf_range(0.25, 0.5)
 	nav_set_timer.start()
@@ -29,18 +29,17 @@ func exit():
 func physics_update(delta: float) -> void:
 	var target_position : Vector3 = (player.global_position - enemy.global_position).normalized()
 	var next_position = nav_agent.get_next_path_position()
-	
-	if enemy.global_position.distance_to( player.global_position) > 2:
+	#print(enemy.global_position.distance_to( player.global_position))
+	if enemy.global_position.distance_to(player.global_position) > 2:
 		if target_position.z < 0:
 			$"../../Sprite3D".set("flip_h", true)
 		else:
 			$"../../Sprite3D".set("flip_h", false)
 		$"../../AnimationTree".set("parameters/Idle_Pursue/blend_amount", 1)
 		nav_agent.velocity = (next_position - enemy.global_position).normalized() * enemy.speed 
-		#enemy.velocity.x = target_position.x * enemy.speed
-		#enemy.velocity.z = target_position.z * enemy.speed
 	else:
 		nav_agent.velocity.x = move_toward(enemy.velocity.x, 0, enemy.speed)
 		nav_agent.velocity.y = move_toward(enemy.velocity.z, 0, enemy.speed)
 		state_machine.transition_to("Idle", {"attack" : true})
-		#$"../../AnimationTree".set("parameters/Idle_Pursue/blend_amount", 0)
+		while is_attacking == true:
+			pass

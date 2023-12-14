@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://Entities/Player/WeaponCollision.gd" id="3_pbdme"]
 [ext_resource type="Script" path="res://Entities/Player/weapon_pivot.gd" id="4_xrc2g"]
 [ext_resource type="Texture2D" uid="uid://dfls0bph4ogpm" path="res://assets/18.png" id="5_ixdli"]
-[ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="6_tcnnh"]
 [ext_resource type="Script" path="res://Entities/Player/States/Idle.gd" id="7_3j838"]
 [ext_resource type="Script" path="res://Entities/Player/States/Run.gd" id="8_n2yyx"]
 [ext_resource type="Script" path="res://Entities/Player/States/executeAbility.gd" id="9_emi4u"]
@@ -284,6 +283,41 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_0kmws"]
 size = Vector3(1.2, 0.1, 1)
 
+[sub_resource type="GDScript" id="GDScript_6vswa"]
+script/source = "extends Node
+
+@export var initial_state : NodePath
+
+@onready var state : State = get_node(initial_state)
+
+StateMachine
+func _ready() -> void:
+	await owner.ready
+	for child in get_children():
+		child.state_machine = self
+	state.enter()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	state.handle_input(event)
+
+
+func _process(delta: float) -> void:
+	state.update(delta)
+
+
+func _physics_process(delta: float) -> void:
+	state.physics_update(delta)
+
+func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
+	if not has_node(target_state_name):
+		return
+
+	state.exit()
+	state = get_node(target_state_name)
+	state.enter(msg)
+"
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 3
@@ -335,8 +369,8 @@ region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("6_tcnnh")
-initial_state = NodePath("Idle")
+script = SubResource("GDScript_6vswa")
+initial_state = null
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("7_3j838")

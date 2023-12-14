@@ -3,6 +3,7 @@ class_name Enemy
 
 var enemy: Entity
 var player : Entity
+var is_attacking : bool
 
 func _ready() -> void:
 	await owner.ready
