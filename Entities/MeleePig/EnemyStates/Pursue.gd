@@ -31,6 +31,11 @@ func physics_update(delta: float) -> void:
 	var distance_to_player = enemy.global_position.distance_to(player.global_position)
 	var next_position = nav_agent.get_next_path_position()
 	
+	if target_position.z < 0:
+		$"../../Sprite3D".set("flip_h", true)
+	else:
+		$"../../Sprite3D".set("flip_h", false)
+	
 	if distance_to_player < 3:
 		nav_agent.avoidance_enabled = false
 		var direction = enemy.global_position.direction_to(player.position)
@@ -40,10 +45,7 @@ func physics_update(delta: float) -> void:
 		nav_agent.avoidance_enabled = true
 	
 	if distance_to_player > 2:
-		if target_position.z < 0:
-			$"../../Sprite3D".set("flip_h", true)
-		else:
-			$"../../Sprite3D".set("flip_h", false)
+		
 		$"../../AnimationTree".set("parameters/Idle_Pursue/blend_amount", 1)
 		nav_agent.velocity = (next_position - enemy.global_position).normalized() * enemy.speed 
 	else:

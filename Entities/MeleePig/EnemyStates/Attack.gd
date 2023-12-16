@@ -6,14 +6,12 @@ var count
 var collided_object : Entity 
 
 func hitPlayer():
-	#is_attacking = true
 	attack_collision.force_shapecast_update()
 	count = attack_collision.get_collision_count()
 	for i in count:
 		collided_object = attack_collision.get_collider(i) as Entity
 		if collided_object == player:
 			collided_object.apply_damage(10)
-	#is_attacking = false
 
 
 func enter(msg := {}):

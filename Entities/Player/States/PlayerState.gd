@@ -1,5 +1,5 @@
 extends State
-class_name Player
+class_name PlayerState
 
 var player: Entity
 

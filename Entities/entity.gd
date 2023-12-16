@@ -7,9 +7,6 @@ var speed : int = 5
 var abilities = []
 @onready var hit_timer : SceneTreeTimer = get_tree().create_timer(0.0)
 
-func _ready():
-	pass
-
 func apply_damage(damage_amount):
 	if current_health - damage_amount > 0 && hit_timer.time_left == 0:#&& hit_timer.time_left == 0
 		current_health -= damage_amount
@@ -19,10 +16,6 @@ func apply_damage(damage_amount):
 		die()
 
 func die():
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
 	pass
 
 func load_ability(name):

@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://teg45so6mfhk"]
+[gd_scene load_steps=26 format=3 uid="uid://teg45so6mfhk"]
 
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="1_exqk7"]
+[ext_resource type="Script" path="res://Entities/RangedPig/ranged_pig.gd" id="1_n3kpm"]
 [ext_resource type="Script" path="res://Entities/RangedPig/RangedStates/RangedIdle.gd" id="2_77ph1"]
 [ext_resource type="Script" path="res://Entities/RangedPig/RangedStates/RangedPursue.gd" id="3_k6wq7"]
 [ext_resource type="Script" path="res://Entities/RangedPig/RangedStates/RangedAttack.gd" id="4_a0uox"]
@@ -42,6 +43,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [10, 11, 12, 13, 14]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/Attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hitPlayer"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_lg0uc"]
@@ -127,10 +142,6 @@ animation = &"idle"
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_34iuf"]
 
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_7tte2"]
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_dc573"]
-
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gtehn"]
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_6r8bs"]
@@ -138,52 +149,68 @@ animation = &"idle"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_adp3w"]
 animation = &"attack"
 
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_dc573"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3e0a2"]
 animation = &"get_hit"
 
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_7tte2"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_efsga"]
-graph_offset = Vector2(-61.5007, -1.05338)
+graph_offset = Vector2(-86.8665, 5.38838)
 "nodes/ Pursue/node" = SubResource("AnimationNodeAnimation_b4rvd")
 "nodes/ Pursue/position" = Vector2(-200, 200)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_fgjci")
 nodes/Idle/position = Vector2(-200, 20)
 nodes/Idle_Pursue/node = SubResource("AnimationNodeBlend2_34iuf")
 nodes/Idle_Pursue/position = Vector2(120, 80)
-nodes/OneShot/node = SubResource("AnimationNodeOneShot_dc573")
-nodes/OneShot/position = Vector2(320, 80)
-"nodes/OneShot 2/node" = SubResource("AnimationNodeOneShot_7tte2")
-"nodes/OneShot 2/position" = Vector2(480, 80)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_6r8bs")
 nodes/TimeScale/position = Vector2(-60, 20)
 "nodes/TimeScale 2/node" = SubResource("AnimationNodeTimeScale_gtehn")
 "nodes/TimeScale 2/position" = Vector2(-40, 200)
 nodes/attack/node = SubResource("AnimationNodeAnimation_adp3w")
 nodes/attack/position = Vector2(120, 320)
+nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_dc573")
+nodes/attack_oneshot/position = Vector2(300, 80)
 nodes/get_hit/node = SubResource("AnimationNodeAnimation_3e0a2")
 nodes/get_hit/position = Vector2(340, 320)
+nodes/get_hit_oneshot/node = SubResource("AnimationNodeOneShot_7tte2")
+nodes/get_hit_oneshot/position = Vector2(480, 80)
 nodes/output/position = Vector2(660, 160)
-node_connections = [&"Idle_Pursue", 0, &"TimeScale", &"Idle_Pursue", 1, &"TimeScale 2", &"OneShot", 0, &"Idle_Pursue", &"OneShot", 1, &"attack", &"OneShot 2", 0, &"OneShot", &"OneShot 2", 1, &"get_hit", &"TimeScale", 0, &"Idle", &"TimeScale 2", 0, &" Pursue", &"output", 0, &"OneShot 2"]
+node_connections = [&"Idle_Pursue", 0, &"TimeScale", &"Idle_Pursue", 1, &"TimeScale 2", &"TimeScale", 0, &"Idle", &"TimeScale 2", 0, &" Pursue", &"attack_oneshot", 0, &"Idle_Pursue", &"attack_oneshot", 1, &"attack", &"get_hit_oneshot", 0, &"attack_oneshot", &"get_hit_oneshot", 1, &"get_hit", &"output", 0, &"get_hit_oneshot"]
 
 [node name="RangedEnemy" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_n3kpm")
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+pixel_size = 0.1
+billboard = 2
+texture_filter = 0
+render_priority = 2
+texture = ExtResource("5_ns87h")
+hframes = 10
+vframes = 5
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_y2hiv")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="PursueRange" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PursueRange"]
 shape = SubResource("CylinderShape3D_700en")
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("1_exqk7")
-initial_state = NodePath("Idle")
+state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("2_77ph1")
@@ -193,14 +220,6 @@ script = ExtResource("3_k6wq7")
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("4_a0uox")
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
-pixel_size = 0.1
-texture_filter = 0
-texture = ExtResource("5_ns87h")
-hframes = 10
-vframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -214,11 +233,11 @@ libraries = {
 tree_root = SubResource("AnimationNodeBlendTree_efsga")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idle_Pursue/blend_amount = 0
-parameters/OneShot/active = false
-parameters/OneShot/internal_active = false
-parameters/OneShot/request = 0
-"parameters/OneShot 2/active" = false
-"parameters/OneShot 2/internal_active" = false
-"parameters/OneShot 2/request" = 0
 parameters/TimeScale/scale = 0.6
 "parameters/TimeScale 2/scale" = 0.7
+parameters/attack_oneshot/active = false
+parameters/attack_oneshot/internal_active = false
+parameters/attack_oneshot/request = 0
+parameters/get_hit_oneshot/active = false
+parameters/get_hit_oneshot/internal_active = false
+parameters/get_hit_oneshot/request = 0

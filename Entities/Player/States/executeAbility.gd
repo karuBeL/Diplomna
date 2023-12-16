@@ -1,4 +1,4 @@
-extends Player
+extends PlayerState
 
 var index = 0
 func enter(_msg := {}) -> void:

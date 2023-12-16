@@ -1,10 +1,7 @@
 extends Node
 class_name StateMachine
 
-@export var initial_state : NodePath
-
-@onready var state : State = get_node(initial_state)
-
+@export var state : State
 
 func _ready() -> void:
 	await owner.ready

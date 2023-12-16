@@ -1,4 +1,4 @@
-extends Player
+extends PlayerState
 
 const dict_anim = {
 	"0" : "testTowardsCamera",

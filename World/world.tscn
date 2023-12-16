@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvfuic65orvui"]
+[gd_scene load_steps=10 format=3 uid="uid://cvfuic65orvui"]
 
 [ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
 [ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Entities/Player/player.tscn" id="2_hmugm"]
 [ext_resource type="Script" path="res://World/CameraPlayer.gd" id="3_c17pr"]
 [ext_resource type="PackedScene" uid="uid://u5ixnrgnfy8i" path="res://Entities/MeleePig/melee_pig.tscn" id="4_ifrh7"]
+[ext_resource type="PackedScene" uid="uid://teg45so6mfhk" path="res://Entities/RangedPig/ranged_pig.tscn" id="5_syfks"]
 
 [sub_resource type="Environment" id="Environment_ow6rj"]
 
@@ -55,9 +56,6 @@ script = SubResource("GDScript_f2u8x")
 [node name="Player" parent="." instance=ExtResource("2_hmugm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.68921, 0, -11.162)
 
-[node name="StateMachine" parent="Player" index="4"]
-initial_state = null
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_5o6dv")
 
@@ -73,5 +71,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461369, 0, 9.89001)
 
 [node name="Piggie3" parent="." instance=ExtResource("4_ifrh7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.99282, 0, 1.48023)
+
+[node name="RangedEnemy" parent="." instance=ExtResource("5_syfks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.404403, 0.0698548, 5.9364)
 
 [editable path="Player"]

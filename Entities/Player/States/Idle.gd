@@ -1,4 +1,4 @@
-extends Player
+extends PlayerState
 
 func enter(msg := {}) -> void:
 	#player.velocity = Vector3.ZERO

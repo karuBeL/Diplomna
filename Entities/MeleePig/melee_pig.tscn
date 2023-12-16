@@ -162,7 +162,6 @@ animation = &"pursue"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gsbor"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
-graph_offset = Vector2(-85.6267, 99.8832)
 nodes/Idle_Pursue/node = SubResource("AnimationNodeBlend2_r1rvg")
 nodes/Idle_Pursue/position = Vector2(520, 200)
 nodes/attack/node = SubResource("AnimationNodeAnimation_5q4r5")
@@ -196,7 +195,6 @@ path_desired_distance = 2.0
 avoidance_enabled = true
 radius = 1.5
 max_speed = 5.0
-debug_enabled = true
 
 [node name="AttackCast" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -230,9 +228,9 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PursueRange"]
 shape = SubResource("CylinderShape3D_qtd0p")
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("3_4o32v")
-initial_state = NodePath("Idle")
+state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_f6p6n")

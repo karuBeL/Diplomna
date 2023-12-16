@@ -334,9 +334,9 @@ texture = ExtResource("2_t42ne")
 region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("6_tcnnh")
-initial_state = NodePath("Idle")
+state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("7_3j838")

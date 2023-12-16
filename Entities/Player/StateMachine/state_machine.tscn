@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://eyjpunk08u3a"]
+
+[ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="1_hej4v"]
+[ext_resource type="Script" path="res://Entities/Player/States/Idle.gd" id="2_rv1k7"]
+[ext_resource type="Script" path="res://Entities/Player/States/Run.gd" id="3_rjd7l"]
+[ext_resource type="Script" path="res://Entities/Player/States/executeAbility.gd" id="4_5xpqe"]
+[ext_resource type="Script" path="res://Entities/Player/States/addAbility.gd" id="5_mh86l"]
+
+[node name="StateMachine" type="Node"]
+script = ExtResource("1_hej4v")
+
+[node name="Idle" type="Node" parent="."]
+script = ExtResource("2_rv1k7")
+
+[node name="Run" type="Node" parent="."]
+script = ExtResource("3_rjd7l")
+
+[node name="executeAbility" type="Node" parent="."]
+script = ExtResource("4_5xpqe")
+
+[node name="addAbility" type="Node" parent="."]
+script = ExtResource("5_mh86l")

@@ -14,7 +14,6 @@ func enter(msg := {}) -> void:
 		state_machine.transition_to("Attack")
 	elif !range.body_entered.is_connected(inRange):
 		range.body_entered.connect(inRange)
-	#range.connect("area_entered", inRange)
 
 func update(delta: float) -> void:
 	pass
