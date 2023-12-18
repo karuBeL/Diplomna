@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=53 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player_controller.gd" id="1_vwvnn"]
 [ext_resource type="Texture2D" uid="uid://dt7veps6tsb1g" path="res://assets/character_sprite_test2.png" id="2_t42ne"]
@@ -10,9 +10,31 @@
 [ext_resource type="Script" path="res://Entities/Player/States/Run.gd" id="8_n2yyx"]
 [ext_resource type="Script" path="res://Entities/Player/States/executeAbility.gd" id="9_emi4u"]
 [ext_resource type="Script" path="res://Entities/Player/States/addAbility.gd" id="10_s5652"]
+[ext_resource type="Script" path="res://Entities/Player/Death.gd" id="11_q05e5"]
+[ext_resource type="Script" path="res://Entities/Player/GetHit.gd" id="12_i4prf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pb3c2"]
 size = Vector3(1, 1.5, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txlt1"]
+atlas = ExtResource("2_t42ne")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kawqm"]
+atlas = ExtResource("2_t42ne")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77agi"]
+atlas = ExtResource("2_t42ne")
+region = Rect2(80, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fofpq"]
+atlas = ExtResource("2_t42ne")
+region = Rect2(96, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj802"]
+atlas = ExtResource("2_t42ne")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5vaey"]
 atlas = ExtResource("2_t42ne")
@@ -144,6 +166,31 @@ region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_neafe"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txlt1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kawqm")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77agi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fofpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj802")
+}],
+"loop": false,
+"name": &"get_hit",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5vaey")
@@ -300,7 +347,7 @@ billboard = 2
 alpha_cut = 3
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_neafe")
-animation = &"testTowardsCamera"
+animation = &"death"
 
 [node name="WeaponCollision" type="ShapeCast3D" parent="." node_paths=PackedStringArray("weapon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.679108, 0)
@@ -349,3 +396,9 @@ script = ExtResource("9_emi4u")
 
 [node name="addAbility" type="Node" parent="StateMachine"]
 script = ExtResource("10_s5652")
+
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("11_q05e5")
+
+[node name="GetHit" type="Node" parent="StateMachine"]
+script = ExtResource("12_i4prf")

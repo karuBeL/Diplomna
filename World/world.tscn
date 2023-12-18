@@ -48,7 +48,6 @@ shape = SubResource("BoxShape3D_3xpxu")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPlayer"]
 transform = Transform3D(-4.37114e-08, -0.573576, 0.819152, 0, 0.819152, 0.573576, -1, 2.50718e-08, -3.58063e-08, 9.68578, 7.47188, -0.0560987)
-projection = 1
 current = true
 size = 13.0
 script = SubResource("GDScript_f2u8x")

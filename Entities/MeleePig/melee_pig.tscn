@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://u5ixnrgnfy8i"]
+[gd_scene load_steps=32 format=3 uid="uid://u5ixnrgnfy8i"]
 
 [ext_resource type="Script" path="res://Entities/MeleePig/pig.gd" id="1_w0lma"]
 [ext_resource type="Texture2D" uid="uid://cos7exqxtwo4q" path="res://assets/everything.png" id="2_lk74j"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Entities/MeleePig/AttackCast.gd" id="4_wqjpc"]
 [ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Pursue.gd" id="5_3yccv"]
 [ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Attack.gd" id="7_ampuo"]
+[ext_resource type="Script" path="res://Entities/MeleePig/Death.gd" id="8_ubx0v"]
+[ext_resource type="Script" path="res://Entities/MeleePig/GetHit.gd" id="9_frk2y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2wfu1"]
 size = Vector3(1, 1.5, 0.5)
@@ -66,6 +68,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_xfhrk"]
 resource_name = "death"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -77,6 +80,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [33, 34, 35, 36]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/Death")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"dequeue"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_cbteg"]
@@ -146,6 +163,11 @@ animation = &"attack"
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_oa12i"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_be2gd"]
+animation = &"death"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_rsdtk"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_18jy2"]
 animation = &"get_hit"
 
@@ -162,12 +184,17 @@ animation = &"pursue"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gsbor"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
+graph_offset = Vector2(-78.9563, 42.564)
 nodes/Idle_Pursue/node = SubResource("AnimationNodeBlend2_r1rvg")
 nodes/Idle_Pursue/position = Vector2(520, 200)
 nodes/attack/node = SubResource("AnimationNodeAnimation_5q4r5")
 nodes/attack/position = Vector2(680, 480)
 nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_oa12i")
-nodes/attack_oneshot/position = Vector2(860, 320)
+nodes/attack_oneshot/position = Vector2(860, 240)
+nodes/death/node = SubResource("AnimationNodeAnimation_be2gd")
+nodes/death/position = Vector2(860, 480)
+nodes/death_oneshot/node = SubResource("AnimationNodeOneShot_rsdtk")
+nodes/death_oneshot/position = Vector2(1040, 240)
 nodes/get_hit/node = SubResource("AnimationNodeAnimation_18jy2")
 nodes/get_hit/position = Vector2(500, 420)
 nodes/get_hit_oneshot/node = SubResource("AnimationNodeOneShot_xbpgp")
@@ -176,12 +203,12 @@ nodes/idle/node = SubResource("AnimationNodeAnimation_ukgwl")
 nodes/idle/position = Vector2(140, 180)
 nodes/idle_time/node = SubResource("AnimationNodeTimeScale_guaw1")
 nodes/idle_time/position = Vector2(360, 180)
-nodes/output/position = Vector2(1040, 320)
+nodes/output/position = Vector2(1240, 380)
 nodes/pursue_animation/node = SubResource("AnimationNodeAnimation_x860d")
 nodes/pursue_animation/position = Vector2(140, 360)
 nodes/pursue_time/node = SubResource("AnimationNodeTimeScale_gsbor")
 nodes/pursue_time/position = Vector2(360, 340)
-node_connections = [&"Idle_Pursue", 0, &"idle_time", &"Idle_Pursue", 1, &"pursue_time", &"attack_oneshot", 0, &"get_hit_oneshot", &"attack_oneshot", 1, &"attack", &"get_hit_oneshot", 0, &"Idle_Pursue", &"get_hit_oneshot", 1, &"get_hit", &"idle_time", 0, &"idle", &"output", 0, &"attack_oneshot", &"pursue_time", 0, &"pursue_animation"]
+node_connections = [&"Idle_Pursue", 0, &"idle_time", &"Idle_Pursue", 1, &"pursue_time", &"attack_oneshot", 0, &"get_hit_oneshot", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"attack_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"Idle_Pursue", &"get_hit_oneshot", 1, &"get_hit", &"idle_time", 0, &"idle", &"output", 0, &"death_oneshot", &"pursue_time", 0, &"pursue_animation"]
 
 [node name="Piggie" type="CharacterBody3D"]
 collision_layer = 2
@@ -241,6 +268,12 @@ script = ExtResource("5_3yccv")
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("7_ampuo")
 
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("8_ubx0v")
+
+[node name="GetHit" type="Node" parent="StateMachine"]
+script = ExtResource("9_frk2y")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_uliuc")
@@ -256,6 +289,9 @@ parameters/Idle_Pursue/blend_amount = 0.0
 parameters/attack_oneshot/active = false
 parameters/attack_oneshot/internal_active = false
 parameters/attack_oneshot/request = 0
+parameters/death_oneshot/active = false
+parameters/death_oneshot/internal_active = false
+parameters/death_oneshot/request = 0
 parameters/get_hit_oneshot/active = false
 parameters/get_hit_oneshot/internal_active = false
 parameters/get_hit_oneshot/request = 0

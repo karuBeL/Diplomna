@@ -13,5 +13,4 @@ func explode():
 			body.apply_damage(20)
 	
 func enter(msg := {}) -> void:
-	#print("bruh")
 	$"../../AnimationPlayer".play("explode")

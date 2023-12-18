@@ -56,7 +56,7 @@ tracks/1/path = NodePath("StateMachine/Explode")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.5),
+"times": PackedFloat32Array(0.1, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],

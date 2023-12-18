@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://teg45so6mfhk"]
+[gd_scene load_steps=30 format=3 uid="uid://teg45so6mfhk"]
 
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="1_exqk7"]
 [ext_resource type="Script" path="res://Entities/RangedPig/ranged_pig.gd" id="1_n3kpm"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Entities/RangedPig/RangedStates/RangedPursue.gd" id="3_k6wq7"]
 [ext_resource type="Script" path="res://Entities/RangedPig/RangedStates/RangedAttack.gd" id="4_a0uox"]
 [ext_resource type="Texture2D" uid="uid://f2h6oy5qlty" path="res://assets/everything_ranged.png" id="5_ns87h"]
+[ext_resource type="Script" path="res://Entities/RangedPig/Death.gd" id="7_qcb22"]
+[ext_resource type="Script" path="res://Entities/RangedPig/GetHit.gd" id="8_7acvb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y2hiv"]
 size = Vector3(1.7, 1.5, 1.5)
@@ -61,7 +63,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_lg0uc"]
 resource_name = "death"
-length = 0.5
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -73,6 +75,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [30, 31, 32, 33]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/Death")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"dequeue"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_e3tsm"]
@@ -151,13 +167,18 @@ animation = &"attack"
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_dc573"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2cr6l"]
+animation = &"death"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_io2f2"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3e0a2"]
 animation = &"get_hit"
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_7tte2"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_efsga"]
-graph_offset = Vector2(-86.8665, 5.38838)
+graph_offset = Vector2(-178.606, 7.44398)
 "nodes/ Pursue/node" = SubResource("AnimationNodeAnimation_b4rvd")
 "nodes/ Pursue/position" = Vector2(-200, 200)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_fgjci")
@@ -172,12 +193,16 @@ nodes/attack/node = SubResource("AnimationNodeAnimation_adp3w")
 nodes/attack/position = Vector2(120, 320)
 nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_dc573")
 nodes/attack_oneshot/position = Vector2(300, 80)
+nodes/death/node = SubResource("AnimationNodeAnimation_2cr6l")
+nodes/death/position = Vector2(500, 320)
+nodes/death_oneshot/node = SubResource("AnimationNodeOneShot_io2f2")
+nodes/death_oneshot/position = Vector2(660, 80)
 nodes/get_hit/node = SubResource("AnimationNodeAnimation_3e0a2")
-nodes/get_hit/position = Vector2(340, 320)
+nodes/get_hit/position = Vector2(320, 320)
 nodes/get_hit_oneshot/node = SubResource("AnimationNodeOneShot_7tte2")
 nodes/get_hit_oneshot/position = Vector2(480, 80)
-nodes/output/position = Vector2(660, 160)
-node_connections = [&"Idle_Pursue", 0, &"TimeScale", &"Idle_Pursue", 1, &"TimeScale 2", &"TimeScale", 0, &"Idle", &"TimeScale 2", 0, &" Pursue", &"attack_oneshot", 0, &"Idle_Pursue", &"attack_oneshot", 1, &"attack", &"get_hit_oneshot", 0, &"attack_oneshot", &"get_hit_oneshot", 1, &"get_hit", &"output", 0, &"get_hit_oneshot"]
+nodes/output/position = Vector2(880, 200)
+node_connections = [&"Idle_Pursue", 0, &"TimeScale", &"Idle_Pursue", 1, &"TimeScale 2", &"TimeScale", 0, &"Idle", &"TimeScale 2", 0, &" Pursue", &"attack_oneshot", 0, &"Idle_Pursue", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"get_hit_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"attack_oneshot", &"get_hit_oneshot", 1, &"get_hit", &"output", 0, &"death_oneshot"]
 
 [node name="RangedEnemy" type="CharacterBody3D"]
 collision_layer = 2
@@ -221,6 +246,12 @@ script = ExtResource("3_k6wq7")
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("4_a0uox")
 
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("7_qcb22")
+
+[node name="GetHit" type="Node" parent="StateMachine"]
+script = ExtResource("8_7acvb")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_g1vof")
@@ -238,6 +269,9 @@ parameters/TimeScale/scale = 0.6
 parameters/attack_oneshot/active = false
 parameters/attack_oneshot/internal_active = false
 parameters/attack_oneshot/request = 0
+parameters/death_oneshot/active = false
+parameters/death_oneshot/internal_active = false
+parameters/death_oneshot/request = 0
 parameters/get_hit_oneshot/active = false
 parameters/get_hit_oneshot/internal_active = false
 parameters/get_hit_oneshot/request = 0
