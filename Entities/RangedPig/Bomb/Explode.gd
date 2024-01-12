@@ -1,6 +1,6 @@
 extends BombState
 
-@onready var aoe : Area3D =  $"../../Area3D"
+var aoe : Area3D
 
 
 func free_bomb():
@@ -9,8 +9,11 @@ func free_bomb():
 func explode():
 	var bodies = aoe.get_overlapping_bodies()
 	for body in bodies:
-		if body == player:
-			body.apply_damage(20)
+		body.apply_damage(20)
 	
 func enter(msg := {}) -> void:
+	if $"../../PlayerColl".monitoring:
+		aoe = $"../../PlayerColl"
+	else:
+		aoe = $"../../EnemyColl"
 	$"../../AnimationPlayer".play("explode")

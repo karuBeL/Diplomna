@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpe4rbcbonws2"]
+
+[ext_resource type="Script" path="res://Entities/Player/PlayerAbilities/bomb/bomb.gd" id="1_b6qt3"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_b6qt3")

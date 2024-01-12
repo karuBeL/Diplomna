@@ -63,7 +63,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_lg0uc"]
 resource_name = "death"
-length = 0.4
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -83,7 +83,7 @@ tracks/1/path = NodePath("StateMachine/Death")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.4),
+"times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -215,9 +215,9 @@ script = ExtResource("1_n3kpm")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 pixel_size = 0.1
-billboard = 2
+billboard = 1
 texture_filter = 0
-render_priority = 2
+render_priority = 4
 texture = ExtResource("5_ns87h")
 hframes = 10
 vframes = 5
@@ -228,7 +228,9 @@ shape = SubResource("BoxShape3D_y2hiv")
 
 [node name="PursueRange" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-collision_mask = 2
+collision_mask = 8
+input_ray_pickable = false
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PursueRange"]
 shape = SubResource("CylinderShape3D_700en")

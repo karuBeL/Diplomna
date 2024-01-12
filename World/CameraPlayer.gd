@@ -7,8 +7,8 @@ const Kp = 5 #proportional gain
 func _physics_process(delta):
 	#To get a gradual camera movement towards the player, we use a proportional control algorithm (proportional-integral-derivative method)
 	var distance = global_position.distance_to(Vector3(player.global_position.x, 0, player.global_position.z))
-	velocity = player.get_real_velocity()	
-	if distance != 0.0:	
+	velocity = player.get_real_velocity()
+	if distance != 0.0:
 		#The vector that points from the camera to the player
 		var error_vector = Vector3(player.global_position.x - global_position.x, 0.0, player.global_position.z - global_position.z)
 		if (abs(error_vector.x) < 0.01):

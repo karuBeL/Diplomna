@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vrwo7h4uhabx"]
+
+[ext_resource type="Script" path="res://Entities/Player/PlayerAbilities/dash/dash.gd" id="1_sykq8"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_sykq8")

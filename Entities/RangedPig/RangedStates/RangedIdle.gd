@@ -17,4 +17,3 @@ func enter(msg := {}) -> void:
 
 func update(delta: float) -> void:
 	pass
-

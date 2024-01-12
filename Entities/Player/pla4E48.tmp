@@ -1,8 +1,10 @@
-[gd_scene load_steps=55 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=54 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player_controller.gd" id="1_vwvnn"]
 [ext_resource type="Texture2D" uid="uid://dt7veps6tsb1g" path="res://assets/character_sprite_test2.png" id="2_t42ne"]
 [ext_resource type="Script" path="res://Entities/Player/WeaponCollision.gd" id="3_pbdme"]
+[ext_resource type="Script" path="res://Entities/Player/weapon_pivot.gd" id="4_xrc2g"]
+[ext_resource type="Texture2D" uid="uid://dfls0bph4ogpm" path="res://assets/18.png" id="5_ixdli"]
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="6_tcnnh"]
 [ext_resource type="Script" path="res://Entities/Player/States/Idle.gd" id="7_3j838"]
 [ext_resource type="Script" path="res://Entities/Player/States/Run.gd" id="8_n2yyx"]
@@ -11,14 +13,9 @@
 [ext_resource type="Script" path="res://Entities/Player/States/Death.gd" id="11_q05e5"]
 [ext_resource type="Script" path="res://Entities/Player/States/GetHit.gd" id="12_i4prf"]
 [ext_resource type="Script" path="res://Entities/Player/States/Dash.gd" id="13_mdoo3"]
-[ext_resource type="Script" path="res://Entities/Player/DashSlash.gd" id="13_yqarv"]
-[ext_resource type="PackedScene" uid="uid://dbgj3s33t2y3o" path="res://assets/swordidk.glb" id="14_7nig0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pb3c2"]
 size = Vector3(1, 1.5, 1)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_7lv4t"]
-radius = 1.5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txlt1"]
 atlas = ExtResource("2_t42ne")
@@ -332,11 +329,11 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_feenn"]
-size = Vector3(4.3, 0.1, 2.3)
+[sub_resource type="BoxShape3D" id="BoxShape3D_0kmws"]
+size = Vector3(1.2, 0.1, 1)
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 8
+collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_vwvnn")
 
@@ -344,55 +341,49 @@ script = ExtResource("1_vwvnn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_pb3c2")
 
-[node name="DashSlashColl" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 2
-input_ray_pickable = false
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DashSlashColl"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.942541, 0)
-shape = SubResource("SphereShape3D_7lv4t")
-
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004, 0.8, -0.001)
 pixel_size = 0.1
-billboard = 1
+billboard = 2
 alpha_cut = 3
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_neafe")
-animation = &"testTowardsCamera"
+animation = &"get_hit"
 
 [node name="WeaponCollision" type="ShapeCast3D" parent="." node_paths=PackedStringArray("weapon")]
-shape = SubResource("BoxShape3D_feenn")
-target_position = Vector3(0, 0.5, -1.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.679108, 0)
+enabled = false
+shape = SubResource("BoxShape3D_0kmws")
+target_position = Vector3(-1.3, 0, -0.15)
 collision_mask = 2
 script = ExtResource("3_pbdme")
 weapon = NodePath("../Weapon")
 
 [node name="Weapon" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.718, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.718, 0)
+script = ExtResource("4_xrc2g")
 
-[node name="swordidk" parent="Weapon" instance=ExtResource("14_7nig0")]
-transform = Transform3D(0.707107, -0.707107, 3.09086e-08, 0, -4.37114e-08, -1, 0.707107, 0.707107, -3.09086e-08, -0.777665, -0.266863, -1.03784)
+[node name="Sprite3D" type="Sprite3D" parent="Weapon"]
+transform = Transform3D(9.38549e-08, -1, 7.16126e-08, -0.819151, -3.58063e-08, 0.573577, -0.573576, -1.12495e-07, -0.819152, -1.04139, -0.135862, -0.169483)
+pixel_size = 0.03
+texture_filter = 0
+texture = ExtResource("5_ixdli")
 
 [node name="Hand" type="Node3D" parent="Weapon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.162832, 0, -0.413692)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.492821, -0.177195, -0.155417)
 
 [node name="Sprite3D" type="Sprite3D" parent="Weapon/Hand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0934725, -0.250956, 0.0730022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.000200868)
 pixel_size = 0.05
 billboard = 1
 texture_filter = 0
-render_priority = 2
+render_priority = 1
 texture = ExtResource("2_t42ne")
 region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
+wait_time = 0.5
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("6_tcnnh")
@@ -418,6 +409,3 @@ script = ExtResource("12_i4prf")
 
 [node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("13_mdoo3")
-
-[node name="DashSlash" type="Node" parent="StateMachine"]
-script = ExtResource("13_yqarv")

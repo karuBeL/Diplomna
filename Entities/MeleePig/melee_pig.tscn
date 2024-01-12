@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://Entities/MeleePig/AttackCast.gd" id="4_wqjpc"]
 [ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Pursue.gd" id="5_3yccv"]
 [ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Attack.gd" id="7_ampuo"]
-[ext_resource type="Script" path="res://Entities/MeleePig/Death.gd" id="8_ubx0v"]
-[ext_resource type="Script" path="res://Entities/MeleePig/GetHit.gd" id="9_frk2y"]
+[ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Death.gd" id="8_ubx0v"]
+[ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/GetHit.gd" id="9_frk2y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2wfu1"]
 size = Vector3(1, 1.5, 0.5)
@@ -68,7 +68,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_xfhrk"]
 resource_name = "death"
-length = 0.4
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -88,7 +88,7 @@ tracks/1/path = NodePath("StateMachine/Death")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.4),
+"times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -184,7 +184,6 @@ animation = &"pursue"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gsbor"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
-graph_offset = Vector2(-78.9563, 42.564)
 nodes/Idle_Pursue/node = SubResource("AnimationNodeBlend2_r1rvg")
 nodes/Idle_Pursue/position = Vector2(520, 200)
 nodes/attack/node = SubResource("AnimationNodeAnimation_5q4r5")
@@ -225,18 +224,17 @@ max_speed = 5.0
 
 [node name="AttackCast" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-enabled = false
 shape = SubResource("BoxShape3D_2wfu1")
 target_position = Vector3(0, 0.5, -1.3)
-collision_mask = 2
+collision_mask = 8
 script = ExtResource("4_wqjpc")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.397, 0)
 pixel_size = 0.1
-billboard = 2
+billboard = 1
 texture_filter = 0
-render_priority = 2
+render_priority = 4
 texture = ExtResource("2_lk74j")
 hframes = 11
 vframes = 5
@@ -250,7 +248,9 @@ shape = SubResource("BoxShape3D_mxn22")
 [node name="PursueRange" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.664898, 0)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 8
+input_ray_pickable = false
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PursueRange"]
 shape = SubResource("CylinderShape3D_qtd0p")

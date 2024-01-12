@@ -3,16 +3,14 @@ var collided_object : Entity
 var count
 @export var weapon : Node3D
 
-func _ready():
-	enabled = false
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	rotation = weapon.rotation
+func get_collisions():
+	force_shapecast_update()
 	if !is_colliding():
 		return
 	count = get_collision_count()
 	for i in count:
 		collided_object = get_collider(i)
 		collided_object.apply_damage(25)
-	
+
+func _process(delta):
+	rotation.y = weapon.rotation.y + PI/4

@@ -90,22 +90,17 @@ tracks/3/keys = {
 "update": 0,
 "values": [18, 19, 20, 21]
 }
-
-[sub_resource type="Animation" id="Animation_f74fy"]
-resource_name = "idle"
-length = 0.02
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite3D:render_priority")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [12]
+"values": [5, 3]
 }
 
 [sub_resource type="Animation" id="Animation_h3eth"]
@@ -125,11 +120,28 @@ tracks/0/keys = {
 "values": [6, 7, 8, 9]
 }
 
+[sub_resource type="Animation" id="Animation_f74fy"]
+resource_name = "in_air"
+length = 0.02
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ar5dk"]
 _data = {
 "RESET": SubResource("Animation_i5b0o"),
 "explode": SubResource("Animation_iixvy"),
-"idle": SubResource("Animation_f74fy"),
+"in_air": SubResource("Animation_f74fy"),
 "wind_up": SubResource("Animation_h3eth")
 }
 
@@ -144,7 +156,7 @@ script = ExtResource("1_dt26q")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12108, 0)
 pixel_size = 0.1
-billboard = 2
+billboard = 1
 texture_filter = 0
 render_priority = 3
 texture = ExtResource("1_mpoy7")
@@ -167,17 +179,29 @@ libraries = {
 "": SubResource("AnimationLibrary_ar5dk")
 }
 
-[node name="Area3D" type="Area3D" parent="."]
-collision_mask = 2
+[node name="PlayerColl" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerColl"]
+shape = SubResource("SphereShape3D_spwvk")
+
+[node name="EnemyColl" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyColl"]
 shape = SubResource("SphereShape3D_spwvk")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("3_jq67y")
-state = NodePath("Idle")
+state = NodePath("InAir")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="InAir" type="Node" parent="StateMachine"]
 script = ExtResource("4_hq8dx")
 
 [node name="WindUp" type="Node" parent="StateMachine"]

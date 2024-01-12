@@ -19,7 +19,7 @@ func enter(_msg := {}) -> void:
 func physics_update(_delta: float) -> void:
 	var movement_dir = Input.get_vector("move_forwards", "move_backwards", "move_right", "move_left")
 	var direction = (player.transform.basis * Vector3(movement_dir.x, 0, movement_dir.y)).normalized()
-	
+	direction = direction.rotated(Vector3.UP, -PI/4)
 	if movement_dir == Vector2.ZERO:
 		$"../../AnimatedSprite3D".stop()
 		state_machine.transition_to("Idle")
@@ -33,8 +33,11 @@ func physics_update(_delta: float) -> void:
 	if direction:
 		player.velocity.x = direction.x * player.speed
 		player.velocity.z = direction.z * player.speed
+		#print(player.velocity.z)
+		#print(player.velocity.x)
+		
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.speed)
-		player.velocity.z = move_toward(player.velocity.z, 0, player.speed)
+		player.velocity.z = move_toward(player.velocity.z , 0, player.speed)
 	
 	player.move_and_slide()
