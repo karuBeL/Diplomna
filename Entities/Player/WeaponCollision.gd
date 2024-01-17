@@ -11,6 +11,6 @@ func get_collisions():
 	for i in count:
 		collided_object = get_collider(i)
 		collided_object.apply_damage(25)
-
+	
 func _process(delta):
 	rotation.y = weapon.rotation.y + PI/4

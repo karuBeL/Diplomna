@@ -2,7 +2,7 @@ extends PlayerState
 
 @onready var dash_timer : Timer = $"../../Timer"
 var target_position
-var speed_value = 40
+var speed_value = 35
 var from_position = Vector3.ZERO
 var to_position = Vector3.ZERO
 var distance_traveled : float = 0.0
@@ -62,6 +62,5 @@ func physics_update(_delta: float) -> void:
 	to_position = player.global_position
 	distance_traveled += from_position.distance_to(to_position)
 
-	print(distance_traveled)
 	if distance_traveled > 1.7 && limit != 2:
 		spawn_bomb(to_position)

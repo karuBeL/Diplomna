@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvfuic65orvui"]
+[gd_scene load_steps=10 format=3 uid="uid://cvfuic65orvui"]
 
 [ext_resource type="PackedScene" uid="uid://teg45so6mfhk" path="res://Entities/RangedPig/ranged_pig.tscn" id="1_ci0y1"]
 [ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
@@ -27,12 +27,6 @@ func _process(delta):
 vertices = PackedVector3Array(-9.9229, 0.369515, -9.9229, -9.9229, 0.369515, 10.0771, 10.0771, 0.369515, 10.0771, 10.0771, 0.369515, -9.9229)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_radius = 0.1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ycu5"]
-albedo_color = Color(1, 0, 1, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_gwya4"]
-material = SubResource("StandardMaterial3D_3ycu5")
 
 [node name="World" type="Node3D"]
 
@@ -69,7 +63,6 @@ shape = SubResource("BoxShape3D_3xpxu")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPlayer/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.051, 27.539, 21.051)
-projection = 1
 current = true
 size = 20.0
 script = SubResource("GDScript_f2u8x")
@@ -79,8 +72,5 @@ navigation_mesh = SubResource("NavigationMesh_5o6dv")
 
 [node name="Room" parent="NavigationRegion3D" instance=ExtResource("1_dnfyr")]
 skeleton = NodePath("../..")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_gwya4")
 
 [editable path="Player"]

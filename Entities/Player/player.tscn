@@ -368,6 +368,7 @@ animation = &"testTowardsCamera"
 shape = SubResource("BoxShape3D_feenn")
 target_position = Vector3(0, 0.5, -1.2)
 collision_mask = 2
+debug_shape_custom_color = Color(0.788235, 0.819608, 0, 1)
 script = ExtResource("3_pbdme")
 weapon = NodePath("../Weapon")
 

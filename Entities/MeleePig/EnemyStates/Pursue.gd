@@ -45,9 +45,9 @@ func physics_update(delta: float) -> void:
 		nav_agent.avoidance_enabled = true
 	
 	if distance_to_player > 2:
-		
 		$"../../AnimationTree".set("parameters/Idle_Pursue/blend_amount", 1)
-		nav_agent.velocity = (next_position - enemy.global_position).normalized() * enemy.speed 
+		nav_agent.velocity = (next_position - enemy.global_position).normalized() * enemy.speed
+		nav_agent.velocity.y = 0
 	else:
 		enemy.velocity = Vector3.ZERO
 		state_machine.transition_to("Idle", {"attack" : true})

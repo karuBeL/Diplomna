@@ -1,10 +1,16 @@
 extends Node
 
-@onready var player = get_tree().get_nodes_in_group("player")[0]
-@onready var playerStateMachine : StateMachine = player.get_node("StateMachine")
+var player
+var playerStateMachine : StateMachine
+var timer : SceneTreeTimer
 var bomb : Node3D
 
+func _ready():
+	timer = get_tree().create_timer(0.0)
+	player = get_tree().get_nodes_in_group("player")[0]
+	playerStateMachine = player.get_node("StateMachine")
 	
+
 func get_mouse_position():
 	var camera = get_tree().root.get_camera_3d()
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -22,6 +28,10 @@ func get_mouse_position():
 	return raycast_result['position']
 
 func execute():
+	if timer.time_left != 0:
+		playerStateMachine.transition_to("Run")
+		return
+	timer.start(4)
 	bomb = load("res://Entities/RangedPig/Bomb/bomb.tscn").instantiate()
 	bomb.set_enemy_area_monitoring(true)
 	bomb.target = get_mouse_position()
