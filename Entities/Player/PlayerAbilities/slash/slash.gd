@@ -12,13 +12,11 @@ func _ready():
 	playerStateMachine = player.get_node("StateMachine")
 
 func execute():
-	
 	if inAnimation:
 		return
 	inAnimation = true
 	collision.get_collisions()
 	tween1(weapon)
-	#tween.tween_method(weapon.rotate_y.bind(), -PI/2, PI/2, 0.001)
 
 func tween1(weapon : Node3D):
 	var tween = get_tree().create_tween()

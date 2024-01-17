@@ -1,16 +1,18 @@
 extends PlayerState
 
 @onready var dash_timer : Timer = $"../../Timer"
+var speed_value = 40
 var target_position
 var direction
 var regular_speed
+var direction_to_target
 
 func dash_end():
 	player.velocity = Vector3.ZERO
 	player.speed = regular_speed
+	target_position = null
 	state_machine.transition_to("Run")
 	
-
 func get_mouse_position():
 	var camera = get_tree().root.get_camera_3d()
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -24,19 +26,24 @@ func get_mouse_position():
 	ray_query.to = to
 	ray_query.collide_with_areas = true
 	var raycast_result = space.intersect_ray(ray_query)
-	target_position = raycast_result['position']
-	
+	if raycast_result.size() == 0:
+		target_position == null
+	else:
+		target_position = raycast_result['position']
+
 func enter(msg := {}) -> void:
+	get_mouse_position()
+	if target_position == null:
+		state_machine.transition_to("Run")
+		return
 	regular_speed = player.speed
 	player.speed = 100
-	get_mouse_position()
+	direction_to_target = player.global_position.direction_to(target_position).normalized()
 	if !dash_timer.timeout.is_connected(dash_end):
 		dash_timer.timeout.connect(dash_end)
 	dash_timer.start()
 	
 func physics_update(_delta: float) -> void:
-	var direction_to_target = player.global_position.direction_to(target_position).normalized()
-	direction = (player.transform.basis * Vector3(direction_to_target.x, 0, direction_to_target.z)).normalized()
-	player.global_translate(direction)
-	if player.global_position.distance_to(target_position) < 1:
-		dash_end()
+	player.velocity.x = direction_to_target.x * speed_value
+	player.velocity.z = direction_to_target.z * speed_value
+	player.move_and_slide()

@@ -5,7 +5,6 @@ extends Enemy
 func inRange(body):
 	if body != player:
 		return
-	print("inRange")
 	state_machine.transition_to("Pursue")
 
 func enter(msg := {}) -> void:

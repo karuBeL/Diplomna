@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=56 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player_controller.gd" id="1_vwvnn"]
 [ext_resource type="Texture2D" uid="uid://dt7veps6tsb1g" path="res://assets/character_sprite_test2.png" id="2_t42ne"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Entities/Player/States/GetHit.gd" id="12_i4prf"]
 [ext_resource type="Script" path="res://Entities/Player/States/Dash.gd" id="13_mdoo3"]
 [ext_resource type="Script" path="res://Entities/Player/DashSlash.gd" id="13_yqarv"]
+[ext_resource type="Script" path="res://Entities/Player/DashBomb.gd" id="14_0eebd"]
 [ext_resource type="PackedScene" uid="uid://dbgj3s33t2y3o" path="res://assets/swordidk.glb" id="14_7nig0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pb3c2"]
@@ -337,7 +338,6 @@ size = Vector3(4.3, 0.1, 2.3)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
-collision_mask = 3
 script = ExtResource("1_vwvnn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -391,7 +391,7 @@ region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.15
 one_shot = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
@@ -421,3 +421,6 @@ script = ExtResource("13_mdoo3")
 
 [node name="DashSlash" type="Node" parent="StateMachine"]
 script = ExtResource("13_yqarv")
+
+[node name="DashBomb" type="Node" parent="StateMachine"]
+script = ExtResource("14_0eebd")

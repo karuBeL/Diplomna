@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddebdk3cyrh6y"]
+
+[ext_resource type="Script" path="res://Entities/Player/PlayerAbilities/dashbomb/dashbomb.gd" id="1_ix32c"]
+
+[node name="Dashbomb" type="Node"]
+script = ExtResource("1_ix32c")

@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://Entities/Player/PlayerAbilities/dash/dash.gd" id="1_sykq8"]
 
-[node name="Node" type="Node"]
+[node name="Dash" type="Node"]
 script = ExtResource("1_sykq8")

@@ -19,6 +19,10 @@ func enter(_msg := {}) -> void:
 func physics_update(_delta: float) -> void:
 	var movement_dir = Input.get_vector("move_forwards", "move_backwards", "move_right", "move_left")
 	var direction = (player.transform.basis * Vector3(movement_dir.x, 0, movement_dir.y)).normalized()
+	if Input.is_action_just_pressed("ability_1"):
+		state_machine.transition_to("executeAbility", {"index" : 0})
+	elif Input.is_action_just_pressed("ability_2"):
+		state_machine.transition_to("executeAbility", {"index" : 1})
 	direction = direction.rotated(Vector3.UP, -PI/4)
 	if movement_dir == Vector2.ZERO:
 		$"../../AnimatedSprite3D".stop()
