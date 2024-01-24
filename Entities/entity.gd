@@ -17,6 +17,10 @@ func apply_damage(damage_amount):
 	if current_health - damage_amount <= 0:
 		die()
 
+func apply_stun(stun_amount : float, is_knockbacked : bool):
+	var msg := {"time" : stun_amount, "knockback" : is_knockbacked}
+	scene.transition_to("Stunned", msg)
+
 func die():
 	scene.transition_to("Death")
 	

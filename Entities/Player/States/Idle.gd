@@ -1,7 +1,11 @@
 extends PlayerState
 
+
+
 func enter(msg := {}) -> void:
-	#player.velocity = Vector3.ZERO
+	if msg.get("angle") != null:
+		$"../../AnimatedSprite3D".play(msg.get("angle"))
+		$"../../AnimatedSprite3D".stop()
 	pass
 	
 func update(delta: float) -> void:

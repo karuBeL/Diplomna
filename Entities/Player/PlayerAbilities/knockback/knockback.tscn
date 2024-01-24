@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://t7viiao2ilhl"]
+
+[ext_resource type="Script" path="res://Entities/Player/PlayerAbilities/knockback/knockback.gd" id="1_mg0qw"]
+
+[node name="Knockback" type="Node"]
+script = ExtResource("1_mg0qw")

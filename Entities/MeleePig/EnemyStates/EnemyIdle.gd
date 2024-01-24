@@ -9,7 +9,7 @@ func inRange(body):
 	state_machine.transition_to("Pursue")
 
 func enter(msg := {}) -> void:
-	$"../../AnimationTree".set("parameters/Idle_Pursue/blend_amount", 0)
+	$"../../AnimationTree".set("parameters/idle_pursue_stunned/blend_amount", 0)
 	if msg.has("attack"):
 		state_machine.transition_to("Attack")
 	elif !range.body_entered.is_connected(inRange):

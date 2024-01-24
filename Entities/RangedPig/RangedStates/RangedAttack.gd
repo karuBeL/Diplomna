@@ -23,7 +23,8 @@ func enter(msg := {}):
 	$"../../AnimationTree".set("parameters/attack_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 func physics_update(delta: float) -> void:
-	if player.position.z < 0:
+	var target_position : Vector3 = (player.global_position - enemy.global_position).normalized()
+	if target_position.x > -0.7 && target_position.z < 0.7:
 		$"../../Sprite3D".set("flip_h", true)
 	else:
 		$"../../Sprite3D".set("flip_h", false)

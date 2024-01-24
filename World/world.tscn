@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvfuic65orvui"]
+[gd_scene load_steps=9 format=3 uid="uid://cvfuic65orvui"]
 
-[ext_resource type="PackedScene" uid="uid://teg45so6mfhk" path="res://Entities/RangedPig/ranged_pig.tscn" id="1_ci0y1"]
 [ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
 [ext_resource type="PackedScene" uid="uid://u5ixnrgnfy8i" path="res://Entities/MeleePig/melee_pig.tscn" id="2_dakaa"]
 [ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Entities/Player/player.tscn" id="2_hmugm"]
@@ -39,9 +38,6 @@ cast_shadow = 0
 [node name="WeaponCollision" parent="Player" index="3"]
 enabled = false
 
-[node name="RangedEnemy" parent="." instance=ExtResource("1_ci0y1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.01094, 0, 6.57756)
-
 [node name="Piggie" parent="." instance=ExtResource("2_dakaa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.81122, -4.76837e-07, -7.09829)
 
@@ -63,6 +59,7 @@ shape = SubResource("BoxShape3D_3xpxu")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPlayer/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.051, 27.539, 21.051)
+projection = 1
 current = true
 size = 20.0
 script = SubResource("GDScript_f2u8x")

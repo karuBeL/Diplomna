@@ -11,6 +11,8 @@ const dict_anim = {
 	"-1" : "testBottomRight"
 }
 
+var anim
+
 func enter(_msg := {}) -> void:
 #	player.velocity = Vector3.ZERO
 	pass
@@ -26,12 +28,13 @@ func physics_update(_delta: float) -> void:
 	direction = direction.rotated(Vector3.UP, -PI/4)
 	if movement_dir == Vector2.ZERO:
 		$"../../AnimatedSprite3D".stop()
-		state_machine.transition_to("Idle")
+		state_machine.transition_to("Idle", {"angle": anim})
 	else:
 		var angle = movement_dir.angle()
 		var snapped_angle = snapped(angle, PI / 4)
 		var index = snapped_angle / (PI / 4)
-		$"../../AnimatedSprite3D".play(dict_anim.get(str(index)))
+		anim = dict_anim.get(str(index))
+		$"../../AnimatedSprite3D".play(anim)
 		$"../../Weapon".rotation.y = -snapped_angle + PI
 	
 	if direction:

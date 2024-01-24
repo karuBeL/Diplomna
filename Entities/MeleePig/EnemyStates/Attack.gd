@@ -18,6 +18,12 @@ func enter(msg := {}):
 	pass
 
 func physics_update(delta: float) -> void:
+	var target_position : Vector3 = (player.global_position - enemy.global_position).normalized()
+	if target_position.x > -0.7 && target_position.z < 0.7:
+		$"../../Sprite3D".set("flip_h", true)
+	else:
+		$"../../Sprite3D".set("flip_h", false)
+	
 	if enemy.global_position.distance_to(player.global_position) > 2:
 		state_machine.transition_to("Pursue")
 	elif hit_timer.time_left == 0:

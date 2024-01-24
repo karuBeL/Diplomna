@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=57 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player_controller.gd" id="1_vwvnn"]
 [ext_resource type="Texture2D" uid="uid://dt7veps6tsb1g" path="res://assets/character_sprite_test2.png" id="2_t42ne"]
@@ -336,6 +336,9 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_feenn"]
 size = Vector3(4.3, 0.1, 2.3)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_30m38"]
+radius = 4.0
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
 script = ExtResource("1_vwvnn")
@@ -362,7 +365,7 @@ billboard = 1
 alpha_cut = 3
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_neafe")
-animation = &"testTowardsCamera"
+animation = &"testAwayCamera"
 
 [node name="WeaponCollision" type="ShapeCast3D" parent="." node_paths=PackedStringArray("weapon")]
 shape = SubResource("BoxShape3D_feenn")
@@ -390,6 +393,14 @@ render_priority = 2
 texture = ExtResource("2_t42ne")
 region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
+
+[node name="Knockback" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="KnockbackCollision" type="CollisionShape3D" parent="Knockback"]
+shape = SubResource("SphereShape3D_30m38")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.15

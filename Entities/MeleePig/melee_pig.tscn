@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://u5ixnrgnfy8i"]
+[gd_scene load_steps=36 format=3 uid="uid://u5ixnrgnfy8i"]
 
 [ext_resource type="Script" path="res://Entities/MeleePig/pig.gd" id="1_w0lma"]
 [ext_resource type="Texture2D" uid="uid://cos7exqxtwo4q" path="res://assets/everything.png" id="2_lk74j"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Attack.gd" id="7_ampuo"]
 [ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Death.gd" id="8_ubx0v"]
 [ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/GetHit.gd" id="9_frk2y"]
+[ext_resource type="Script" path="res://Entities/MeleePig/Stunned.gd" id="10_2nvpu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2wfu1"]
 size = Vector3(1, 1.5, 0.5)
@@ -146,6 +147,22 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_6kkwb"]
+resource_name = "stunned"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [55]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uliuc"]
 _data = {
 "RESET": SubResource("Animation_sejph"),
@@ -153,7 +170,8 @@ _data = {
 "death": SubResource("Animation_xfhrk"),
 "get_hit": SubResource("Animation_cbteg"),
 "idle": SubResource("Animation_uteoo"),
-"pursue": SubResource("Animation_jjgwj")
+"pursue": SubResource("Animation_jjgwj"),
+"stunned": SubResource("Animation_6kkwb")
 }
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_r1rvg"]
@@ -176,6 +194,8 @@ animation = &"get_hit"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ukgwl"]
 animation = &"idle"
 
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_m3ewp"]
+
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_guaw1"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x860d"]
@@ -183,31 +203,39 @@ animation = &"pursue"
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gsbor"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_guug8"]
+animation = &"stunned"
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
+graph_offset = Vector2(-194.629, 122.583)
 nodes/Idle_Pursue/node = SubResource("AnimationNodeBlend2_r1rvg")
-nodes/Idle_Pursue/position = Vector2(520, 200)
+nodes/Idle_Pursue/position = Vector2(620, 40)
 nodes/attack/node = SubResource("AnimationNodeAnimation_5q4r5")
-nodes/attack/position = Vector2(680, 480)
+nodes/attack/position = Vector2(780, 500)
 nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_oa12i")
-nodes/attack_oneshot/position = Vector2(860, 240)
+nodes/attack_oneshot/position = Vector2(940, 240)
 nodes/death/node = SubResource("AnimationNodeAnimation_be2gd")
-nodes/death/position = Vector2(860, 480)
+nodes/death/position = Vector2(940, 500)
 nodes/death_oneshot/node = SubResource("AnimationNodeOneShot_rsdtk")
-nodes/death_oneshot/position = Vector2(1040, 240)
+nodes/death_oneshot/position = Vector2(1120, 240)
 nodes/get_hit/node = SubResource("AnimationNodeAnimation_18jy2")
-nodes/get_hit/position = Vector2(500, 420)
+nodes/get_hit/position = Vector2(580, 480)
 nodes/get_hit_oneshot/node = SubResource("AnimationNodeOneShot_xbpgp")
-nodes/get_hit_oneshot/position = Vector2(680, 240)
+nodes/get_hit_oneshot/position = Vector2(760, 240)
 nodes/idle/node = SubResource("AnimationNodeAnimation_ukgwl")
-nodes/idle/position = Vector2(140, 180)
+nodes/idle/position = Vector2(160, 200)
+nodes/idle_pursue_stunned/node = SubResource("AnimationNodeBlend3_m3ewp")
+nodes/idle_pursue_stunned/position = Vector2(540, 240)
 nodes/idle_time/node = SubResource("AnimationNodeTimeScale_guaw1")
-nodes/idle_time/position = Vector2(360, 180)
-nodes/output/position = Vector2(1240, 380)
+nodes/idle_time/position = Vector2(340, 200)
+nodes/output/position = Vector2(1320, 320)
 nodes/pursue_animation/node = SubResource("AnimationNodeAnimation_x860d")
-nodes/pursue_animation/position = Vector2(140, 360)
+nodes/pursue_animation/position = Vector2(120, 360)
 nodes/pursue_time/node = SubResource("AnimationNodeTimeScale_gsbor")
-nodes/pursue_time/position = Vector2(360, 340)
-node_connections = [&"Idle_Pursue", 0, &"idle_time", &"Idle_Pursue", 1, &"pursue_time", &"attack_oneshot", 0, &"get_hit_oneshot", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"attack_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"Idle_Pursue", &"get_hit_oneshot", 1, &"get_hit", &"idle_time", 0, &"idle", &"output", 0, &"death_oneshot", &"pursue_time", 0, &"pursue_animation"]
+nodes/pursue_time/position = Vector2(340, 360)
+nodes/stunned/node = SubResource("AnimationNodeAnimation_guug8")
+nodes/stunned/position = Vector2(380, 60)
+node_connections = [&"attack_oneshot", 0, &"get_hit_oneshot", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"attack_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"idle_pursue_stunned", &"get_hit_oneshot", 1, &"get_hit", &"idle_pursue_stunned", 0, &"stunned", &"idle_pursue_stunned", 1, &"idle_time", &"idle_pursue_stunned", 2, &"pursue_time", &"idle_time", 0, &"idle", &"output", 0, &"death_oneshot", &"pursue_time", 0, &"pursue_animation"]
 
 [node name="Piggie" type="CharacterBody3D"]
 collision_layer = 2
@@ -215,6 +243,9 @@ script = ExtResource("1_w0lma")
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
+
+[node name="StunTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 2.0
@@ -237,7 +268,7 @@ texture_filter = 0
 render_priority = 4
 texture = ExtResource("2_lk74j")
 hframes = 11
-vframes = 5
+vframes = 6
 frame = 12
 region_rect = Rect2(0, 0, 374, 139)
 
@@ -274,6 +305,9 @@ script = ExtResource("8_ubx0v")
 [node name="GetHit" type="Node" parent="StateMachine"]
 script = ExtResource("9_frk2y")
 
+[node name="Stunned" type="Node" parent="StateMachine"]
+script = ExtResource("10_2nvpu")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_uliuc")
@@ -285,7 +319,7 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeBlendTree_tgvfq")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Idle_Pursue/blend_amount = 0.0
+parameters/Idle_Pursue/blend_amount = 0
 parameters/attack_oneshot/active = false
 parameters/attack_oneshot/internal_active = false
 parameters/attack_oneshot/request = 0
@@ -295,5 +329,6 @@ parameters/death_oneshot/request = 0
 parameters/get_hit_oneshot/active = false
 parameters/get_hit_oneshot/internal_active = false
 parameters/get_hit_oneshot/request = 0
+parameters/idle_pursue_stunned/blend_amount = 0.0
 parameters/idle_time/scale = 0.6
 parameters/pursue_time/scale = 0.7
