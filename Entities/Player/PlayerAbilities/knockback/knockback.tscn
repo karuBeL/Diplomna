@@ -4,3 +4,5 @@
 
 [node name="Knockback" type="Node"]
 script = ExtResource("1_mg0qw")
+
+[node name="Timer" type="Timer" parent="."]

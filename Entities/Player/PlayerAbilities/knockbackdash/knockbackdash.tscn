@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bx87du7asxta5"]
+
+[ext_resource type="Script" path="res://Entities/Player/PlayerAbilities/knockbackdash/knockbackdash.gd" id="1_oloan"]
+
+[node name="Knockbackdash" type="Node"]
+script = ExtResource("1_oloan")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BuffDuration" type="Timer" parent="."]

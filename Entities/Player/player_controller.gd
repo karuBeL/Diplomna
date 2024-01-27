@@ -7,5 +7,6 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _physics_process(delta):
+	print(speed)
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()

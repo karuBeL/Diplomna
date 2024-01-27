@@ -41,6 +41,15 @@ enabled = false
 [node name="Piggie" parent="." instance=ExtResource("2_dakaa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.81122, -4.76837e-07, -7.09829)
 
+[node name="Piggie2" parent="." instance=ExtResource("2_dakaa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81122, -4.76837e-07, 0.90171)
+
+[node name="Piggie4" parent="." instance=ExtResource("2_dakaa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18878, -4.76837e-07, 0.90171)
+
+[node name="Piggie3" parent="." instance=ExtResource("2_dakaa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18878, -4.76837e-07, -4.09829)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ow6rj")
 
