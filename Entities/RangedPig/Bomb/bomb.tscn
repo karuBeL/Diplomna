@@ -158,7 +158,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12108, 0)
 pixel_size = 0.1
 billboard = 1
 texture_filter = 0
-render_priority = 3
+render_priority = 5
 texture = ExtResource("1_mpoy7")
 hframes = 6
 vframes = 4
@@ -166,7 +166,6 @@ frame = 12
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.22348)
-visible = false
 pixel_size = 0.1
 texture_filter = 0
 render_priority = 3
