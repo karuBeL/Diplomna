@@ -48,7 +48,7 @@ func enter(msg := {}) -> void:
 		dash_timer.timeout.connect(dash_end)
 	dash_timer.start()	
 
-func slash_enemies(body : Entity):
+func slash_enemies(body : EntityClass):
 	if !already_attacked.has(body):
 		body.apply_damage(15)
 		already_attacked[body] = null

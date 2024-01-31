@@ -1,5 +1,5 @@
 extends ShapeCast3D
-var collided_object : Entity
+var collided_object : EntityClass
 var count
 @export var weapon : Node3D
 

@@ -3,13 +3,13 @@ extends Enemy
 @onready var hit_timer : SceneTreeTimer = get_tree().create_timer(0.0)
 @onready var attack_collision : ShapeCast3D = $"../../AttackCast"
 var count
-var collided_object : Entity 
+var collided_object : EntityClass 
 
 func hitPlayer():
 	attack_collision.force_shapecast_update()
 	count = attack_collision.get_collision_count()
 	for i in count:
-		collided_object = attack_collision.get_collider(i) as Entity
+		collided_object = attack_collision.get_collider(i) as EntityClass
 		if collided_object == player:
 			collided_object.apply_damage(10)
 

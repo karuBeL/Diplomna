@@ -1,5 +1,5 @@
 extends CharacterBody3D
-class_name Entity
+class_name EntityClass
 
 var max_health : int = 100
 var current_health : int = 100
@@ -25,7 +25,9 @@ func die():
 	scene.transition_to("Death")
 	
 
-func load_ability(name):
+func load_ability(name : String):
+	if name.is_empty():
+		return
 	var scene = load("res://Entities/Player/PlayerAbilities/" + name + "/" + name + ".tscn")
 	var sceneNode = scene.instantiate()
 	add_child(sceneNode)

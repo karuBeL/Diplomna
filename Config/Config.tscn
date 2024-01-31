@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3fldkslugn3c"]
+
+[ext_resource type="Script" path="res://Config/Config.gd" id="1_rsm65"]
+
+[node name="Config" type="Node"]
+script = ExtResource("1_rsm65")

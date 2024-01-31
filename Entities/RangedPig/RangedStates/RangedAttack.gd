@@ -2,7 +2,7 @@ extends Enemy
 
 @onready var hit_timer : SceneTreeTimer = get_tree().create_timer(0.0)
 var count
-var collided_object : Entity 
+var collided_object : EntityClass 
 
 
 func hitPlayer():

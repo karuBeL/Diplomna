@@ -17,3 +17,4 @@ func _drop_data(at_position, data):
 
 func set_label(name : String):
 	label.text = name
+
