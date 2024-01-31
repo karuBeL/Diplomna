@@ -3,6 +3,33 @@
 [ext_resource type="Script" path="res://Entities/Player/PlayerAbilities/slashbomb/slashbomb.gd" id="1_4c1rr"]
 [ext_resource type="Texture2D" uid="uid://b0lj303cgcjs8" path="res://assets/everything_bomb.png" id="2_yn7oh"]
 
+[sub_resource type="Animation" id="Animation_vo414"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D2:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
 [sub_resource type="Animation" id="Animation_gpo0b"]
 resource_name = "explode"
 tracks/0/type = "value"
@@ -66,33 +93,6 @@ tracks/4/keys = {
 "args": [],
 "method": &"explode"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_vo414"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D2:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [18]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uvtqh"]

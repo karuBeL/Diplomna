@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://50kq10yt60c5"]
+
+[ext_resource type="Script" path="res://Menu/AbilityMenu/draggable.gd" id="1_yy77v"]
+
+[node name="Draggable" type="Panel"]
+custom_minimum_size = Vector2(64, 64)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.27451, 0.443137, 1)
+script = ExtResource("1_yy77v")
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
