@@ -20,11 +20,18 @@ Config="*res://Config/Config.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/qodot/plugin.cfg")
+enabled=PackedStringArray()
 
 [filesystem]
 
 import/fbx/enabled=false
+
+[importer_defaults]
+
+texture={
+"compress/mode": 3,
+"detect_3d/compress_to": 0
+}
 
 [input]
 
@@ -74,3 +81,7 @@ ability_3={
 3d_physics/layer_1="World"
 3d_physics/layer_2="Character"
 3d_physics/layer_3="Camera"
+
+[rendering]
+
+occlusion_culling/use_occlusion_culling=true

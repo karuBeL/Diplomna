@@ -20,6 +20,6 @@ func execute():
 	timer.start()
 	var bodies = knockback_coll.get_overlapping_bodies()
 	knockback_anim.play("knockback")
-	for body : Entity in bodies:
+	for body : EntityClass in bodies:
 		body.apply_stun(0.5, true)
 	statemachine.transition_to("Run")

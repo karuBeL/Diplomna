@@ -238,6 +238,8 @@ script = ExtResource("1_n3kpm")
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="StunTimer" type="Timer" parent="."]
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]

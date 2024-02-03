@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvfuic65orvui"]
+[gd_scene load_steps=10 format=3 uid="uid://cvfuic65orvui"]
 
 [ext_resource type="PackedScene" uid="uid://euwu1a7qpr7o" path="res://Room/room.tscn" id="1_dnfyr"]
 [ext_resource type="PackedScene" uid="uid://u5ixnrgnfy8i" path="res://Entities/MeleePig/melee_pig.tscn" id="2_dakaa"]
 [ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Entities/Player/player.tscn" id="2_hmugm"]
 [ext_resource type="Script" path="res://World/CameraPlayer.gd" id="3_c17pr"]
+[ext_resource type="PackedScene" uid="uid://teg45so6mfhk" path="res://Entities/RangedPig/ranged_pig.tscn" id="5_5n1p3"]
 
 [sub_resource type="Environment" id="Environment_ow6rj"]
 
@@ -78,5 +79,8 @@ navigation_mesh = SubResource("NavigationMesh_5o6dv")
 
 [node name="Room" parent="NavigationRegion3D" instance=ExtResource("1_dnfyr")]
 skeleton = NodePath("../..")
+
+[node name="RangedEnemy" parent="." instance=ExtResource("5_5n1p3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19699, 0.0500002, -3.55228)
 
 [editable path="Player"]

@@ -2,11 +2,11 @@ extends Node
 
 var player
 var playerStateMachine : StateMachine
-var timer : SceneTreeTimer
+var timer : Timer
 var bomb : Node3D
 
 func _ready():
-	timer = get_tree().create_timer(0.0)
+	timer = $Timer as Timer
 	player = get_tree().get_nodes_in_group("player")[0]
 	playerStateMachine = player.get_node("StateMachine")
 	
@@ -24,11 +24,10 @@ func get_mouse_position():
 	ray_query.to = to
 	ray_query.collide_with_areas = true
 	var raycast_result = space.intersect_ray(ray_query)
-	print(raycast_result)
 	return raycast_result['position']
 
 func execute():
-	if timer.time_left != 0:
+	if !timer.is_stopped():
 		playerStateMachine.transition_to("Run")
 		return
 	timer.start(4)

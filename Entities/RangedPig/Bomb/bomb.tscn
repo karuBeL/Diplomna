@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b02a8vvdmlr6e"]
+[gd_scene load_steps=13 format=3 uid="uid://b02a8vvdmlr6e"]
 
 [ext_resource type="Script" path="res://Entities/RangedPig/Bomb/bomb.gd" id="1_dt26q"]
 [ext_resource type="Texture2D" uid="uid://b0lj303cgcjs8" path="res://assets/everything_bomb.png" id="1_mpoy7"]
@@ -9,6 +9,30 @@
 
 [sub_resource type="Animation" id="Animation_i5b0o"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D2:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
 
 [sub_resource type="Animation" id="Animation_iixvy"]
 resource_name = "explode"
@@ -16,22 +40,82 @@ length = 0.55
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("StateMachine/Explode")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.2, 0.55),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"explode"
+}, {
+"args": [],
+"method": &"free_bomb"
 }]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D2:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_tv2f3"]
+resource_name = "in_air"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_ma47t"]
+resource_name = "wind_up"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ar5dk"]
 _data = {
 "RESET": SubResource("Animation_i5b0o"),
-"explode": SubResource("Animation_iixvy")
+"explode": SubResource("Animation_iixvy"),
+"in_air": SubResource("Animation_tv2f3"),
+"wind_up": SubResource("Animation_ma47t")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_spwvk"]
@@ -41,6 +125,7 @@ radius = 2.5
 script = ExtResource("1_dt26q")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12108, 0)
@@ -51,17 +136,18 @@ render_priority = 5
 texture = ExtResource("1_mpoy7")
 hframes = 6
 vframes = 4
-frame = 5
+frame = 12
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.22348)
+visible = false
 pixel_size = 0.1
 texture_filter = 0
 render_priority = 3
 texture = ExtResource("1_mpoy7")
 hframes = 6
 vframes = 4
-frame = 21
+frame = 17
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
