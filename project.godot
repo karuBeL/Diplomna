@@ -32,6 +32,9 @@ texture={
 "compress/mode": 3,
 "detect_3d/compress_to": 0
 }
+animation_library={
+"gltf/embedded_image_handling": 3
+}
 
 [input]
 
