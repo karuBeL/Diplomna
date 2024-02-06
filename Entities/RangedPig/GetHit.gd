@@ -2,7 +2,7 @@ extends Enemy
 
 @onready var timer : Timer = $"../../Timer"
 
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	if !timer.timeout.is_connected(transition):
 		timer.timeout.connect(transition)
 	timer.wait_time = 0.2

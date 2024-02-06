@@ -25,21 +25,21 @@ func execute():
 		return
 	inAnimation = true
 	collision.get_collisions()
-	tween1(weapon)
+	tween1()
 
-func tween1(weapon : Node3D):
+func tween1():
 	var tween = get_tree().create_tween()
 	tween.tween_property(weapon, "rotation",\
 	weapon.rotation + (Vector3.UP)*PI/1.5, 0.04)
-	tween.connect("finished", tween2.bind(weapon))
+	tween.connect("finished", tween2)
 
-func tween2(weapon : Node3D):
+func tween2():
 	var tween = get_tree().create_tween()
 	tween.tween_property(weapon, "rotation",\
 	weapon.rotation + (Vector3.UP)*-PI*4/3, 0.20)
-	tween.connect("finished", tween3.bind(weapon))
+	tween.connect("finished", tween3)
 
-func tween3(weapon : Node3D):
+func tween3():
 	var tween = get_tree().create_tween()
 	tween.tween_property(weapon, "rotation",\
 	weapon.rotation + (Vector3.UP)*PI/1.5, 0.04)

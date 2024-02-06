@@ -6,7 +6,6 @@ func _ready():
 	add_to_group("draggable")
 	label = $Label
 
-func _get_drag_data(at_position):
-	print("yuh draggin")
+func _get_drag_data(_at_position):
 	return {"self": self, "text": label.text}
 
