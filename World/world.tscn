@@ -1,85 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvfuic65orvui"]
+[gd_scene load_steps=2 format=3 uid="uid://cvfuic65orvui"]
 
-[ext_resource type="PackedScene" uid="uid://u5ixnrgnfy8i" path="res://Entities/MeleePig/melee_pig.tscn" id="2_dakaa"]
-[ext_resource type="PackedScene" uid="uid://cdy4cghohpe0p" path="res://Entities/Player/player.tscn" id="2_hmugm"]
-[ext_resource type="Script" path="res://World/CameraPlayer.gd" id="3_c17pr"]
 [ext_resource type="PackedScene" uid="uid://c8w2xp2d1q0l4" path="res://Room/newroom.tscn" id="4_8kgnw"]
-[ext_resource type="PackedScene" uid="uid://teg45so6mfhk" path="res://Entities/RangedPig/ranged_pig.tscn" id="5_5n1p3"]
-
-[sub_resource type="Environment" id="Environment_ow6rj"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3xpxu"]
-size = Vector3(10, 0.1, 10)
-
-[sub_resource type="GDScript" id="GDScript_f2u8x"]
-script/source = "extends Camera3D
-
-@onready var camera_player : CharacterBody3D = $\"../..\"
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	look_at(camera_player.global_position)
-	#print(rotation_degrees)
-"
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_5o6dv"]
-vertices = PackedVector3Array(-17.0743, 0.45619, -17.417, -17.0743, 0.45619, 17.333, 17.9257, 0.45619, 17.333, 17.9257, 0.45619, -17.417)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-agent_radius = 0.1
 
 [node name="World" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("2_hmugm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.91152, 0, 5.08269)
-
-[node name="AnimatedSprite3D" parent="Player" index="2"]
-cast_shadow = 0
-
-[node name="WeaponCollision" parent="Player" index="3"]
-enabled = false
-
-[node name="Piggie" parent="." instance=ExtResource("2_dakaa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.81122, -4.76837e-07, -7.09829)
-
-[node name="Piggie2" parent="." instance=ExtResource("2_dakaa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81122, -4.76837e-07, 0.90171)
-
-[node name="Piggie4" parent="." instance=ExtResource("2_dakaa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18878, -4.76837e-07, 0.90171)
-
-[node name="Piggie3" parent="." instance=ExtResource("2_dakaa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18878, -4.76837e-07, -4.09829)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ow6rj")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, -0.772734, 0.63473, 0, -0.63473, -0.772734, 0, 0, 0)
-shadow_enabled = true
-
-[node name="CameraPlayer" type="CharacterBody3D" parent="."]
-collision_layer = 4
-script = ExtResource("3_c17pr")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CameraPlayer"]
-shape = SubResource("BoxShape3D_3xpxu")
-
-[node name="CameraPivot" type="Node3D" parent="CameraPlayer"]
-
-[node name="Camera3D" type="Camera3D" parent="CameraPlayer/CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.051, 27.539, 21.051)
-projection = 1
-current = true
-size = 20.0
-script = SubResource("GDScript_f2u8x")
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_5o6dv")
-
-[node name="Node3D" parent="NavigationRegion3D" instance=ExtResource("4_8kgnw")]
-
-[node name="RangedEnemy" parent="." instance=ExtResource("5_5n1p3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19699, 0.0500002, -3.55228)
-
-[editable path="Player"]
+[node name="ExampleRoom" parent="." instance=ExtResource("4_8kgnw")]
+script = null

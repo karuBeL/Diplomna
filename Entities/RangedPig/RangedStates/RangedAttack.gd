@@ -14,7 +14,7 @@ func hitPlayer():
 	
 	
 	
-func enter(msg := {}):
+func enter(_msg := {}):
 	if hit_timer.time_left != 0:
 		state_machine.transition_to("Pursue")
 		return
@@ -22,7 +22,7 @@ func enter(msg := {}):
 	enemy.velocity = Vector3.ZERO
 	$"../../AnimationTree".set("parameters/attack_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
-func physics_update(delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	var target_position : Vector3 = (player.global_position - enemy.global_position).normalized()
 	if target_position.x > -0.7 && target_position.z < 0.7:
 		$"../../Sprite3D".set("flip_h", true)

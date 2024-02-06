@@ -11,7 +11,7 @@ func explode():
 	for body in bodies:
 		body.apply_damage(20)
 	
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	if $"../../PlayerColl".monitoring:
 		aoe = $"../../PlayerColl"
 	else:

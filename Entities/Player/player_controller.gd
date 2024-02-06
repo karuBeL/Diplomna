@@ -10,6 +10,6 @@ func _ready():
 	load_ability(abilities[2])
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()

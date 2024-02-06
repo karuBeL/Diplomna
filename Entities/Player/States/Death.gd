@@ -1,6 +1,6 @@
 extends PlayerState
 
 
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	$"../../AnimatedSprite3D".play("death")
 	$"../../Weapon".visible = false

@@ -39,6 +39,6 @@ func transition():
 	else:
 		state_machine.transition_to("Pursue")
 
-func physics_update(delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	if is_knockback == true:
 		knockback()

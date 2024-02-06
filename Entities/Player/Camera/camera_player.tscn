@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bm6xinwq74tsg"]
+
+[ext_resource type="Script" path="res://Entities/Player/Camera/CameraPlayer.gd" id="1_le078"]
+[ext_resource type="Script" path="res://Entities/Player/Camera/camera.gd" id="2_1vuli"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t0ise"]
+size = Vector3(12, 0.1, 12)
+
+[node name="CameraPlayer" type="CharacterBody3D"]
+collision_layer = 4
+script = ExtResource("1_le078")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_t0ise")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.051, 27.539, 21.051)
+projection = 1
+current = true
+size = 20.0
+script = ExtResource("2_1vuli")

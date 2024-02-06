@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg22iial4ayrs"]
+
+[ext_resource type="Script" path="res://Room/spawnpoint.gd" id="1_n6qab"]
+
+[node name="Marker3D" type="Marker3D"]
+script = ExtResource("1_n6qab")

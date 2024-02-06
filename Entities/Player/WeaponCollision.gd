@@ -4,6 +4,7 @@ var count
 @export var weapon : Node3D
 
 func get_collisions():
+	rotation.y = weapon.rotation.y + PI/4
 	force_shapecast_update()
 	if !is_colliding():
 		return
@@ -12,5 +13,3 @@ func get_collisions():
 		collided_object = get_collider(i)
 		collided_object.apply_damage(25)
 	
-func _process(delta):
-	rotation.y = weapon.rotation.y + PI/4

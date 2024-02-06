@@ -15,7 +15,7 @@ func nav_timer():
 	nav_set_timer.start()
 	
 	
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	enemy.nav_agent.target_position = player.global_position
 	if !(nav_set_timer.timeout.is_connected(nav_timer) && 
 	enemy.nav_agent.velocity_computed.is_connected(set_safe_velocity)):
@@ -26,7 +26,7 @@ func enter(msg := {}) -> void:
 func exit():
 	nav_set_timer.stop()
 
-func physics_update(delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	var target_position : Vector3 = (player.global_position - enemy.global_position).normalized()
 	var distance_to_player = enemy.global_position.distance_to(player.global_position)
 	var next_position = nav_agent.get_next_path_position()

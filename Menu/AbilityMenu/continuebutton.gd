@@ -15,5 +15,5 @@ func continue_pressed():
 	
 	get_node("/root/Config").set_abilities(abilities)
 	
-	get_tree().change_scene_to_file("res://World/world.tscn")
+	get_tree().change_scene_to_file("res://Room/newroom.tscn")
 

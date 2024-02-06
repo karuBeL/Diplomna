@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://4guc4c70qljf"
-path="res://.godot/imported/YUP.gltf-0440f0af8e9cdb695e624bc7f401ddaa.scn"
+uid="uid://djyqhsc6ti05h"
+path="res://.godot/imported/door3.gltf-4b6d0f8ef90c8fe5c701e24a18e23c99.scn"
 
 [deps]
 
-source_file="res://assets/Map/YUP.gltf"
-dest_files=["res://.godot/imported/YUP.gltf-0440f0af8e9cdb695e624bc7f401ddaa.scn"]
+source_file="res://assets/Map/door3.gltf"
+dest_files=["res://.godot/imported/door3.gltf-4b6d0f8ef90c8fe5c701e24a18e23c99.scn"]
 
 [params]
 
@@ -20,7 +20,7 @@ nodes/root_scale=1.0
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
-meshes/light_baking=0
+meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
@@ -31,4 +31,4 @@ animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={}
 gltf/naming_version=1
-gltf/embedded_image_handling=3
+gltf/embedded_image_handling=1

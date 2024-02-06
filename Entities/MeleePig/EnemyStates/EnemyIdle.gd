@@ -15,6 +15,3 @@ func enter(msg := {}) -> void:
 	elif !range.body_entered.is_connected(inRange):
 		range.body_entered.connect(inRange)
 
-func update(delta: float) -> void:
-	pass
-

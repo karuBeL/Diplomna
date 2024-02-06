@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=64 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player_controller.gd" id="1_vwvnn"]
 [ext_resource type="Texture2D" uid="uid://dt7veps6tsb1g" path="res://assets/character_sprite_test2.png" id="2_t42ne"]
@@ -12,9 +12,11 @@
 [ext_resource type="Script" path="res://Entities/Player/States/Death.gd" id="11_q05e5"]
 [ext_resource type="Script" path="res://Entities/Player/States/GetHit.gd" id="12_i4prf"]
 [ext_resource type="Script" path="res://Entities/Player/States/Dash.gd" id="13_mdoo3"]
-[ext_resource type="Script" path="res://Entities/Player/DashSlash.gd" id="13_yqarv"]
-[ext_resource type="Script" path="res://Entities/Player/DashBomb.gd" id="14_0eebd"]
 [ext_resource type="PackedScene" uid="uid://dbgj3s33t2y3o" path="res://assets/swordidk.glb" id="14_7nig0"]
+[ext_resource type="Script" path="res://Entities/Player/States/DashSlash.gd" id="14_fkwg3"]
+[ext_resource type="Script" path="res://Entities/Player/States/DashBomb.gd" id="15_ot7af"]
+[ext_resource type="Script" path="res://Entities/Player/Camera/CameraPlayer.gd" id="16_5woo0"]
+[ext_resource type="Script" path="res://Entities/Player/Camera/camera.gd" id="17_311kh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pb3c2"]
 size = Vector3(1, 1.5, 1)
@@ -388,6 +390,9 @@ _data = {
 "knockback": SubResource("Animation_bvcfo")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_t0ise"]
+size = Vector3(12, 0.1, 12)
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
 script = ExtResource("1_vwvnn")
@@ -411,8 +416,8 @@ shape = SubResource("SphereShape3D_7lv4t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004, 0.8, -0.001)
 pixel_size = 0.1
 billboard = 1
-alpha_cut = 3
 texture_filter = 0
+render_priority = 2
 sprite_frames = SubResource("SpriteFrames_neafe")
 animation = &"testAwayCamera"
 
@@ -427,7 +432,7 @@ weapon = NodePath("../Weapon")
 [node name="Weapon" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.718, 0)
 
-[node name="Node3D" type="Node3D" parent="Weapon"]
+[node name="AbilitySpawn" type="Node3D" parent="Weapon"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -1.20067, -0.718, -1.33457)
 
 [node name="swordidk" parent="Weapon" instance=ExtResource("14_7nig0")]
@@ -499,7 +504,24 @@ script = ExtResource("12_i4prf")
 script = ExtResource("13_mdoo3")
 
 [node name="DashSlash" type="Node" parent="StateMachine"]
-script = ExtResource("13_yqarv")
+script = ExtResource("14_fkwg3")
 
 [node name="DashBomb" type="Node" parent="StateMachine"]
-script = ExtResource("14_0eebd")
+script = ExtResource("15_ot7af")
+
+[node name="CameraPlayer" type="CharacterBody3D" parent="."]
+top_level = true
+collision_layer = 4
+script = ExtResource("16_5woo0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CameraPlayer"]
+shape = SubResource("BoxShape3D_t0ise")
+
+[node name="CameraPivot" type="Node3D" parent="CameraPlayer"]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPlayer/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.051, 27.539, 21.051)
+projection = 1
+current = true
+size = 20.0
+script = ExtResource("17_311kh")

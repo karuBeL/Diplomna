@@ -32,7 +32,7 @@ func get_mouse_position():
 	else:
 		target_position = raycast_result['position']
 
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	get_mouse_position()
 	if target_position == null:
 		state_machine.transition_to("Run")
