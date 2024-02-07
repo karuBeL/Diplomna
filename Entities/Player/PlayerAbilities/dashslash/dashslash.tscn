@@ -4,3 +4,6 @@
 
 [node name="Dashslash" type="Node"]
 script = ExtResource("1_0ryiy")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

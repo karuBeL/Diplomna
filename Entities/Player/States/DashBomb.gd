@@ -30,6 +30,7 @@ func get_mouse_position():
 	ray_query.collide_with_areas = true
 	var raycast_result = space.intersect_ray(ray_query)
 	target_position = raycast_result['position']
+	target_position.y = 0
 	
 func enter(_msg := {}) -> void:
 	get_mouse_position()

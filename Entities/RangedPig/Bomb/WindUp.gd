@@ -1,6 +1,6 @@
 extends BombState
 
-@onready var timer = $"../../Timer"
+@onready var timer : Timer = $"../../Timer"
 
 func transition_to_explode():
 	state_machine.transition_to("Explode")
@@ -8,5 +8,4 @@ func transition_to_explode():
 func enter(_msg := {}) -> void:
 	$"../../AnimationPlayer".play("wind_up")
 	timer.timeout.connect(transition_to_explode)
-	timer.wait_time = 0.6
-	timer.start()
+	timer.start(1.3)

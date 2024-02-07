@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8w2xp2d1q0l4"]
+[gd_scene load_steps=22 format=3 uid="uid://c8w2xp2d1q0l4"]
 
 [ext_resource type="Script" path="res://Room/room.gd" id="1_q0l7e"]
 [ext_resource type="PackedScene" uid="uid://cg22iial4ayrs" path="res://Room/spawnpoint.tscn" id="1_yshp5"]
@@ -21,6 +21,9 @@ agent_radius = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uoyld"]
 size = Vector3(0.5, 34.9, 9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hh52j"]
+size = Vector3(36, 0.1, 36)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d0ul4"]
 size = Vector3(36, 0.5, 36)
@@ -77,13 +80,20 @@ input_ray_pickable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Wall4"]
 shape = SubResource("BoxShape3D_uoyld")
 
-[node name="Floor" type="Area3D" parent="NavigationRegion3D/Dungeon"]
+[node name="Floor" type="StaticBody3D" parent="NavigationRegion3D/Dungeon"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Floor"]
+shape = SubResource("BoxShape3D_hh52j")
+
+[node name="EnemyCounter" type="Area3D" parent="NavigationRegion3D/Dungeon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_4qu4k")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/EnemyCounter"]
 shape = SubResource("BoxShape3D_d0ul4")
 
 [node name="Door1" type="Node3D" parent="NavigationRegion3D/Dungeon"]

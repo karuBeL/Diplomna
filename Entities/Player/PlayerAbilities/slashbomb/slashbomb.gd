@@ -4,17 +4,16 @@ var collision : ShapeCast3D
 var weapon : Node3D
 var inAnimation : bool
 var playerStateMachine : StateMachine
-var timer : SceneTreeTimer
+var timer : Timer
 var bomb_collision : Area3D
 var sword_model : Node3D
 var bodies 
 var anim_player : AnimationPlayer
 
 func _ready():
-	#timer.wait_time = 1
 	bomb_collision = $Area3D
 	anim_player = $AnimationPlayer
-	timer = get_tree().create_timer(0.0)
+	timer = $Timer
 	var player = get_tree().get_nodes_in_group("player")[0]
 	collision = player.get_node("WeaponCollision")
 	weapon = player.get_node("Weapon")
@@ -31,7 +30,7 @@ func execute():
 	if timer.time_left != 0:
 		playerStateMachine.transition_to("Run")
 		return
-	timer = get_tree().create_timer(1)
+	timer.start(4)
 	if inAnimation:
 		return
 	inAnimation = true

@@ -4,6 +4,8 @@ var player
 var playerStateMachine : StateMachine
 var timer : Timer
 var bomb : Node3D
+var target_position : Vector3
+
 
 func _ready():
 	timer = $Timer as Timer
@@ -24,16 +26,20 @@ func get_mouse_position():
 	ray_query.to = to
 	ray_query.collide_with_areas = true
 	var raycast_result = space.intersect_ray(ray_query)
-	return raycast_result['position']
+	target_position = raycast_result['position']
+	target_position.y = 0
+	print(target_position)
+	
 
 func execute():
 	if !timer.is_stopped():
 		playerStateMachine.transition_to("Run")
 		return
+	get_mouse_position()
 	timer.start(4)
 	bomb = load("res://Entities/RangedPig/Bomb/bomb.tscn").instantiate()
 	bomb.set_enemy_area_monitoring(true)
-	bomb.target = get_mouse_position()
+	bomb.target = target_position
 	add_child(bomb)
 	bomb.global_position = player.global_position
 	playerStateMachine.transition_to("Run")

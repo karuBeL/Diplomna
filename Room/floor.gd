@@ -7,6 +7,8 @@ func _ready():
 
 	
 func check_room_status(_body):
-	enemy_count = get_overlapping_bodies().size()
+	print("checked_room")
+	enemy_count = get_overlapping_bodies().size() - 1
+	print (enemy_count)
 	if enemy_count <= 0:
 		$"../../..".set_clear()
