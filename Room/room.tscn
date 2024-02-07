@@ -1,0 +1,200 @@
+[gd_scene load_steps=21 format=3 uid="uid://c8w2xp2d1q0l4"]
+
+[ext_resource type="Script" path="res://Room/room.gd" id="1_q0l7e"]
+[ext_resource type="PackedScene" uid="uid://cg22iial4ayrs" path="res://Room/spawnpoint.tscn" id="1_yshp5"]
+[ext_resource type="PackedScene" uid="uid://c0ee2wj18noxc" path="res://assets/Map/nodoors.gltf" id="2_bj77j"]
+[ext_resource type="Script" path="res://Room/floor.gd" id="3_4qu4k"]
+[ext_resource type="Script" path="res://Room/door.gd" id="3_h52jm"]
+[ext_resource type="PackedScene" uid="uid://cxhiw5um4n6up" path="res://assets/Map/opendoor1.gltf" id="6_34uko"]
+[ext_resource type="PackedScene" uid="uid://dy3322c7r04cu" path="res://assets/Map/door4.gltf" id="7_56qnr"]
+[ext_resource type="PackedScene" uid="uid://oixfjlt1gvc0" path="res://assets/Map/door2.gltf" id="8_hbv4g"]
+[ext_resource type="PackedScene" uid="uid://djyqhsc6ti05h" path="res://assets/Map/door3.gltf" id="9_t4bjr"]
+[ext_resource type="PackedScene" uid="uid://cycwkvmonbp2w" path="res://assets/Map/door1.gltf" id="10_f10wq"]
+[ext_resource type="PackedScene" uid="uid://eblwrj6df7rg" path="res://assets/Map/opendoor3.gltf" id="12_v763y"]
+[ext_resource type="PackedScene" uid="uid://ca2id76agv2kq" path="res://assets/Map/opendoor2.gltf" id="13_sk3k2"]
+[ext_resource type="PackedScene" uid="uid://cjuu17gbbfxnw" path="res://assets/Map/opendoor4.gltf" id="14_k832x"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_6s2qo"]
+vertices = PackedVector3Array(-17.5, 0.498485, -17.5, -17.5, 0.498485, 17.5, 17.75, 0.498485, 17.5, 17.75, 0.498485, -17.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+agent_radius = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uoyld"]
+size = Vector3(0.5, 34.9, 9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d0ul4"]
+size = Vector3(36, 0.2, 36)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hqgdd"]
+size = Vector3(5, 5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mmri6"]
+size = Vector3(5, 5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n0ppt"]
+size = Vector3(0.5, 5, 5)
+
+[sub_resource type="Environment" id="Environment_sbqf2"]
+
+[node name="Room" type="Node3D"]
+script = ExtResource("1_q0l7e")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_6s2qo")
+
+[node name="Dungeon" parent="NavigationRegion3D" instance=ExtResource("2_bj77j")]
+
+[node name="Wall1" type="StaticBody3D" parent="NavigationRegion3D/Dungeon"]
+transform = Transform3D(1.91069e-15, 1, -4.37114e-08, 4.37114e-08, -4.37114e-08, -1, -1, 0, -4.37114e-08, 0, 4.6, 17.7)
+collision_mask = 0
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.57356e-28, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_uoyld")
+
+[node name="Wall2" type="StaticBody3D" parent="NavigationRegion3D/Dungeon"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 4.6, -17.7)
+collision_mask = 0
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Wall2"]
+shape = SubResource("BoxShape3D_uoyld")
+
+[node name="Wall3" type="StaticBody3D" parent="NavigationRegion3D/Dungeon"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 17.7, 4.6, 0)
+collision_mask = 0
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Wall3"]
+shape = SubResource("BoxShape3D_uoyld")
+
+[node name="Wall4" type="StaticBody3D" parent="NavigationRegion3D/Dungeon"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -17.7, 4.6, 0)
+collision_mask = 0
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Wall4"]
+shape = SubResource("BoxShape3D_uoyld")
+
+[node name="Floor" type="Area3D" parent="NavigationRegion3D/Dungeon"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("3_4qu4k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Floor"]
+shape = SubResource("BoxShape3D_d0ul4")
+
+[node name="Door1" type="Node3D" parent="NavigationRegion3D/Dungeon"]
+top_level = true
+script = ExtResource("3_h52jm")
+
+[node name="Area3D" type="Area3D" parent="NavigationRegion3D/Dungeon/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 17.2)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Door1/Area3D"]
+shape = SubResource("BoxShape3D_hqgdd")
+
+[node name="door" parent="NavigationRegion3D/Dungeon/Door1" instance=ExtResource("7_56qnr")]
+
+[node name="opendoor" parent="NavigationRegion3D/Dungeon/Door1" instance=ExtResource("6_34uko")]
+visible = false
+
+[node name="PlayerSpawn" parent="NavigationRegion3D/Dungeon/Door1" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
+
+[node name="Door2" type="Node3D" parent="NavigationRegion3D/Dungeon"]
+script = ExtResource("3_h52jm")
+
+[node name="Area3D" type="Area3D" parent="NavigationRegion3D/Dungeon/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -17.2)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Door2/Area3D"]
+shape = SubResource("BoxShape3D_mmri6")
+
+[node name="door" parent="NavigationRegion3D/Dungeon/Door2" instance=ExtResource("8_hbv4g")]
+
+[node name="opendoor" parent="NavigationRegion3D/Dungeon/Door2" instance=ExtResource("12_v763y")]
+visible = false
+
+[node name="PlayerSpawn" parent="NavigationRegion3D/Dungeon/Door2" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+
+[node name="Door3" type="Node3D" parent="NavigationRegion3D/Dungeon"]
+script = ExtResource("3_h52jm")
+
+[node name="Area3D" type="Area3D" parent="NavigationRegion3D/Dungeon/Door3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0262, 2.5, 0)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Door3/Area3D"]
+shape = SubResource("BoxShape3D_n0ppt")
+
+[node name="door" parent="NavigationRegion3D/Dungeon/Door3" instance=ExtResource("9_t4bjr")]
+
+[node name="opendoor" parent="NavigationRegion3D/Dungeon/Door3" instance=ExtResource("13_sk3k2")]
+visible = false
+
+[node name="PlayerSpawn" parent="NavigationRegion3D/Dungeon/Door3" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+
+[node name="Door4" type="Node3D" parent="NavigationRegion3D/Dungeon"]
+script = ExtResource("3_h52jm")
+
+[node name="Area3D" type="Area3D" parent="NavigationRegion3D/Dungeon/Door4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2, 2.5, 0)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/Door4/Area3D"]
+shape = SubResource("BoxShape3D_n0ppt")
+
+[node name="door" parent="NavigationRegion3D/Dungeon/Door4" instance=ExtResource("10_f10wq")]
+
+[node name="opendoor" parent="NavigationRegion3D/Dungeon/Door4" instance=ExtResource("14_k832x")]
+visible = false
+
+[node name="PlayerSpawn" parent="NavigationRegion3D/Dungeon/Door4" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
+
+[node name="PlayerSpawn" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+
+[node name="Spawn1" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
+
+[node name="Spawn2" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+
+[node name="Spawn3" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+
+[node name="Spawn4" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 6)
+
+[node name="Spawn5" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 12)
+
+[node name="Spawn6" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -12)
+
+[node name="Spawn7" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -12)
+
+[node name="Spawn8" parent="NavigationRegion3D/Dungeon" instance=ExtResource("1_yshp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="NavigationRegion3D/Dungeon"]
+environment = SubResource("Environment_sbqf2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="NavigationRegion3D/Dungeon/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -0.772734, 0.63473, 0, -0.63473, -0.772734, 0, 0, 0)
+shadow_enabled = true

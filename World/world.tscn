@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvfuic65orvui"]
-
-[ext_resource type="PackedScene" uid="uid://c8w2xp2d1q0l4" path="res://Room/newroom.tscn" id="4_8kgnw"]
-
-[node name="World" type="Node3D"]
-
-[node name="ExampleRoom" parent="." instance=ExtResource("4_8kgnw")]
-script = null
