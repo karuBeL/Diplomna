@@ -23,7 +23,7 @@ agent_radius = 0.1
 size = Vector3(0.5, 34.9, 9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d0ul4"]
-size = Vector3(36, 0.2, 36)
+size = Vector3(36, 0.5, 36)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hqgdd"]
 size = Vector3(5, 5, 0.5)
@@ -78,7 +78,8 @@ input_ray_pickable = false
 shape = SubResource("BoxShape3D_uoyld")
 
 [node name="Floor" type="Area3D" parent="NavigationRegion3D/Dungeon"]
-collision_layer = 16
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_4qu4k")
 

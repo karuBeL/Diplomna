@@ -38,8 +38,8 @@ func set_room():
 func enter_room():
 	if initial_spawn != null:
 		initial_spawn.spawn_entity()
+		$".".set_clear()
 		return
-	
 	entrance_door.player_spawn.spawn_entity()
 	for s in set_spawns:
 		s.spawn_entity()
