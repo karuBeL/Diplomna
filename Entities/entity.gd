@@ -24,11 +24,3 @@ func apply_stun(stun_amount : float, is_knockbacked : bool):
 func die():
 	state_machine.transition_to("Death")
 	
-
-func load_ability(ability_name : String):
-	if ability_name.is_empty():
-		return
-	var scene = load("res://Entities/Player/PlayerAbilities/" + ability_name + "/" + ability_name + ".tscn")
-	var sceneNode = scene.instantiate()
-	add_child(sceneNode)
-	abilities.append(sceneNode)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr6s5byxt2scw"]
+[gd_scene load_steps=7 format=3 uid="uid://cr6s5byxt2scw"]
 
 [ext_resource type="Script" path="res://Menu/AbilityMenu/continuebutton.gd" id="1_t5dh8"]
 [ext_resource type="PackedScene" uid="uid://88wly8yitfpw" path="res://Menu/AbilityMenu/ability.tscn" id="2_ij4yn"]
 [ext_resource type="Script" path="res://Menu/AbilityMenu/baseabilities.gd" id="2_il4ne"]
 [ext_resource type="PackedScene" uid="uid://50kq10yt60c5" path="res://Menu/AbilityMenu/draggable.tscn" id="2_r114o"]
 [ext_resource type="Script" path="res://Menu/AbilityMenu/secondaryabilities.gd" id="4_m0313"]
+[ext_resource type="Script" path="res://Menu/AbilityMenu/reset.gd" id="6_pt3ss"]
 
 [node name="AbilityMenu" type="Control"]
 layout_mode = 3
@@ -113,7 +114,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Continue" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 1
 anchors_preset = 3
@@ -126,10 +127,29 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Button" type="Button" parent="PanelContainer"]
+[node name="Button" type="Button" parent="Continue"]
 layout_mode = 2
 text = "Continue"
 script = ExtResource("1_t5dh8")
+
+[node name="Reset" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -80.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="Reset"]
+layout_mode = 2
+text = "Reset"
+script = ExtResource("6_pt3ss")
 
 [editable path="AllAbilities/HBoxContainer/Draggable"]
 [editable path="AllAbilities/HBoxContainer/Draggable2"]

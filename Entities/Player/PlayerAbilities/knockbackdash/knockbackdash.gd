@@ -15,7 +15,7 @@ func _ready():
 	player = get_tree().get_nodes_in_group("player")[0] as EntityClass
 	playerStateMachine = player.get_node("StateMachine")
 	knockback_coll = player.get_node("Knockback")
-	knockback_anim = player.get_node("AnimationPlayer")
+	knockback_anim = player.get_node("AbilityAnimation")
 	old_speed = player.speed
 
 func execute():

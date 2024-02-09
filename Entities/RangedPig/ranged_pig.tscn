@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://teg45so6mfhk"]
+[gd_scene load_steps=33 format=3 uid="uid://teg45so6mfhk"]
 
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="1_exqk7"]
 [ext_resource type="Script" path="res://Entities/RangedPig/ranged_pig.gd" id="1_n3kpm"]
@@ -15,7 +15,7 @@ size = Vector3(1.7, 1.5, 1.5)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_700en"]
 height = 0.001
-radius = 10.0
+radius = 13.0
 
 [sub_resource type="Animation" id="Animation_ltxtd"]
 length = 0.001
@@ -143,8 +143,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_hmec3"]
 resource_name = "stunned"
-length = 0.01
-loop_mode = 1
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -172,10 +171,10 @@ _data = {
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b4rvd"]
 animation = &"pursue"
 
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_7vshe"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fgjci"]
 animation = &"idle"
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_34iuf"]
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gtehn"]
 
@@ -199,16 +198,14 @@ animation = &"get_hit"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ly6f4"]
 animation = &"stunned"
 
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_sx6yb"]
-
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_efsga"]
-graph_offset = Vector2(83.8309, 91.0854)
+graph_offset = Vector2(-431.318, -179.952)
 "nodes/ Pursue/node" = SubResource("AnimationNodeAnimation_b4rvd")
 "nodes/ Pursue/position" = Vector2(-200, 200)
+nodes/Blend3/node = SubResource("AnimationNodeBlend3_7vshe")
+nodes/Blend3/position = Vector2(140, 80)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_fgjci")
 nodes/Idle/position = Vector2(-200, 20)
-nodes/Idle_Pursue/node = SubResource("AnimationNodeBlend2_34iuf")
-nodes/Idle_Pursue/position = Vector2(120, 80)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_6r8bs")
 nodes/TimeScale/position = Vector2(-60, 20)
 "nodes/TimeScale 2/node" = SubResource("AnimationNodeTimeScale_gtehn")
@@ -225,12 +222,10 @@ nodes/get_hit/node = SubResource("AnimationNodeAnimation_3e0a2")
 nodes/get_hit/position = Vector2(320, 320)
 nodes/get_hit_oneshot/node = SubResource("AnimationNodeOneShot_7tte2")
 nodes/get_hit_oneshot/position = Vector2(480, 80)
-nodes/output/position = Vector2(1060, 180)
+nodes/output/position = Vector2(880, 180)
 nodes/stunned/node = SubResource("AnimationNodeAnimation_ly6f4")
-nodes/stunned/position = Vector2(680, 320)
-nodes/stunned_oneshot/node = SubResource("AnimationNodeOneShot_sx6yb")
-nodes/stunned_oneshot/position = Vector2(840, 80)
-node_connections = [&"Idle_Pursue", 0, &"TimeScale", &"Idle_Pursue", 1, &"TimeScale 2", &"TimeScale", 0, &"Idle", &"TimeScale 2", 0, &" Pursue", &"attack_oneshot", 0, &"Idle_Pursue", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"get_hit_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"attack_oneshot", &"get_hit_oneshot", 1, &"get_hit", &"output", 0, &"stunned_oneshot", &"stunned_oneshot", 0, &"death_oneshot", &"stunned_oneshot", 1, &"stunned"]
+nodes/stunned/position = Vector2(-40, -120)
+node_connections = [&"Blend3", 0, &"stunned", &"Blend3", 1, &"TimeScale", &"Blend3", 2, &"TimeScale 2", &"TimeScale", 0, &"Idle", &"TimeScale 2", 0, &" Pursue", &"attack_oneshot", 0, &"Blend3", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"get_hit_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"attack_oneshot", &"get_hit_oneshot", 1, &"get_hit", &"output", 0, &"death_oneshot"]
 
 [node name="RangedEnemy" type="CharacterBody3D"]
 collision_layer = 2
@@ -298,7 +293,7 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeBlendTree_efsga")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Idle_Pursue/blend_amount = 0
+parameters/Blend3/blend_amount = -1.0
 parameters/TimeScale/scale = 0.6
 "parameters/TimeScale 2/scale" = 0.7
 parameters/attack_oneshot/active = false
@@ -310,6 +305,3 @@ parameters/death_oneshot/request = 0
 parameters/get_hit_oneshot/active = false
 parameters/get_hit_oneshot/internal_active = false
 parameters/get_hit_oneshot/request = 0
-parameters/stunned_oneshot/active = false
-parameters/stunned_oneshot/internal_active = false
-parameters/stunned_oneshot/request = 0

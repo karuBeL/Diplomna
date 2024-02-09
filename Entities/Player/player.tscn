@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=63 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player_controller.gd" id="1_vwvnn"]
 [ext_resource type="Texture2D" uid="uid://dt7veps6tsb1g" path="res://assets/character_sprite_test2.png" id="2_t42ne"]
@@ -39,10 +39,6 @@ region = Rect2(80, 48, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fofpq"]
 atlas = ExtResource("2_t42ne")
 region = Rect2(96, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yj802"]
-atlas = ExtResource("2_t42ne")
-region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5vaey"]
 atlas = ExtResource("2_t42ne")
@@ -191,11 +187,8 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fofpq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yj802")
 }],
-"loop": false,
+"loop": true,
 "name": &"get_hit",
 "speed": 8.0
 }, {
@@ -359,6 +352,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_bvcfo"]
 resource_name = "knockback"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -419,7 +413,7 @@ billboard = 1
 texture_filter = 0
 render_priority = 2
 sprite_frames = SubResource("SpriteFrames_neafe")
-animation = &"testAwayCamera"
+animation = &"get_hit"
 
 [node name="WeaponCollision" type="ShapeCast3D" parent="." node_paths=PackedStringArray("weapon")]
 shape = SubResource("BoxShape3D_feenn")
@@ -459,10 +453,11 @@ monitorable = false
 [node name="KnockbackCollision" type="CollisionShape3D" parent="Knockback"]
 shape = SubResource("SphereShape3D_30m38")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AbilityAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_bd20m")
 }
+speed_scale = 0.7
 
 [node name="KnockbackSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.203572, 8.89841e-09)
@@ -515,6 +510,7 @@ collision_layer = 4
 script = ExtResource("16_5woo0")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CameraPlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_t0ise")
 
 [node name="CameraPivot" type="Node3D" parent="CameraPlayer"]
