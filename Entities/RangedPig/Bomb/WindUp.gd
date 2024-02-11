@@ -8,4 +8,4 @@ func transition_to_explode():
 func enter(_msg := {}) -> void:
 	$"../../AnimationPlayer".play("wind_up")
 	timer.timeout.connect(transition_to_explode)
-	timer.start(1.3)
+	timer.start(0.8)

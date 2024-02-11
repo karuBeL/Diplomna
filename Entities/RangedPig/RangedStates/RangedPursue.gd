@@ -37,7 +37,6 @@ func physics_update(_delta: float) -> void:
 		enemy.nav_agent.velocity.y = 0
 	else:
 		$"../../AnimationTree".set("parameters/idle_pursue_stunned/blend_amount", 0)
-		enemy.velocity = Vector3.ZERO
 		state_machine.transition_to("Attack")
 	
 	if target_position.x > -0.7 && target_position.z < 0.7:
