@@ -16,15 +16,18 @@ func hitPlayer():
 		if collided_object == player:
 			collided_object.apply_damage(15)
 
+func startAfterTimer():
+	after_timer.start(0.2)
+
+
 func enter(_msg := {}):
 	if !after_timer.is_connected("timeout", transition):
 		after_timer.timeout.connect(transition)
 	if !attack_timer.is_stopped():
 		state_machine.transition_to("Pursue")
 		return
-	attack_timer.start(1)
-	after_timer.start(0.2)
-	enemy.velocity = Vector3.ZERO
+	attack_timer.start(1.5)
+	after_timer.paused = false
 	anim_tree.set("parameters/attack_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	
 func transition():

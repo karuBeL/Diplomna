@@ -11,7 +11,11 @@ func hitPlayer():
 	bomb.set_player_area_monitoring(true)
 	add_child(bomb)
 	bomb.global_position = enemy.global_position
-	
+
+func startAfterTimer():
+	after_timer.start(0.5)
+
+
 func enter(_msg := {}):
 	if !after_timer.is_connected("timeout", transition):
 		after_timer.timeout.connect(transition)
@@ -19,8 +23,7 @@ func enter(_msg := {}):
 		state_machine.transition_to("Pursue")
 		return
 	attack_timer.start(2)
-	after_timer.start(0.5)
-	enemy.velocity = Vector3.ZERO
+	after_timer.paused = false
 	$"../../AnimationTree".set("parameters/attack_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	
 func transition():

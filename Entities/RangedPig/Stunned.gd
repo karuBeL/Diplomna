@@ -1,22 +1,22 @@
 extends Enemy
 
 @onready var timer : Timer = $"../../StunTimer"
+@onready var after_timer : Timer = $"../../AfterAttackTimer" as Timer
 var is_knockback : bool
 var player_pos : Vector3
 var enemy_pos : Vector3
 
 
 func enter(msg := {}) -> void:
-	print("bruh")
 	if !timer.timeout.is_connected(transition):
 		timer.timeout.connect(transition)
+	after_timer.paused = true
 	var stun_secs = msg.get("time")
 	is_knockback = msg.get("knockback")
-	timer.wait_time = stun_secs
 	player_pos = player.global_position
 	enemy_pos = enemy.global_position
 	enemy.velocity = Vector3.ZERO
-	timer.start(0.5)
+	timer.start(stun_secs)
 	$"../../AnimationTree".set("parameters/idle_pursue_stunned/blend_amount", -1)
 	if is_knockback == true:
 		knockback()
@@ -30,7 +30,6 @@ func knockback():
 	enemy.nav_agent.avoidance_enabled = false
 	enemy.velocity = knockback_direction * (10 / distance) * Vector3(1, 0, 1)
 	enemy.move_and_slide()
-	print(distance)
 	
 func transition():
 	if is_knockback:

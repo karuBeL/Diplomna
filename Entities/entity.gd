@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name EntityClass
 
-var max_health : int = 100
+var max_health : int = 1000
 var current_health : int = 100
 var speed : int = 5
 var abilities = []

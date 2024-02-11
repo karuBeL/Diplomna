@@ -59,11 +59,14 @@ tracks/1/path = NodePath("StateMachine/Attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.207338),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.207338, 0.45),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"hitPlayer"
+}, {
+"args": [],
+"method": &"startAfterTimer"
 }]
 }
 
@@ -205,7 +208,7 @@ animation = &"pursue"
 animation = &"stunned"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
-graph_offset = Vector2(221.314, 183.081)
+graph_offset = Vector2(-219.502, -2.26503)
 nodes/attack/node = SubResource("AnimationNodeAnimation_5q4r5")
 nodes/attack/position = Vector2(780, 500)
 nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_oa12i")
