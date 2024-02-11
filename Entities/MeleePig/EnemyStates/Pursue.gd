@@ -1,7 +1,9 @@
 extends Enemy
 
-@onready var nav_set_timer : Timer = $"../../Timer"
-
+@onready var nav_set_timer : Timer = $"../../NavTimer" as Timer
+@onready var anim_tree : AnimationTree = $"../../AnimationTree" as AnimationTree
+@onready var sprite : Sprite3D = $"../../Sprite3D" as Sprite3D
+var default_speed
 
 func set_safe_velocity(safe_velocity):
 	enemy.velocity = safe_velocity
@@ -21,6 +23,7 @@ func enter(_msg := {}) -> void:
 	enemy.nav_agent.velocity_computed.is_connected(set_safe_velocity)):
 		nav_set_timer.timeout.connect(nav_timer)
 		enemy.nav_agent.velocity_computed.connect(set_safe_velocity)
+		default_speed = enemy.speed 
 	nav_set_timer.start()
 
 func exit():
@@ -31,19 +34,21 @@ func physics_update(_delta: float) -> void:
 	var distance_to_player = enemy.global_position.distance_to(player.global_position)
 	var next_position = enemy.nav_agent.get_next_path_position()
 	
-	if distance_to_player > 2 || enemy.speed == 0:
-		$"../../AnimationTree".set("parameters/idle_pursue_stunned/blend_amount", 1)
+	if distance_to_player > 2:
+		anim_tree.set("parameters/idle_pursue_stunned/blend_amount", 1)
 		enemy.nav_agent.velocity = (next_position - enemy.global_position).normalized() * enemy.speed
 		enemy.nav_agent.velocity.y = 0
+		enemy.speed = default_speed
 	else:
-		enemy.velocity = Vector3.ZERO
-		state_machine.transition_to("Idle", {"attack" : true})
+		enemy.speed = 0
+		anim_tree.set("parameters/idle_pursue_stunned/blend_amount", 0)
+		state_machine.transition_to("Attack")
 	
 	
 	if target_position.x > -0.7 && target_position.z < 0.7:
-		$"../../Sprite3D".set("flip_h", true)
+		sprite.set("flip_h", true)
 	else:
-		$"../../Sprite3D".set("flip_h", false)
+		sprite.set("flip_h", false)
 		
 	if distance_to_player <= 3:
 		enemy.nav_agent.avoidance_enabled = false

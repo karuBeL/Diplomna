@@ -16,7 +16,7 @@ func dash_end():
 func get_mouse_position():
 	var camera = get_tree().root.get_camera_3d()
 	var mouse_pos = get_viewport().get_mouse_position()
-	var ray_length = 100
+	var ray_length = 50
 	var from = camera.project_ray_origin(mouse_pos)
 	var to = from + camera.project_ray_normal(mouse_pos) * ray_length
 	var space = camera.get_world_3d().direct_space_state

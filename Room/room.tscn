@@ -207,5 +207,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12)
 environment = SubResource("Environment_sbqf2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="NavigationRegion3D/Dungeon/WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, -0.772734, 0.63473, 0, -0.63473, -0.772734, 0, 0, 0)
+transform = Transform3D(0.785997, -0.477727, 0.392409, -0.61823, -0.607367, 0.498896, 0, -0.63473, -0.772734, 0, 0, 0)
 shadow_enabled = true

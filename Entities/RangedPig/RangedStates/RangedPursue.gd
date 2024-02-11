@@ -1,7 +1,7 @@
 extends Enemy
 
 @onready var nav_agent : NavigationAgent3D = $"../../NavigationAgent3D"
-@onready var nav_set_timer : Timer = $"../../Timer"
+@onready var nav_set_timer : Timer = $"../../NavTimer"
 
 func set_safe_velocity(safe_velocity):
 	enemy.velocity = safe_velocity
@@ -32,12 +32,13 @@ func physics_update(_delta: float) -> void:
 	var next_position = nav_agent.get_next_path_position()
 	
 	if distance_to_player > 10:
-		$"../../AnimationTree".set("parameters/Idle_Pursue/blend_amount", 1)
+		$"../../AnimationTree".set("parameters/idle_pursue_stunned/blend_amount", 1)
 		enemy.nav_agent.velocity = (next_position - enemy.global_position).normalized() * enemy.speed 
 		enemy.nav_agent.velocity.y = 0
 	else:
+		$"../../AnimationTree".set("parameters/idle_pursue_stunned/blend_amount", 0)
 		enemy.velocity = Vector3.ZERO
-		state_machine.transition_to("Idle", {"attack" : true})
+		state_machine.transition_to("Attack")
 	
 	if target_position.x > -0.7 && target_position.z < 0.7:
 		$"../../Sprite3D".set("flip_h", true)

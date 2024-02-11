@@ -1,6 +1,7 @@
 extends Enemy
 
 @onready var pursue_range : Area3D = $"../../PursueRange"
+@onready var anim_tree : AnimationTree = $"../../AnimationTree"
 
 func inRange(body):
 	if body != player:
@@ -9,9 +10,7 @@ func inRange(body):
 	state_machine.transition_to("Pursue")
 
 func enter(msg := {}) -> void:
-	$"../../AnimationTree".set("parameters/idle_pursue_stunned/blend_amount", 0)
-	if msg.has("attack"):
-		state_machine.transition_to("Attack")
-	elif !pursue_range.body_entered.is_connected(inRange):
+	anim_tree.set("parameters/idle_pursue_stunned/blend_amount", 0)
+	if !pursue_range.body_entered.is_connected(inRange):
 		pursue_range.body_entered.connect(inRange)
 

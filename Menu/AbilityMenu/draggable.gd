@@ -1,11 +1,13 @@
-extends ColorRect
+extends Control
 
-var label : Label
+var ability_name : Label
 
 func _ready():
 	add_to_group("draggable")
-	label = $Label
+	ability_name = $Label
 
 func _get_drag_data(_at_position):
-	return {"self": self, "text": label.text}
+	return {"self": self, "text": ability_name.text}
+
+
 

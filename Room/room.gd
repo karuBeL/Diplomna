@@ -3,7 +3,8 @@ class_name RoomClass
 
 var initial_spawn : SpawnClass
 var spawns : Array
-var doors : Array
+var door_pairs : Dictionary
+var exit_doors : Dictionary
 var set_spawns : Array
 var exit_door : DoorClass
 var entrance_door : DoorClass
@@ -27,7 +28,8 @@ func set_room():
 	var door2 = $NavigationRegion3D/Dungeon/Door2
 	var door3 = $NavigationRegion3D/Dungeon/Door3
 	var door4 = $NavigationRegion3D/Dungeon/Door4
-	doors = [door1, door2, door3, door4]
+	door_pairs = {"door1" : door2, "door2" : door1, "door3" : door4, "door4" : door3}
+	exit_doors = {"door1" : door1, "door2" : door2, "door3" : door3, "door4" : door4}
 	spawns = [spawn1, spawn2, spawn3, spawn4, spawn5, spawn6, spawn7, spawn8]
 	set_spawns = []
 	door1.set_door()
@@ -48,13 +50,16 @@ func set_initial_spawn():
 	initial_spawn = $NavigationRegion3D/Dungeon/PlayerSpawn as SpawnClass
 	initial_spawn.is_player = true
 
-func set_entrance_door(door_number):
-	entrance_door = doors.pop_at(door_number) as DoorClass
+func set_entrance_door(exit_door_key):
+	entrance_door = door_pairs.get(exit_door_key)
+	exit_doors.erase(exit_door_key)
 	entrance_door.set_player_spawn()
+	
 
-func set_exit_door(door_number):
-	exit_door = doors[door_number] as DoorClass
+func set_exit_door(door_index):
+	exit_door = exit_doors.values()[door_index]
 	exit_door.area.body_entered.connect(transition)
+	return exit_doors.find_key(exit_door)
 
 func transition(_body):
 	get_parent().switch_room()

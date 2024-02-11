@@ -44,11 +44,13 @@ func enter(_msg := {}) -> void:
 	direction_to_target = player.global_position.direction_to(target_position).normalized()
 	if !dash_timer.timeout.is_connected(dash_end):
 		dash_timer.timeout.connect(dash_end)
-	dash_timer.start()	
+		collision.body_entered.connect(slash_enemies)
+	collision.monitoring = true
+	dash_timer.start()
 
 func slash_enemies(body : EntityClass):
 	if !already_attacked.has(body):
-		body.apply_damage(15)
+		body.apply_damage(100)
 		already_attacked[body] = null
 		
 func physics_update(_delta: float) -> void:

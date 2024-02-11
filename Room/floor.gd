@@ -4,6 +4,7 @@ var enemy_count
 
 func _ready():
 	body_exited.connect(check_room_status)
+	check_room_status(1)
 
 	
 func check_room_status(_body):

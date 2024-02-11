@@ -205,7 +205,7 @@ animation = &"pursue"
 animation = &"stunned"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
-graph_offset = Vector2(-72.7211, -35.709)
+graph_offset = Vector2(221.314, 183.081)
 nodes/attack/node = SubResource("AnimationNodeAnimation_5q4r5")
 nodes/attack/position = Vector2(780, 500)
 nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_oa12i")
@@ -237,10 +237,20 @@ node_connections = [&"attack_oneshot", 0, &"get_hit_oneshot", &"attack_oneshot",
 collision_layer = 2
 script = ExtResource("1_w0lma")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="GetHitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NavTimer" type="Timer" parent="."]
 process_callback = 0
+one_shot = true
 
 [node name="StunTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AfterAttackTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

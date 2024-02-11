@@ -1,6 +1,6 @@
 extends Enemy
 
-@onready var timer : Timer = $"../../Timer"
+@onready var timer : Timer = $"../../GetHitTimer"
 
 func enter(_msg := {}) -> void:
 	if !timer.timeout.is_connected(transition):
