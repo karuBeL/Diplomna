@@ -33,19 +33,18 @@ func _ready():
 	room_nodes.append(new_room)
 	
 	#TODO: Make a method to get random exit index
-	var exit_index = randi_range(0, 3)
-	var previous_door = room_nodes[0].set_exit_door(exit_index)
-	
-	room_nodes[0].pair_room = room_nodes[1]
+
+	var exit_index = randi_range(0, 3) #Random door out of 4 options
+	var previous_exit_door = room_nodes[0].set_exit_door(exit_index) #Saving previous rooms exit door
+	room_nodes[0].pair_room = room_nodes[1] #Starting room exit door
 
 	var curr_index = 1
 	while(curr_index + 1 != room_nodes.size()):
-		print(previous_door)
 		var curr_room = room_nodes[curr_index] as RoomClass
 		var next_room = room_nodes[curr_index + 1] as RoomClass
-		curr_room.set_entrance_door(previous_door)
-		exit_index = randi_range(0, 2)
-		previous_door = curr_room.set_exit_door(exit_index)
+		curr_room.set_entrance_door(previous_exit_door)
+		exit_index = randi_range(0, 2) #Random door out of the 3 remaining doors that are not the entrance
+		previous_exit_door = curr_room.set_exit_door(exit_index) 
 		curr_room.pair_room = next_room
 		curr_index += 1
 	

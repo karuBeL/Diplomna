@@ -51,11 +51,10 @@ func set_initial_spawn():
 	initial_spawn.is_player = true
 
 func set_entrance_door(exit_door_key):
-	entrance_door = door_pairs.get(exit_door_key)
-	exit_doors.erase(exit_door_key)
-	entrance_door.set_player_spawn()
+	entrance_door = door_pairs.get(exit_door_key) as Node3D
+	exit_doors.erase(entrance_door.name.to_lower())
+	entrance_door.set_player_spawn() 
 	
-
 func set_exit_door(door_index):
 	exit_door = exit_doors.values()[door_index]
 	exit_door.area.body_entered.connect(transition)
@@ -67,7 +66,7 @@ func transition(_body):
 func set_clear():
 	exit_door.set_open()
 
-func set_enemy_spawn(enemy_scene):
+func set_enemy_spawn(enemy_scene : PackedScene):
 	var index = randi_range(0, spawns.size() - 1)
 	var random_spawn = spawns[index]
 	
@@ -82,7 +81,6 @@ func set_easy():
 	for i in range(1):
 		set_enemy_spawn(load("res://Entities/RangedPig/ranged_pig.tscn"))
 		
-	
 func set_medium():
 	for i in range(3):
 		set_enemy_spawn(load("res://Entities/MeleePig/melee_pig.tscn"))

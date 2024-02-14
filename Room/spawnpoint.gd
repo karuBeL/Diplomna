@@ -18,3 +18,4 @@ func spawn_entity():
 	
 	add_child(spawned_entity)
 	spawned_entity.global_position = global_position
+

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Room/room.gd" id="1_q0l7e"]
 [ext_resource type="PackedScene" uid="uid://cg22iial4ayrs" path="res://Room/spawnpoint.tscn" id="1_yshp5"]
 [ext_resource type="PackedScene" uid="uid://c0ee2wj18noxc" path="res://assets/Map/nodoors.gltf" id="2_bj77j"]
-[ext_resource type="Script" path="res://Room/floor.gd" id="3_4qu4k"]
+[ext_resource type="Script" path="res://Room/enemy_checker.gd" id="3_4qu4k"]
 [ext_resource type="Script" path="res://Room/door.gd" id="3_h52jm"]
 [ext_resource type="PackedScene" uid="uid://cxhiw5um4n6up" path="res://assets/Map/opendoor1.gltf" id="6_34uko"]
 [ext_resource type="PackedScene" uid="uid://dy3322c7r04cu" path="res://assets/Map/door4.gltf" id="7_56qnr"]
@@ -91,6 +91,9 @@ shape = SubResource("BoxShape3D_hh52j")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 0
 collision_mask = 2
+input_ray_pickable = false
+monitorable = false
+priority = 1
 script = ExtResource("3_4qu4k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Dungeon/EnemyCounter"]
