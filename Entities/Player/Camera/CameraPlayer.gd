@@ -3,7 +3,6 @@ extends CharacterBody3D
 @onready var player = $".."
 
 const Kp = 5 #proportional gain
-
 func _physics_process(_delta):
 	#To get a gradual camera movement towards the player, we use a proportional control algorithm (proportional-integral-derivative method)
 	var distance = global_position.distance_to(Vector3(player.global_position.x, 0, player.global_position.z))

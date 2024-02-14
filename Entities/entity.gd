@@ -1,7 +1,6 @@
 extends CharacterBody3D
 class_name EntityClass
 
-var max_health : int = 1000
 var current_health : int = 100
 var speed : int = 5
 var abilities = []
@@ -11,7 +10,6 @@ func apply_damage(damage_amount):
 	if current_health - damage_amount > 0:
 		current_health -= damage_amount
 		state_machine.transition_to("GetHit")
-		print("bruh")
 	if current_health - damage_amount <= 0:
 		die()
 

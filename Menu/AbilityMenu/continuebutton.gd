@@ -29,7 +29,7 @@ func continue_pressed():
 	b_abilities[1] + s_abilities[1], b_abilities[2] + s_abilities[2]]
 	
 	
-	get_node("/root/Config").set_abilities(abilities)
+	get_node("/root/PlayerAbilities").set_abilities(abilities)
 	
 	get_tree().change_scene_to_file("res://World/level.tscn")
 

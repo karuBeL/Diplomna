@@ -1,14 +1,14 @@
 extends PlayerState
 
 const dict_anim = {
-	"0" : "testTowardsCamera",
-	"1" : "testBottomLeft",
-	"2" : "testLeftCamera",
-	"3" : "testTopLeft",
-	"4" : "testAwayCamera",
-	"-3" : "testTopRight",
-	"-2" : "testRightCamera",
-	"-1" : "testBottomRight"
+	"0" : "backward",
+	"1" : "bottom_left",
+	"2" : "left",
+	"3" : "top_left",
+	"4" : "forward",
+	"-3" : "top_right",
+	"-2" : "right",
+	"-1" : "bottom_right"
 }
 
 var anim
@@ -19,14 +19,15 @@ func enter(_msg := {}) -> void:
 	
 	
 func physics_update(_delta: float) -> void:
-	var movement_dir = Input.get_vector("move_forwards", "move_backwards", "move_right", "move_left")
-	var direction = (player.transform.basis * Vector3(movement_dir.x, 0, movement_dir.y)).normalized()
 	if Input.is_action_just_pressed("ability_1"):
 		state_machine.transition_to("executeAbility", {"index" : 0})
 	elif Input.is_action_just_pressed("ability_2"):
 		state_machine.transition_to("executeAbility", {"index" : 1})
 	elif Input.is_action_just_pressed("ability_3"):
 		state_machine.transition_to("executeAbility", {"index" : 2})
+
+	var movement_dir = Input.get_vector("move_forwards", "move_backwards", "move_right", "move_left")
+	var direction = (player.transform.basis * Vector3(movement_dir.x, 0, movement_dir.y)).normalized()
 	direction = direction.rotated(Vector3.UP, -PI/4)
 	if movement_dir == Vector2.ZERO:
 		$"../../AnimatedSprite3D".stop()

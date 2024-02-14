@@ -1,7 +1,7 @@
 extends Node3D
 class_name RoomClass
 
-var initial_spawn : SpawnClass
+var initial_player_spawn
 var spawns : Array
 var door_pairs : Dictionary
 var exit_doors : Dictionary
@@ -10,6 +10,12 @@ var exit_door : DoorClass
 var entrance_door : DoorClass
 var pair_room : RoomClass
 var collision : Area3D
+var melee_hard_diff = 5
+var melee_medium_diff = 3
+var melee_easy_diff = 2
+var ranged_hard_diff = 3
+var ranged_medium_diff = 2
+var ranged_easy_diff = 1
 
 
 func _ready():
@@ -38,23 +44,21 @@ func set_room():
 	door4.set_door()
 
 func enter_room():
-	if initial_spawn != null:
-		initial_spawn.spawn_entity()
-		$".".set_clear()
+	if initial_player_spawn != null:
+		initial_player_spawn.teleport_player()
+		set_clear()
 		return
-	entrance_door.player_spawn.spawn_entity()
+	entrance_door.spawn_player()
 	for s in set_spawns:
-		s.spawn_entity()
+		s.spawn_enemy()
 
-func set_initial_spawn():
-	initial_spawn = $NavigationRegion3D/Dungeon/PlayerSpawn as SpawnClass
-	initial_spawn.is_player = true
+func set_initial_player_spawn():
+	initial_player_spawn = $NavigationRegion3D/Dungeon/PlayerSpawn as SpawnClass
 
 func set_entrance_door(exit_door_key):
 	entrance_door = door_pairs.get(exit_door_key) as Node3D
 	exit_doors.erase(entrance_door.name.to_lower())
-	entrance_door.set_player_spawn() 
-	
+
 func set_exit_door(door_index):
 	exit_door = exit_doors.values()[door_index]
 	exit_door.area.body_entered.connect(transition)
@@ -69,27 +73,25 @@ func set_clear():
 func set_enemy_spawn(enemy_scene : PackedScene):
 	var index = randi_range(0, spawns.size() - 1)
 	var random_spawn = spawns[index]
-	
 	set_spawns.append(spawns.pop_at(index))
 	random_spawn.entity = enemy_scene
-
 	return random_spawn
 
 func set_easy():
-	for i in range(2):
+	for i in range(melee_easy_diff):
 		set_enemy_spawn(load("res://Entities/MeleePig/melee_pig.tscn"))
-	for i in range(1):
+	for i in range(ranged_easy_diff):
 		set_enemy_spawn(load("res://Entities/RangedPig/ranged_pig.tscn"))
 		
 func set_medium():
-	for i in range(3):
+	for i in range(melee_medium_diff):
 		set_enemy_spawn(load("res://Entities/MeleePig/melee_pig.tscn"))
-	for i in range(2):
+	for i in range(ranged_medium_diff):
 		set_enemy_spawn(load("res://Entities/RangedPig/ranged_pig.tscn"))
 		
 func set_hard():
-	for i in range(5):
+	for i in range(melee_hard_diff):
 		set_enemy_spawn(load("res://Entities/MeleePig/melee_pig.tscn"))
-	for i in range(3):
+	for i in range(ranged_hard_diff):
 		set_enemy_spawn(load("res://Entities/RangedPig/ranged_pig.tscn"))
 		

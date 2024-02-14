@@ -10,7 +10,7 @@ func _ready():
 	room_scene = load("res://Room/room.tscn")
 	starting_room = room_scene.instantiate() as RoomClass
 	starting_room.set_room()
-	starting_room.set_initial_spawn()
+	starting_room.set_initial_player_spawn()
 	room_nodes.append(starting_room)
 	
 	var new_room
