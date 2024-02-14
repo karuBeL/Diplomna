@@ -9,7 +9,7 @@ func enter(_msg := {}) -> void:
 	pass
 	
 func update(_delta: float) -> void:
-	var movement_dir = Input.get_vector("move_forwards", "move_backwards", "move_right", "move_left")
+	var movement_dir = Input.get_vector("move_forward", "move_backward", "move_right", "move_left")
 	if Input.is_action_just_pressed("ability_1"):
 		state_machine.transition_to("executeAbility", {"index" : 0})
 	elif Input.is_action_just_pressed("ability_2"):

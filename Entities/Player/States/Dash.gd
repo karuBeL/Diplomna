@@ -1,6 +1,6 @@
 extends PlayerState
 
-@onready var dash_timer : Timer = $"../../Timer"
+@onready var dash_timer : Timer = $"../../DashTimer"
 var speed_value = 40
 var target_position
 var direction

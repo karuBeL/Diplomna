@@ -21,9 +21,6 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_pb3c2"]
 size = Vector3(1, 1.5, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_7lv4t"]
-radius = 1.5
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anw6g"]
 render_priority = 1
 shader = ExtResource("2_eqgjo")
@@ -323,6 +320,9 @@ size = Vector3(4.3, 0.1, 2.3)
 [sub_resource type="SphereShape3D" id="SphereShape3D_30m38"]
 radius = 4.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_7lv4t"]
+radius = 1.5
+
 [sub_resource type="Animation" id="Animation_ka8dl"]
 length = 0.001
 tracks/0/type = "value"
@@ -381,7 +381,7 @@ script = ExtResource("1_ikmme")
 
 [node name="GetHitTimer" type="Timer" parent="."]
 
-[node name="Timer" type="Timer" parent="."]
+[node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
 
@@ -389,23 +389,13 @@ one_shot = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_pb3c2")
 
-[node name="DashSlashColl" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 2
-input_ray_pickable = false
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DashSlashColl"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.942541, 0)
-shape = SubResource("SphereShape3D_7lv4t")
-
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004, 0.8, -0.001)
 material_override = SubResource("ShaderMaterial_anw6g")
 cast_shadow = 0
 pixel_size = 0.1
 billboard = 1
+alpha_cut = 3
 texture_filter = 0
 render_priority = 2
 sprite_frames = SubResource("SpriteFrames_xd6d7")
@@ -423,20 +413,22 @@ weapon = NodePath("../Weapon")
 transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.718, 0)
 
 [node name="AbilitySpawn" type="Node3D" parent="Weapon"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -1.20067, -0.718, -1.33457)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20067, 0.416146, -1.33457)
+top_level = true
 
-[node name="swordidk" parent="Weapon" instance=ExtResource("14_7nig0")]
-transform = Transform3D(0.707107, -0.707107, 3.09086e-08, 0, -4.37114e-08, -1, 0.707107, 0.707107, -3.09086e-08, -0.777665, -0.266863, -1.03784)
+[node name="Sword" parent="Weapon" instance=ExtResource("14_7nig0")]
+transform = Transform3D(0.707107, -0.707107, 3.09086e-08, 0, -4.37114e-08, -1, 0.707107, 0.707107, -3.09086e-08, -0.825771, -0.249812, -1.07813)
 
 [node name="Hand" type="Node3D" parent="Weapon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.162832, 0, -0.413692)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.238615, -0.0100917, -0.529465)
 
 [node name="Sprite3D" type="Sprite3D" parent="Weapon/Hand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0934725, -0.250956, 0.0730022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0934726, -0.0938327, 0.0730022)
 pixel_size = 0.05
 billboard = 1
+alpha_cut = 2
 texture_filter = 0
-render_priority = 2
+render_priority = 1
 texture = ExtResource("2_t42ne")
 region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
@@ -449,12 +441,6 @@ monitorable = false
 [node name="KnockbackCollision" type="CollisionShape3D" parent="Knockback"]
 shape = SubResource("SphereShape3D_30m38")
 
-[node name="AbilityAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_bd20m")
-}
-speed_scale = 0.7
-
 [node name="KnockbackSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.203572, 8.89841e-09)
 visible = false
@@ -464,6 +450,23 @@ texture = ExtResource("5_88mda")
 hframes = 6
 vframes = 4
 frame = 18
+
+[node name="DashSlashColl" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+input_ray_pickable = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DashSlashColl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.942541, 0)
+shape = SubResource("SphereShape3D_7lv4t")
+
+[node name="AbilityAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bd20m")
+}
+speed_scale = 0.7
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("6_tcnnh")

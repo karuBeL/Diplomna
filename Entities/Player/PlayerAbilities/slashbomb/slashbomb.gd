@@ -18,7 +18,7 @@ func _ready():
 	collision = player.get_node("WeaponCollision")
 	weapon = player.get_node("Weapon")
 	playerStateMachine = player.get_node("StateMachine")
-	sword_model = player.get_node("Weapon/swordidk")
+	sword_model = player.get_node("Weapon/Sword")
 
 	
 func explode():

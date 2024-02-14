@@ -1,6 +1,6 @@
 extends PlayerState
 
-@onready var dash_timer : Timer = $"../../Timer"
+@onready var dash_timer : Timer = $"../../DashTimer"
 @onready var collision : Area3D = $"../../DashSlashColl"
 
 var speed_value = 40

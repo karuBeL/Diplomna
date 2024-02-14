@@ -1,6 +1,6 @@
 extends PlayerState
 
-@onready var dash_timer : Timer = $"../../Timer"
+@onready var dash_timer : Timer = $"../../DashTimer"
 var target_position
 var speed_value = 35
 var from_position = Vector3.ZERO
