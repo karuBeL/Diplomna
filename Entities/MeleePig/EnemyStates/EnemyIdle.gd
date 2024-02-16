@@ -9,7 +9,7 @@ func inRange(body):
 	print("inRange")
 	state_machine.transition_to("Pursue")
 
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	anim_tree.set("parameters/idle_pursue_stunned/blend_amount", 0)
 	if !pursue_range.body_entered.is_connected(inRange):
 		pursue_range.body_entered.connect(inRange)

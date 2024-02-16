@@ -51,8 +51,11 @@ func _ready():
 	add_child(room_nodes[room_index])
 	room_index += 1
 
-
 func switch_room():
 	room_nodes[room_index - 1].queue_free()
 	add_child(room_nodes[room_index])
 	room_index += 1
+
+func _physics_process(_delta):
+	if Input.is_action_just_pressed("exit"):
+		get_tree().quit()

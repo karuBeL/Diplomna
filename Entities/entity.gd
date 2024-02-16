@@ -3,7 +3,6 @@ class_name EntityClass
 
 var current_health : int = 100
 var speed : int = 5
-var abilities = []
 
 @onready var state_machine = get_node("StateMachine")
 func apply_damage(damage_amount):

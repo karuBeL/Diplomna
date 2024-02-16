@@ -28,7 +28,6 @@ func get_mouse_position():
 	var raycast_result = space.intersect_ray(ray_query)
 	target_position = raycast_result['position']
 	target_position.y = 0
-	print(target_position)
 	
 
 func execute():

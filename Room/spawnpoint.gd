@@ -16,3 +16,4 @@ func spawn_enemy():
 
 func teleport_player():
 	player.global_position = global_position
+

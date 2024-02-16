@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=60 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player.gd" id="1_ikmme"]
 [ext_resource type="Shader" path="res://Entities/Player/get_hit.gdshader" id="2_eqgjo"]
@@ -15,11 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dbgj3s33t2y3o" path="res://assets/swordidk.glb" id="14_7nig0"]
 [ext_resource type="Script" path="res://Entities/Player/States/DashSlash.gd" id="14_fkwg3"]
 [ext_resource type="Script" path="res://Entities/Player/States/DashBomb.gd" id="15_ot7af"]
-[ext_resource type="Script" path="res://Entities/Player/Camera/CameraPlayer.gd" id="16_5woo0"]
-[ext_resource type="Script" path="res://Entities/Player/Camera/camera.gd" id="17_311kh"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_pb3c2"]
-size = Vector3(1, 1.5, 1)
+[ext_resource type="PackedScene" uid="uid://bm6xinwq74tsg" path="res://Entities/Player/Camera/camera_player.tscn" id="16_yjrqd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anw6g"]
 render_priority = 1
@@ -314,6 +310,9 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_pb3c2"]
+size = Vector3(1, 1.5, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_feenn"]
 size = Vector3(4.3, 0.1, 2.3)
 
@@ -372,9 +371,6 @@ _data = {
 "knockback": SubResource("Animation_bvcfo")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_t0ise"]
-size = Vector3(12, 0.1, 12)
-
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
 script = ExtResource("1_ikmme")
@@ -384,10 +380,6 @@ script = ExtResource("1_ikmme")
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_pb3c2")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004, 0.8, -0.001)
@@ -400,6 +392,11 @@ texture_filter = 0
 render_priority = 2
 sprite_frames = SubResource("SpriteFrames_xd6d7")
 animation = &"backward"
+frame_progress = 0.532204
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_pb3c2")
 
 [node name="WeaponCollision" type="ShapeCast3D" parent="." node_paths=PackedStringArray("weapon")]
 shape = SubResource("BoxShape3D_feenn")
@@ -412,18 +409,11 @@ weapon = NodePath("../Weapon")
 [node name="Weapon" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.718, 0)
 
-[node name="AbilitySpawn" type="Node3D" parent="Weapon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20067, 0.416146, -1.33457)
-top_level = true
-
 [node name="Sword" parent="Weapon" instance=ExtResource("14_7nig0")]
 transform = Transform3D(0.707107, -0.707107, 3.09086e-08, 0, -4.37114e-08, -1, 0.707107, 0.707107, -3.09086e-08, -0.825771, -0.249812, -1.07813)
 
-[node name="Hand" type="Node3D" parent="Weapon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.238615, -0.0100917, -0.529465)
-
-[node name="Sprite3D" type="Sprite3D" parent="Weapon/Hand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0934726, -0.0938327, 0.0730022)
+[node name="Hand" type="Sprite3D" parent="Weapon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42619, -0.110054, -0.552801)
 pixel_size = 0.05
 billboard = 1
 alpha_cut = 2
@@ -433,12 +423,12 @@ texture = ExtResource("2_t42ne")
 region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
 
-[node name="Knockback" type="Area3D" parent="."]
+[node name="KnockbackCollision" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
-[node name="KnockbackCollision" type="CollisionShape3D" parent="Knockback"]
+[node name="KnockbackShape" type="CollisionShape3D" parent="KnockbackCollision"]
 shape = SubResource("SphereShape3D_30m38")
 
 [node name="KnockbackSprite" type="Sprite3D" parent="."]
@@ -451,14 +441,14 @@ hframes = 6
 vframes = 4
 frame = 18
 
-[node name="DashSlashColl" type="Area3D" parent="."]
+[node name="DashSlashCollision" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 input_ray_pickable = false
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DashSlashColl"]
+[node name="DashSlashShape" type="CollisionShape3D" parent="DashSlashCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.942541, 0)
 shape = SubResource("SphereShape3D_7lv4t")
 
@@ -496,20 +486,4 @@ script = ExtResource("14_fkwg3")
 [node name="DashBomb" type="Node" parent="StateMachine"]
 script = ExtResource("15_ot7af")
 
-[node name="CameraPlayer" type="CharacterBody3D" parent="."]
-top_level = true
-collision_layer = 4
-script = ExtResource("16_5woo0")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CameraPlayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_t0ise")
-
-[node name="CameraPivot" type="Node3D" parent="CameraPlayer"]
-
-[node name="Camera3D" type="Camera3D" parent="CameraPlayer/CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.051, 27.539, 21.051)
-projection = 1
-current = true
-size = 20.0
-script = ExtResource("17_311kh")
+[node name="CameraPlayer" parent="." instance=ExtResource("16_yjrqd")]

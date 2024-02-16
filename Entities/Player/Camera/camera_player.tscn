@@ -4,18 +4,18 @@
 [ext_resource type="Script" path="res://Entities/Player/Camera/camera.gd" id="2_1vuli"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t0ise"]
-size = Vector3(12, 0.1, 12)
+size = Vector3(15, 0.1, 15)
 
 [node name="CameraPlayer" type="CharacterBody3D"]
+top_level = true
 collision_layer = 4
 script = ExtResource("1_le078")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="CameraCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.176261, 0)
 shape = SubResource("BoxShape3D_t0ise")
 
-[node name="CameraPivot" type="Node3D" parent="."]
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.051, 27.539, 21.051)
 projection = 1
 current = true

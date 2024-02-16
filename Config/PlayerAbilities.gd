@@ -7,3 +7,4 @@ func set_abilities(list):
 	
 func get_abilities():
 	return abilities
+

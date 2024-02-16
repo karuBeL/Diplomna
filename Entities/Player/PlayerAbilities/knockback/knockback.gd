@@ -9,7 +9,7 @@ var timer : Timer
 func _ready():
 	player = get_tree().get_nodes_in_group("player")[0]
 	playerStateMachine = player.get_node("StateMachine")
-	knockback_coll = player.get_node("Knockback")
+	knockback_coll = player.get_node("KnockbackCollision")
 	knockback_anim = player.get_node("AbilityAnimation")
 	timer = $Timer as Timer
 	
