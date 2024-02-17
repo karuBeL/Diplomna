@@ -9,13 +9,12 @@ func apply_damage(damage_amount):
 	if current_health - damage_amount > 0:
 		current_health -= damage_amount
 		state_machine.transition_to("GetHit")
-	if current_health - damage_amount <= 0:
-		die()
+	else:
+		state_machine.transition_to("Death")
 
 func apply_stun(stun_amount : float, is_knockbacked : bool):
 	var msg := {"time" : stun_amount, "knockback" : is_knockbacked}
 	state_machine.transition_to("Stunned", msg)
 
-func die():
-	state_machine.transition_to("Death")
+
 	

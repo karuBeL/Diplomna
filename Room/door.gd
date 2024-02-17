@@ -4,12 +4,14 @@ class_name DoorClass
 var closed_door : Node3D
 var open_door : Node3D
 var player_teleport_point : SpawnClass
+var camera_teleport_point : SpawnClass
 var area : Area3D
 
 func set_door():
 	closed_door = $door as Node3D
 	open_door = $opendoor as Node3D
 	player_teleport_point = $PlayerSpawn as SpawnClass
+	camera_teleport_point = $CameraSpawn as SpawnClass
 	area = $Area3D
 	set_closed()
 
@@ -25,4 +27,5 @@ func set_closed():
 
 func spawn_player():
 	player_teleport_point.teleport_player()
+	camera_teleport_point.spawn_camera()
 

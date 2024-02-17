@@ -3,7 +3,7 @@ var abilities = []
 
 func _ready():
 	add_to_group("player")
-	speed = 10
+	speed = 8
 	var ability_names = get_node("/root/PlayerAbilities").get_abilities()
 	load_ability(ability_names)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

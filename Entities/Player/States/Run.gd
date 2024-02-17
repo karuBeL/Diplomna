@@ -11,13 +11,7 @@ const dict_anim = {
 	"-1" : "bottom_right"
 }
 
-var anim
 
-func enter(_msg := {}) -> void:
-#	player.velocity = Vector3.ZERO
-	pass
-	
-	
 func physics_update(_delta: float) -> void:
 	if Input.is_action_just_pressed("ability_1"):
 		state_machine.transition_to("executeAbility", {"index" : 0})
@@ -27,18 +21,18 @@ func physics_update(_delta: float) -> void:
 		state_machine.transition_to("executeAbility", {"index" : 2})
 		
 	var movement_dir = Input.get_vector("move_forward", "move_backward", "move_right", "move_left")
-	var direction = (player.transform.basis * Vector3(movement_dir.x, 0, movement_dir.y)).normalized()
-	direction = direction.rotated(Vector3.UP, -PI/4)
+	var direction = Vector3(movement_dir.x, 0, movement_dir.y).normalized()
+	direction = direction.rotated(Vector3.UP, PI/4)
 	
 	if movement_dir == Vector2.ZERO:
 		$"../../AnimatedSprite3D".stop()
-		state_machine.transition_to("Idle", {"angle": anim})
+		state_machine.transition_to("Idle")
 	else:
 		var angle = movement_dir.angle()
 		var snapped_angle = snapped(angle, PI / 4)
 		var index = snapped_angle / (PI / 4)
-		anim = dict_anim.get(str(index))
-		$"../../AnimatedSprite3D".play(anim)
+		var animation = dict_anim.get(str(index))
+		$"../../AnimatedSprite3D".play(animation)
 		$"../../Weapon".rotation.y = -snapped_angle + PI
 	
 	if direction:

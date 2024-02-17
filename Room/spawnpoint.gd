@@ -17,3 +17,7 @@ func spawn_enemy():
 func teleport_player():
 	player.global_position = global_position
 
+func spawn_camera():
+	player.get_node("CameraPlayer").global_position = global_position
+	
+
