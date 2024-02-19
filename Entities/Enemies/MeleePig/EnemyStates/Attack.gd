@@ -1,4 +1,4 @@
-extends Enemy
+extends EnemyState
 
 @onready var attack_timer : Timer = $"../../AttackTimer"
 @onready var after_timer : Timer = $"../../AfterAttackTimer"
@@ -6,19 +6,10 @@ extends Enemy
 @onready var anim_tree : AnimationTree = $"../../AnimationTree" as AnimationTree
 
 var count
-var collided_object : EntityClass 
-
-func hitPlayer():
-	attack_collision.force_shapecast_update()
-	count = attack_collision.get_collision_count()
-	for i in count:
-		collided_object = attack_collision.get_collider(i) as EntityClass
-		if collided_object == player:
-			collided_object.apply_damage(15)
+var collided_object : PlayerClass 
 
 func startAfterTimer():
-	after_timer.start(0.2)
-
+	after_timer.start()
 
 func enter(_msg := {}):
 	if !after_timer.is_connected("timeout", transition):
@@ -26,7 +17,7 @@ func enter(_msg := {}):
 	if !attack_timer.is_stopped():
 		state_machine.transition_to("Pursue")
 		return
-	attack_timer.start(1.5)
+	attack_timer.start()
 	after_timer.paused = false
 	anim_tree.set("parameters/attack_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	

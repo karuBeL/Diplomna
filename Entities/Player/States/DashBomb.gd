@@ -3,17 +3,16 @@ extends PlayerState
 @onready var dash_timer : Timer = $"../../DashTimer"
 var target_position
 var speed_value = 35
-var from_position = Vector3.ZERO
-var to_position = Vector3.ZERO
+
 var distance_traveled : float = 0.0
 var direction_to_target
-var limit = 0
+var bomb_limit = 0
 
 func dash_end():
 	player.velocity = Vector3.ZERO
 	state_machine.transition_to("Run")
 	target_position = null
-	limit = 0
+	bomb_limit = 0
 	distance_traveled = 0
 
 func get_mouse_position():
@@ -45,22 +44,21 @@ func enter(_msg := {}) -> void:
 	dash_timer.start()
 	
 func spawn_bomb(position):
-	var bomb = load("res://Entities/RangedPig/Bomb/bomb.tscn").instantiate()
+	var bomb = load("res://Entities/Bomb/bomb.tscn").instantiate()
 	bomb.set_enemy_area_monitoring(true)
 	bomb.target = position
 	add_child(bomb)
 	bomb.global_position = position
 	distance_traveled = 0
-	limit += 1
+	bomb_limit += 1
 	
 func physics_update(_delta: float) -> void:
-	
-	from_position = player.global_position
+	var from_position = player.global_position
 	player.velocity.x = direction_to_target.x * speed_value
 	player.velocity.z = direction_to_target.z * speed_value
 	player.move_and_slide()
-	to_position = player.global_position
+	var to_position = player.global_position
 	distance_traveled += from_position.distance_to(to_position)
 
-	if distance_traveled > 1.7 && limit != 2:
+	if distance_traveled > 1.7 && bomb_limit != 2:
 		spawn_bomb(to_position)

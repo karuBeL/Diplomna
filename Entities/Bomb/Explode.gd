@@ -9,7 +9,7 @@ func free_bomb():
 func explode():
 	var bodies = aoe.get_overlapping_bodies()
 	for body in bodies:
-		body.apply_damage(20)
+		body.get_hit(20)
 	
 func enter(_msg := {}) -> void:
 	if $"../../PlayerColl".monitoring:

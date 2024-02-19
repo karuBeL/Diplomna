@@ -1,15 +1,15 @@
 [gd_scene load_steps=35 format=3 uid="uid://u5ixnrgnfy8i"]
 
-[ext_resource type="Script" path="res://Entities/MeleePig/pig.gd" id="1_w0lma"]
+[ext_resource type="Script" path="res://Entities/Enemies/MeleePig/melee_pig.gd" id="1_du1bd"]
 [ext_resource type="Texture2D" uid="uid://cos7exqxtwo4q" path="res://assets/everything.png" id="2_lk74j"]
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="3_4o32v"]
-[ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/EnemyIdle.gd" id="4_f6p6n"]
-[ext_resource type="Script" path="res://Entities/MeleePig/AttackCast.gd" id="4_wqjpc"]
-[ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Pursue.gd" id="5_3yccv"]
-[ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Attack.gd" id="7_ampuo"]
-[ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/Death.gd" id="8_ubx0v"]
-[ext_resource type="Script" path="res://Entities/MeleePig/EnemyStates/GetHit.gd" id="9_frk2y"]
-[ext_resource type="Script" path="res://Entities/MeleePig/Stunned.gd" id="10_2nvpu"]
+[ext_resource type="Script" path="res://Entities/Enemies/MeleePig/EnemyStates/EnemyIdle.gd" id="4_f6p6n"]
+[ext_resource type="Script" path="res://Entities/Enemies/MeleePig/AttackCast.gd" id="4_wqjpc"]
+[ext_resource type="Script" path="res://Entities/Enemies/MeleePig/EnemyStates/Pursue.gd" id="5_3yccv"]
+[ext_resource type="Script" path="res://Entities/Enemies/MeleePig/EnemyStates/Attack.gd" id="7_ampuo"]
+[ext_resource type="Script" path="res://Entities/Enemies/MeleePig/EnemyStates/Death.gd" id="8_ubx0v"]
+[ext_resource type="Script" path="res://Entities/Enemies/MeleePig/EnemyStates/GetHit.gd" id="9_frk2y"]
+[ext_resource type="Script" path="res://Entities/Enemies/MeleePig/Stunned.gd" id="10_2nvpu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2wfu1"]
 size = Vector3(1, 1.5, 0.5)
@@ -59,14 +59,25 @@ tracks/1/path = NodePath("StateMachine/Attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.207338, 0.45),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.45),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"startAfterTimer"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"hitPlayer"
-}, {
-"args": [],
-"method": &"startAfterTimer"
 }]
 }
 
@@ -235,30 +246,34 @@ nodes/stunned/node = SubResource("AnimationNodeAnimation_guug8")
 nodes/stunned/position = Vector2(380, 60)
 node_connections = [&"attack_oneshot", 0, &"get_hit_oneshot", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"attack_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"idle_pursue_stunned", &"get_hit_oneshot", 1, &"get_hit", &"idle_pursue_stunned", 0, &"stunned", &"idle_pursue_stunned", 1, &"idle_time", &"idle_pursue_stunned", 2, &"pursue_time", &"idle_time", 0, &"idle", &"output", 0, &"death_oneshot", &"pursue_time", 0, &"pursue_animation"]
 
-[node name="Piggie" type="CharacterBody3D"]
+[node name="MeleePig" type="CharacterBody3D"]
 collision_layer = 2
-script = ExtResource("1_w0lma")
-
-[node name="GetHitTimer" type="Timer" parent="."]
-one_shot = true
+script = ExtResource("1_du1bd")
 
 [node name="NavTimer" type="Timer" parent="."]
 process_callback = 0
+one_shot = true
+
+[node name="GetHitTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="StunTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
 
 [node name="AfterAttackTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="KnockbackTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_desired_distance = 2.0
 avoidance_enabled = true
-radius = 1.5
+radius = 1.2
 max_speed = 5.0
 
 [node name="AttackCast" type="ShapeCast3D" parent="."]
@@ -282,6 +297,7 @@ region_rect = Rect2(0, 0, 374, 139)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 shape = SubResource("BoxShape3D_mxn22")
 
 [node name="PursueRange" type="Area3D" parent="."]

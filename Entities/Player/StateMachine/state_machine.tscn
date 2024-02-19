@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="1_hej4v"]
 [ext_resource type="Script" path="res://Entities/Player/States/Idle.gd" id="2_rv1k7"]
 [ext_resource type="Script" path="res://Entities/Player/States/Run.gd" id="3_rjd7l"]
-[ext_resource type="Script" path="res://Entities/Player/States/executeAbility.gd" id="4_5xpqe"]
+[ext_resource type="Script" path="res://Entities/Player/States/ExecuteAbility.gd" id="4_5xpqe"]
 [ext_resource type="Script" path="res://Entities/Player/States/addAbility.gd" id="5_mh86l"]
 
 [node name="StateMachine" type="Node"]

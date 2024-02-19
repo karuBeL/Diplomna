@@ -8,7 +8,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/path = NodePath("Explosion:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -20,7 +20,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D2:frame")
+tracks/1/path = NodePath("AreaOfExplosion:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -35,7 +35,7 @@ resource_name = "explode"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/path = NodePath("Explosion:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +47,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D2:frame")
+tracks/1/path = NodePath("AreaOfExplosion:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -59,7 +59,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite3D:visible")
+tracks/2/path = NodePath("Explosion:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -71,7 +71,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite3D2:visible")
+tracks/3/path = NodePath("AreaOfExplosion:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -110,9 +110,8 @@ script = ExtResource("1_4c1rr")
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Explosion" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12108, 0)
-visible = false
 pixel_size = 0.1
 billboard = 1
 texture_filter = 0
@@ -121,9 +120,8 @@ texture = ExtResource("2_yn7oh")
 hframes = 6
 vframes = 4
 
-[node name="Sprite3D2" type="Sprite3D" parent="."]
+[node name="AreaOfExplosion" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.22348)
-visible = false
 pixel_size = 0.1
 texture_filter = 0
 render_priority = 3

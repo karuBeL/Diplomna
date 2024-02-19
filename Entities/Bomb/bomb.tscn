@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://b02a8vvdmlr6e"]
 
-[ext_resource type="Script" path="res://Entities/RangedPig/Bomb/bomb.gd" id="1_dt26q"]
+[ext_resource type="Script" path="res://Entities/Bomb/bomb.gd" id="1_dt26q"]
 [ext_resource type="Texture2D" uid="uid://b0lj303cgcjs8" path="res://assets/everything_bomb.png" id="1_mpoy7"]
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="3_jq67y"]
-[ext_resource type="Script" path="res://Entities/RangedPig/Bomb/Idle.gd" id="4_hq8dx"]
-[ext_resource type="Script" path="res://Entities/RangedPig/Bomb/WindUp.gd" id="5_kohhs"]
-[ext_resource type="Script" path="res://Entities/RangedPig/Bomb/Explode.gd" id="6_375a1"]
+[ext_resource type="Script" path="res://Entities/Bomb/Idle.gd" id="4_hq8dx"]
+[ext_resource type="Script" path="res://Entities/Bomb/WindUp.gd" id="5_kohhs"]
+[ext_resource type="Script" path="res://Entities/Bomb/Explode.gd" id="6_375a1"]
 
 [sub_resource type="Animation" id="Animation_i5b0o"]
 length = 0.001
@@ -123,6 +123,7 @@ _data = {
 radius = 2.5
 
 [node name="Bomb" type="Node3D"]
+top_level = true
 script = ExtResource("1_dt26q")
 
 [node name="Timer" type="Timer" parent="."]

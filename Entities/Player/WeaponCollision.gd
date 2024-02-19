@@ -1,6 +1,7 @@
 extends ShapeCast3D
-var collided_object : EntityClass
+var collided_object : EnemyClass
 var count
+var damage = 25
 @export var weapon : Node3D
 
 func get_collisions():
@@ -11,5 +12,5 @@ func get_collisions():
 	count = get_collision_count()
 	for i in count:
 		collided_object = get_collider(i)
-		collided_object.apply_damage(25)
+		collided_object.get_hit(damage)
 	

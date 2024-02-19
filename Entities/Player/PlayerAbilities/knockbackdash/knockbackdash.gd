@@ -1,37 +1,38 @@
 extends Node
 
-var player : EntityClass
+var player : PlayerClass
 var playerStateMachine : StateMachine
 var knockback_coll : Area3D
 var knockback_anim : AnimationPlayer
-var timer : Timer
+var cooldown_timer : Timer
 var buff_timer : Timer
 var old_speed
+var base_speed_boost = 3
+var bonus_speed_boost = 1
 
 func _ready():
-	timer = $Timer as Timer
-	buff_timer = $BuffDuration as Timer
+	cooldown_timer = $Timer as Timer
+	buff_timer = $BuffTimer as Timer
 	buff_timer.timeout.connect(revert_speed)
-	player = get_tree().get_nodes_in_group("player")[0] as EntityClass
+	player = get_tree().get_nodes_in_group("player")[0] as PlayerClass
 	playerStateMachine = player.get_node("StateMachine")
-	knockback_coll = player.get_node("Knockback")
-	knockback_anim = player.get_node("AbilityAnimation")
+	knockback_coll = $KnockbackCollision
+	knockback_anim = $AnimationPlayer
 	old_speed = player.speed
 
 func execute():
-	if timer.time_left != 0:
+	if !cooldown_timer.is_stopped():
 		playerStateMachine.transition_to("Run")
 		return
-	timer.start(5)
+	cooldown_timer.start(5)
 	var bodies = knockback_coll.get_overlapping_bodies()
 	knockback_anim.play("knockback")
 	buff_timer.start(3)
-	player.speed += 3
-	for body : EntityClass in bodies:
-		player.speed += 1
+	player.speed += base_speed_boost
+	for body : EnemyClass in bodies:
+		player.speed += bonus_speed_boost
 		body.apply_stun(0.5, true)
 	playerStateMachine.transition_to("Run")
 
 func revert_speed():
-	print("reverted")
 	player.speed = old_speed

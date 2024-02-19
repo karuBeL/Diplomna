@@ -1,9 +1,10 @@
-[gd_scene load_steps=55 format=3 uid="uid://cdy4cghohpe0p"]
+[gd_scene load_steps=60 format=3 uid="uid://cdy4cghohpe0p"]
 
 [ext_resource type="Script" path="res://Entities/Player/player.gd" id="1_ikmme"]
 [ext_resource type="Shader" path="res://Entities/Player/get_hit.gdshader" id="2_eqgjo"]
 [ext_resource type="Texture2D" uid="uid://dt7veps6tsb1g" path="res://assets/character_sprite_test2.png" id="2_t42ne"]
 [ext_resource type="Script" path="res://Entities/Player/WeaponCollision.gd" id="3_pbdme"]
+[ext_resource type="Texture2D" uid="uid://b0lj303cgcjs8" path="res://assets/everything_bomb.png" id="5_88mda"]
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="6_tcnnh"]
 [ext_resource type="Script" path="res://Entities/Player/States/Idle.gd" id="7_3j838"]
 [ext_resource type="Script" path="res://Entities/Player/States/Run.gd" id="8_n2yyx"]
@@ -315,8 +316,60 @@ size = Vector3(1, 1.5, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_feenn"]
 size = Vector3(4.3, 0.1, 2.3)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_30m38"]
+radius = 4.0
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_7lv4t"]
 radius = 1.5
+
+[sub_resource type="Animation" id="Animation_ka8dl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnockbackSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_bvcfo"]
+resource_name = "knockback"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnockbackSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KnockbackSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3524),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bd20m"]
+_data = {
+"RESET": SubResource("Animation_ka8dl"),
+"knockback": SubResource("Animation_bvcfo")
+}
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
@@ -370,6 +423,24 @@ texture = ExtResource("2_t42ne")
 region_enabled = true
 region_rect = Rect2(72, 51, 7, 7)
 
+[node name="KnockbackCollision" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="KnockbackShape" type="CollisionShape3D" parent="KnockbackCollision"]
+shape = SubResource("SphereShape3D_30m38")
+
+[node name="KnockbackSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.203572, 8.89841e-09)
+visible = false
+pixel_size = 0.15
+texture_filter = 0
+texture = ExtResource("5_88mda")
+hframes = 6
+vframes = 4
+frame = 18
+
 [node name="DashSlashCollision" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
@@ -380,6 +451,12 @@ monitorable = false
 [node name="DashSlashShape" type="CollisionShape3D" parent="DashSlashCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.942541, 0)
 shape = SubResource("SphereShape3D_7lv4t")
+
+[node name="AbilityAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bd20m")
+}
+speed_scale = 0.7
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("6_tcnnh")

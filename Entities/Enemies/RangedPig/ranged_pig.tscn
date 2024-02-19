@@ -1,14 +1,14 @@
 [gd_scene load_steps=33 format=3 uid="uid://teg45so6mfhk"]
 
+[ext_resource type="Script" path="res://Entities/Enemies/RangedPig/ranged_pig.gd" id="1_0e8ub"]
 [ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="1_exqk7"]
-[ext_resource type="Script" path="res://Entities/RangedPig/ranged_pig.gd" id="1_n3kpm"]
-[ext_resource type="Script" path="res://Entities/RangedPig/RangedStates/RangedIdle.gd" id="2_77ph1"]
-[ext_resource type="Script" path="res://Entities/RangedPig/RangedStates/RangedPursue.gd" id="3_k6wq7"]
-[ext_resource type="Script" path="res://Entities/RangedPig/RangedStates/RangedAttack.gd" id="4_a0uox"]
+[ext_resource type="Script" path="res://Entities/Enemies/RangedPig/RangedStates/RangedIdle.gd" id="2_77ph1"]
+[ext_resource type="Script" path="res://Entities/Enemies/RangedPig/RangedStates/RangedPursue.gd" id="3_k6wq7"]
+[ext_resource type="Script" path="res://Entities/Enemies/RangedPig/RangedStates/RangedAttack.gd" id="4_a0uox"]
 [ext_resource type="Texture2D" uid="uid://f2h6oy5qlty" path="res://assets/everything_ranged.png" id="5_ns87h"]
-[ext_resource type="Script" path="res://Entities/RangedPig/Death.gd" id="7_qcb22"]
-[ext_resource type="Script" path="res://Entities/RangedPig/GetHit.gd" id="8_7acvb"]
-[ext_resource type="Script" path="res://Entities/RangedPig/Stunned.gd" id="9_dqoga"]
+[ext_resource type="Script" path="res://Entities/Enemies/RangedPig/Death.gd" id="7_qcb22"]
+[ext_resource type="Script" path="res://Entities/Enemies/RangedPig/GetHit.gd" id="8_7acvb"]
+[ext_resource type="Script" path="res://Entities/Enemies/RangedPig/Stunned.gd" id="9_dqoga"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y2hiv"]
 size = Vector3(1.7, 1.5, 1.5)
@@ -54,14 +54,25 @@ tracks/1/path = NodePath("StateMachine/Attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"hitPlayer"
-}, {
-"args": [],
 "method": &"startAfterTimer"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hit_player"
 }]
 }
 
@@ -204,23 +215,23 @@ animation = &"pursue"
 animation = &"stunned"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_jxj5y"]
-graph_offset = Vector2(-313.37, -17.8518)
+graph_offset = Vector2(-424.054, -53.5653)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_t1i6k")
 nodes/TimeScale/position = Vector2(-140, 260)
 "nodes/TimeScale 2/node" = SubResource("AnimationNodeTimeScale_h650u")
 "nodes/TimeScale 2/position" = Vector2(-180, 120)
 nodes/attack/node = SubResource("AnimationNodeAnimation_l2qoa")
-nodes/attack/position = Vector2(260, 340)
+nodes/attack/position = Vector2(80, 360)
 nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_xru88")
-nodes/attack_oneshot/position = Vector2(460, 60)
+nodes/attack_oneshot/position = Vector2(260, 60)
 nodes/death/node = SubResource("AnimationNodeAnimation_ua021")
 nodes/death/position = Vector2(480, 360)
 nodes/death_oneshot/node = SubResource("AnimationNodeOneShot_f8efn")
 nodes/death_oneshot/position = Vector2(660, 60)
 nodes/get_hit/node = SubResource("AnimationNodeAnimation_mdx42")
-nodes/get_hit/position = Vector2(60, 300)
+nodes/get_hit/position = Vector2(280, 360)
 nodes/get_hit_oneshot/node = SubResource("AnimationNodeOneShot_dus7a")
-nodes/get_hit_oneshot/position = Vector2(280, 60)
+nodes/get_hit_oneshot/position = Vector2(440, 60)
 nodes/idle/node = SubResource("AnimationNodeAnimation_ukfwi")
 nodes/idle/position = Vector2(-340, 120)
 nodes/idle_pursue_stunned/node = SubResource("AnimationNodeBlend3_3fkmn")
@@ -230,37 +241,47 @@ nodes/pursue/node = SubResource("AnimationNodeAnimation_woo5b")
 nodes/pursue/position = Vector2(-360, 260)
 nodes/stunned/node = SubResource("AnimationNodeAnimation_ejh0j")
 nodes/stunned/position = Vector2(-200, -40)
-node_connections = [&"TimeScale", 0, &"pursue", &"TimeScale 2", 0, &"idle", &"attack_oneshot", 0, &"get_hit_oneshot", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"attack_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"idle_pursue_stunned", &"get_hit_oneshot", 1, &"get_hit", &"idle_pursue_stunned", 0, &"stunned", &"idle_pursue_stunned", 1, &"TimeScale 2", &"idle_pursue_stunned", 2, &"TimeScale", &"output", 0, &"death_oneshot"]
+node_connections = [&"TimeScale", 0, &"pursue", &"TimeScale 2", 0, &"idle", &"attack_oneshot", 0, &"idle_pursue_stunned", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"get_hit_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"attack_oneshot", &"get_hit_oneshot", 1, &"get_hit", &"idle_pursue_stunned", 0, &"stunned", &"idle_pursue_stunned", 1, &"TimeScale 2", &"idle_pursue_stunned", 2, &"TimeScale", &"output", 0, &"death_oneshot"]
 
 [node name="RangedEnemy" type="CharacterBody3D"]
 collision_layer = 2
-script = ExtResource("1_n3kpm")
+script = ExtResource("1_0e8ub")
 
 [node name="NavTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="GetHitTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="StunTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="AfterAttackTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30318, 0)
 pixel_size = 0.1
 billboard = 1
 texture_filter = 0
+render_priority = 4
 texture = ExtResource("5_ns87h")
 hframes = 10
 vframes = 6
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 shape = SubResource("BoxShape3D_y2hiv")
 
 [node name="PursueRange" type="Area3D" parent="."]

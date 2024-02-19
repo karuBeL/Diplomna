@@ -1,11 +1,11 @@
 extends State
-class_name Enemy
+class_name EnemyState
 
-var enemy: EntityClass
-var player : EntityClass
+var enemy: EnemyClass
+var player : PlayerClass
 var is_attacking : bool
 
 func _ready() -> void:
 	await owner.ready
-	enemy = owner as EntityClass
+	enemy = owner as EnemyClass
 	player = get_tree().get_nodes_in_group("player")[0]

@@ -79,19 +79,19 @@ func set_enemy_spawn(enemy_scene : PackedScene):
 
 func set_easy():
 	for i in range(melee_easy_diff):
-		set_enemy_spawn(load("res://Entities/MeleePig/melee_pig.tscn"))
+		set_enemy_spawn(load("res://Entities/Enemies/MeleePig/melee_pig.tscn"))
 	for i in range(ranged_easy_diff):
-		set_enemy_spawn(load("res://Entities/RangedPig/ranged_pig.tscn"))
+		set_enemy_spawn(load("res://Entities/Enemies/RangedPig/ranged_pig.tscn"))
 		
 func set_medium():
 	for i in range(melee_medium_diff):
-		set_enemy_spawn(load("res://Entities/MeleePig/melee_pig.tscn"))
+		set_enemy_spawn(load("res://Entities/Enemies/MeleePig/melee_pig.tscn"))
 	for i in range(ranged_medium_diff):
-		set_enemy_spawn(load("res://Entities/RangedPig/ranged_pig.tscn"))
+		set_enemy_spawn(load("res://Entities/Enemies/RangedPig/ranged_pig.tscn"))
 		
 func set_hard():
 	for i in range(melee_hard_diff):
-		set_enemy_spawn(load("res://Entities/MeleePig/melee_pig.tscn"))
+		set_enemy_spawn(load("res://Entities/Enemies/MeleePig/melee_pig.tscn"))
 	for i in range(ranged_hard_diff):
-		set_enemy_spawn(load("res://Entities/RangedPig/ranged_pig.tscn"))
+		set_enemy_spawn(load("res://Entities/Enemies/RangedPig/ranged_pig.tscn"))
 		

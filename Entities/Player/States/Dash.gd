@@ -4,13 +4,9 @@ extends PlayerState
 var speed_value = 40
 var target_position
 var direction
-var regular_speed
 var direction_to_target
 
 func dash_end():
-	player.velocity = Vector3.ZERO
-	player.speed = regular_speed
-	target_position = null
 	state_machine.transition_to("Run")
 	
 func get_mouse_position():
@@ -30,15 +26,13 @@ func get_mouse_position():
 		return
 	target_position = raycast_result['position']
 	target_position.y = 0
-	
+
 
 func enter(_msg := {}) -> void:
 	get_mouse_position()
 	if target_position == null:
 		state_machine.transition_to("Run")
 		return
-	regular_speed = player.speed
-	player.speed = 100
 	direction_to_target = player.global_position.direction_to(target_position).normalized()
 	if !dash_timer.timeout.is_connected(dash_end):
 		dash_timer.timeout.connect(dash_end)

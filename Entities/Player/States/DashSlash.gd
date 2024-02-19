@@ -7,14 +7,11 @@ var speed_value = 40
 var already_attacked : Dictionary
 var target_position
 var direction
-var regular_speed
 var direction_to_target
 
 func dash_end():
-	player.velocity = Vector3.ZERO
-	player.speed = regular_speed
 	collision.monitoring = false
-	target_position = null	
+	target_position = null
 	already_attacked.clear()
 	state_machine.transition_to("Run")
 	
@@ -41,8 +38,6 @@ func enter(_msg := {}) -> void:
 	if target_position == null:
 		state_machine.transition_to("Run")
 		return
-	regular_speed = player.speed
-	player.speed = 100
 	direction_to_target = player.global_position.direction_to(target_position).normalized()
 	if !dash_timer.timeout.is_connected(dash_end):
 		dash_timer.timeout.connect(dash_end)
@@ -50,9 +45,9 @@ func enter(_msg := {}) -> void:
 	collision.monitoring = true
 	dash_timer.start()
 
-func slash_enemies(body : EntityClass):
+func slash_enemies(body : EnemyClass):
 	if !already_attacked.has(body):
-		body.apply_damage(100)
+		body.get_hit(15)
 		already_attacked[body] = null
 		
 func physics_update(_delta: float) -> void:

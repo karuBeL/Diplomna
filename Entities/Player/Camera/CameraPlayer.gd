@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@onready var player = $".." as EntityClass
+@onready var player = $".." as PlayerClass
 
 const deadzone = 0.2
 const max_speed_factor = 10
