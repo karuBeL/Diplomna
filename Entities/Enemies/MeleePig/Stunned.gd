@@ -33,7 +33,7 @@ func get_knockback_velocity():
 	if distance < 1:
 		distance = 1
 	knockback_direction = (enemy_pos - player_pos).normalized()
-	knockback_velocity = knockback_direction * (knockback_speed / distance) * Vector3(1, 0, 1)
+	knockback_velocity = knockback_direction * (knockback_speed / distance)
 	enemy.nav_agent.avoidance_enabled = false
 
 func stun_duration():

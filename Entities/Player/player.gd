@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name PlayerClass
 
 var abilities = []
-var current_health : int = 1000
+var current_health : int = 100
 var speed : int = 8
 var state_machine : StateMachine
 

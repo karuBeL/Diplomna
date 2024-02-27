@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr6s5byxt2scw"]
+[gd_scene load_steps=8 format=3 uid="uid://cr6s5byxt2scw"]
 
 [ext_resource type="Script" path="res://Menu/AbilityMenu/continuebutton.gd" id="1_t5dh8"]
 [ext_resource type="PackedScene" uid="uid://88wly8yitfpw" path="res://Menu/AbilityMenu/ability.tscn" id="2_ij4yn"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://50kq10yt60c5" path="res://Menu/AbilityMenu/draggable.tscn" id="2_r114o"]
 [ext_resource type="Script" path="res://Menu/AbilityMenu/secondaryabilities.gd" id="4_m0313"]
 [ext_resource type="Script" path="res://Menu/AbilityMenu/reset.gd" id="6_pt3ss"]
+[ext_resource type="Script" path="res://Menu/AbilityMenu/PopUp.gd" id="7_nathp"]
 
 [node name="AbilityMenu" type="Control"]
 layout_mode = 3
@@ -14,6 +15,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="AllAbilities" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -52,78 +58,75 @@ layout_mode = 2
 [node name="Label" parent="AllAbilities/HBoxContainer/Draggable4/ColorRect" index="0"]
 text = "Knockback"
 
-[node name="BaseAbilities" type="PanelContainer" parent="."]
+[node name="PlayerAbilities" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(500, 150)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -196.0
-offset_top = -200.0
-offset_right = 196.0
+offset_left = -250.0
+offset_top = -242.0
+offset_right = 250.0
+offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="BaseAbilities" type="PanelContainer" parent="PlayerAbilities"]
+layout_mode = 2
 script = ExtResource("2_il4ne")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BaseAbilities"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerAbilities/BaseAbilities"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Ability1" parent="BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="Ability1" parent="PlayerAbilities/BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
 layout_mode = 2
 
-[node name="Ability2" parent="BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="Ability2" parent="PlayerAbilities/BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
 layout_mode = 2
 
-[node name="Ability3" parent="BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="Ability3" parent="PlayerAbilities/BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
 layout_mode = 2
 
-[node name="SecondaryAbilities" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -92.0
-offset_top = -53.0
-offset_right = 92.0
-offset_bottom = -21.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="SecondaryAbilities" type="PanelContainer" parent="PlayerAbilities"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
 script = ExtResource("4_m0313")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SecondaryAbilities"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerAbilities/SecondaryAbilities"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="SecondaryAbility1" parent="SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="SecondaryAbility1" parent="PlayerAbilities/SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
 custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 
-[node name="SecondaryAbility2" parent="SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="SecondaryAbility2" parent="PlayerAbilities/SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
 custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 
-[node name="SecondaryAbility3" parent="SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="SecondaryAbility3" parent="PlayerAbilities/SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
 custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 
 [node name="Continue" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
+offset_left = -179.0
+offset_top = -140.0
+offset_right = -100.0
+offset_bottom = -100.0
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -133,16 +136,17 @@ text = "Continue"
 script = ExtResource("1_t5dh8")
 
 [node name="Reset" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -79.0
-offset_top = -80.0
-offset_bottom = -40.0
+offset_left = -179.0
+offset_top = -180.0
+offset_right = -100.0
+offset_bottom = -140.0
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -150,6 +154,29 @@ grow_vertical = 0
 layout_mode = 2
 text = "Reset"
 script = ExtResource("6_pt3ss")
+
+[node name="PopUp" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 250.0
+offset_top = -59.0
+offset_right = 450.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_nathp")
+
+[node name="Label" type="Label" parent="PopUp"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 1
+autowrap_mode = 3
 
 [editable path="AllAbilities/HBoxContainer/Draggable"]
 [editable path="AllAbilities/HBoxContainer/Draggable2"]

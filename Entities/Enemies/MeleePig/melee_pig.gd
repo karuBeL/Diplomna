@@ -4,6 +4,7 @@ var attack_collision : ShapeCast3D
 
 func _ready():
 	attack_distance = 2
+	wait_time_gen = get_node("/root/WaitTime")
 	attack_collision = $AttackCast
 	player = get_tree().get_first_node_in_group("player")
 	nav_agent = get_node("NavigationAgent3D")

@@ -4,6 +4,12 @@ var collision : ShapeCast3D
 var weapon : Node3D
 var playerStateMachine : StateMachine
 var cooldown_timer : Timer
+var move_left
+var move_right
+var left_duration = 0.05
+var right_duration = 0.15
+var origin_duration = 0.05
+var original_position
 
 func _ready():
 	cooldown_timer = $Timer
@@ -11,6 +17,9 @@ func _ready():
 	collision = player.get_node("WeaponCollision")
 	weapon = player.get_node("Weapon")
 	playerStateMachine = player.get_node("StateMachine")
+	move_left = Vector3.UP * PI/2
+	move_right = -Vector3.UP * PI/2
+	original_position = weapon.rotation
 
 func execute():
 	if !cooldown_timer.is_stopped():
@@ -18,12 +27,18 @@ func execute():
 		return
 	cooldown_timer.start(1)
 	collision.get_collisions()
-	tween1()
+	slash_animation()
+	
+
+func slash_animation():
+	var tween = create_tween()
+	tween.tween_property(weapon, "rotation", weapon.rotation + move_left, left_duration)
+	tween.tween_property(weapon, "rotation",weapon.rotation + move_right, right_duration)
+	tween.tween_property(weapon, "rotation", weapon.rotation, origin_duration)
+	tween.connect("finished", transition_to_run)
 
 func tween1():
 	var tween = get_tree().create_tween()
-	tween.tween_property(weapon, "rotation",\
-	weapon.rotation + (Vector3.UP)*PI/1.5, 0.04)
 	tween.connect("finished", tween2)
 
 func tween2():

@@ -10,7 +10,7 @@ func set_safe_velocity(safe_velocity):
 	
 func nav_timer():
 	enemy.nav_agent.target_position = player.global_position
-	nav_set_timer.wait_time = 0.1 + randf_range(0.1, 0.3)
+	nav_set_timer.wait_time = enemy.wait_time_gen.get_wait_time()
 	nav_set_timer.start()
 	
 func enter(_msg := {}) -> void:

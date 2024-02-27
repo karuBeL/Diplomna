@@ -219,32 +219,33 @@ animation = &"pursue"
 animation = &"stunned"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tgvfq"]
+graph_offset = Vector2(-245.673, 76.8613)
 nodes/attack/node = SubResource("AnimationNodeAnimation_5q4r5")
-nodes/attack/position = Vector2(780, 500)
+nodes/attack/position = Vector2(600, 500)
 nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_oa12i")
-nodes/attack_oneshot/position = Vector2(940, 240)
+nodes/attack_oneshot/position = Vector2(780, 240)
 nodes/death/node = SubResource("AnimationNodeAnimation_be2gd")
 nodes/death/position = Vector2(940, 500)
 nodes/death_oneshot/node = SubResource("AnimationNodeOneShot_rsdtk")
-nodes/death_oneshot/position = Vector2(1120, 240)
+nodes/death_oneshot/position = Vector2(1160, 240)
 nodes/get_hit/node = SubResource("AnimationNodeAnimation_18jy2")
-nodes/get_hit/position = Vector2(580, 480)
+nodes/get_hit/position = Vector2(760, 500)
 nodes/get_hit_oneshot/node = SubResource("AnimationNodeOneShot_xbpgp")
-nodes/get_hit_oneshot/position = Vector2(760, 240)
+nodes/get_hit_oneshot/position = Vector2(960, 240)
 nodes/idle/node = SubResource("AnimationNodeAnimation_ukgwl")
 nodes/idle/position = Vector2(160, 200)
 nodes/idle_pursue_stunned/node = SubResource("AnimationNodeBlend3_m3ewp")
 nodes/idle_pursue_stunned/position = Vector2(540, 240)
 nodes/idle_time/node = SubResource("AnimationNodeTimeScale_guaw1")
 nodes/idle_time/position = Vector2(340, 200)
-nodes/output/position = Vector2(1320, 320)
+nodes/output/position = Vector2(1340, 320)
 nodes/pursue_animation/node = SubResource("AnimationNodeAnimation_x860d")
 nodes/pursue_animation/position = Vector2(120, 360)
 nodes/pursue_time/node = SubResource("AnimationNodeTimeScale_gsbor")
 nodes/pursue_time/position = Vector2(340, 360)
 nodes/stunned/node = SubResource("AnimationNodeAnimation_guug8")
 nodes/stunned/position = Vector2(380, 60)
-node_connections = [&"attack_oneshot", 0, &"get_hit_oneshot", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"attack_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"idle_pursue_stunned", &"get_hit_oneshot", 1, &"get_hit", &"idle_pursue_stunned", 0, &"stunned", &"idle_pursue_stunned", 1, &"idle_time", &"idle_pursue_stunned", 2, &"pursue_time", &"idle_time", 0, &"idle", &"output", 0, &"death_oneshot", &"pursue_time", 0, &"pursue_animation"]
+node_connections = [&"attack_oneshot", 0, &"idle_pursue_stunned", &"attack_oneshot", 1, &"attack", &"death_oneshot", 0, &"get_hit_oneshot", &"death_oneshot", 1, &"death", &"get_hit_oneshot", 0, &"attack_oneshot", &"get_hit_oneshot", 1, &"get_hit", &"idle_pursue_stunned", 0, &"stunned", &"idle_pursue_stunned", 1, &"idle_time", &"idle_pursue_stunned", 2, &"pursue_time", &"idle_time", 0, &"idle", &"output", 0, &"death_oneshot", &"pursue_time", 0, &"pursue_animation"]
 
 [node name="MeleePig" type="CharacterBody3D"]
 collision_layer = 2

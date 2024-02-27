@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 [autoload]
 
 PlayerAbilities="*res://Config/PlayerAbilities.tscn"
+WaitTime="*res://Config/WaitTime.tscn"
 
 [display]
 

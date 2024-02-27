@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ewdet51vjn7y"]
+
+[ext_resource type="Script" path="res://Config/WaitTime.gd" id="1_bokrb"]
+
+[node name="WaitTime" type="Node"]
+script = ExtResource("1_bokrb")
