@@ -2,7 +2,6 @@ extends Node3D
 
 var collision : ShapeCast3D
 var weapon : Node3D
-var inAnimation : bool
 var playerStateMachine : StateMachine
 var timer : Timer
 var bomb_collision : Area3D
@@ -30,9 +29,6 @@ func execute():
 		playerStateMachine.transition_to("Run")
 		return
 	timer.start(4)
-	if inAnimation:
-		return
-	inAnimation = true
 	bodies = bomb_collision.get_overlapping_bodies()
 	global_position = sword_model.global_position
 	anim_player.play("explode")
