@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://by6l1qolxbvvx"]
+
+[ext_resource type="PackedScene" uid="uid://cy20cmlnps4wg" path="res://Entities/Player/UI/HP_bar.tscn" id="1_5p7xf"]
+[ext_resource type="Script" path="res://Entities/Player/UI/player_UI.gd" id="1_cl3hd"]
+[ext_resource type="Script" path="res://Menu/AbilityMenu/baseabilities.gd" id="2_s0a2j"]
+[ext_resource type="PackedScene" uid="uid://88wly8yitfpw" path="res://Menu/AbilityMenu/ability.tscn" id="3_neveh"]
+[ext_resource type="Script" path="res://Menu/AbilityMenu/secondaryabilities.gd" id="4_1rerb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbrt0"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtdvq"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="PlayerAbilities" type="PanelContainer"]
+custom_minimum_size = Vector2(500, 150)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+script = ExtResource("1_cl3hd")
+
+[node name="HPMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_bottom = 15
+
+[node name="ProgressBar" parent="HPMargin" instance=ExtResource("1_5p7xf")]
+layout_mode = 2
+size_flags_vertical = 8
+value = 100.0
+
+[node name="AbilitiesMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_bottom = -15
+
+[node name="BaseAbilities" type="PanelContainer" parent="AbilitiesMargin"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vbrt0")
+script = ExtResource("2_s0a2j")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AbilitiesMargin/BaseAbilities"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Ability1" parent="AbilitiesMargin/BaseAbilities/HBoxContainer" instance=ExtResource("3_neveh")]
+layout_mode = 2
+
+[node name="Ability2" parent="AbilitiesMargin/BaseAbilities/HBoxContainer" instance=ExtResource("3_neveh")]
+layout_mode = 2
+
+[node name="Ability3" parent="AbilitiesMargin/BaseAbilities/HBoxContainer" instance=ExtResource("3_neveh")]
+layout_mode = 2
+
+[node name="SecondaryAbilities" type="PanelContainer" parent="AbilitiesMargin"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtdvq")
+script = ExtResource("4_1rerb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AbilitiesMargin/SecondaryAbilities"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+
+[node name="SecondaryAbility1" parent="AbilitiesMargin/SecondaryAbilities/HBoxContainer" instance=ExtResource("3_neveh")]
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+
+[node name="SecondaryAbility2" parent="AbilitiesMargin/SecondaryAbilities/HBoxContainer" instance=ExtResource("3_neveh")]
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+
+[node name="SecondaryAbility3" parent="AbilitiesMargin/SecondaryAbilities/HBoxContainer" instance=ExtResource("3_neveh")]
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2

@@ -5,5 +5,7 @@ func enter(_msg := {}) -> void:
 	if player.abilities.size() <= index:
 		state_machine.transition_to("Run")
 		return
-	player.abilities[index].execute()
+	var ability = player.abilities[index]
+	ability.execute()
+	player.player_ui.set_cooldown(ability.cooldown, index)
 	

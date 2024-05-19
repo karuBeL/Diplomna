@@ -16,7 +16,9 @@ func enter(_msg := {}) -> void:
 func apply_damage(dmg_amount):
 	if player.current_health - dmg_amount > 0:
 		player.current_health -= dmg_amount
+		player.player_ui.set_health(player.current_health)
 	else:
+		player.player_ui.set_health(0)
 		state_machine.transition_to("Death")
 
 func hit_flash():

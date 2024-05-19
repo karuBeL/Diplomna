@@ -5,7 +5,7 @@ var playerStateMachine : StateMachine
 var timer : Timer
 var bomb : Node3D
 var target_position : Vector3
-
+var cooldown = 4
 
 func _ready():
 	timer = $Timer as Timer
@@ -37,7 +37,7 @@ func execute():
 		playerStateMachine.transition_to("Run")
 		return
 	get_mouse_position()
-	timer.start(4)
+	timer.start(cooldown)
 	bomb = load("res://Entities/Bomb/bomb.tscn").instantiate()
 	bomb.set_enemy_area_monitoring(true)
 	bomb.target = target_position

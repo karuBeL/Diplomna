@@ -1,15 +1,23 @@
 extends PanelContainer
 
-var b_ability1 : Label
-var b_ability2 : Label 
-var b_ability3 : Label 
+var b_ability1
+var b_ability2 
+var b_ability3
+var b_abilities 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	b_ability1 = $HBoxContainer/Ability1/ColorRect/Label
-	b_ability2 = $HBoxContainer/Ability2/ColorRect/Label
-	b_ability3 = $HBoxContainer/Ability3/ColorRect/Label
-
-
+	b_ability1 = $HBoxContainer/Ability1/ColorRect
+	b_ability2 = $HBoxContainer/Ability2/ColorRect
+	b_ability3 = $HBoxContainer/Ability3/ColorRect
+	b_abilities = [b_ability1, b_ability2, b_ability3]
+	
 func get_abilities():
-	return [b_ability1.text.to_lower(), b_ability2.text.to_lower(), b_ability3.text.to_lower()]
+	return [b_ability1.get_label().to_lower(), b_ability2.get_label().to_lower(), b_ability3.get_label().to_lower()]
+
+func get_ability(index):
+	return b_abilities[index]
+
+func reset_abilities():
+	b_ability1.set_label("")
+	b_ability2.set_label("")
+	b_ability3.set_label("")

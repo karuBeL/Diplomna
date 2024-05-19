@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgm3poanoyyo3"]
+
+[ext_resource type="Script" path="res://Menu/AbilityMenu/tool_tip.gd" id="1_e5tds"]
+
+[node name="ToolTip" type="PanelContainer"]
+offset_right = 250.0
+offset_bottom = 100.0
+script = ExtResource("1_e5tds")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TooltipText" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/line_separation = 2
+theme_override_font_sizes/normal_font_size = 20

@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://cr6s5byxt2scw"]
 
+[ext_resource type="Script" path="res://Menu/AbilityMenu/abilitymenu.gd" id="1_5iwtq"]
 [ext_resource type="Script" path="res://Menu/AbilityMenu/continuebutton.gd" id="1_t5dh8"]
-[ext_resource type="PackedScene" uid="uid://88wly8yitfpw" path="res://Menu/AbilityMenu/ability.tscn" id="2_ij4yn"]
-[ext_resource type="Script" path="res://Menu/AbilityMenu/baseabilities.gd" id="2_il4ne"]
+[ext_resource type="Script" path="res://Menu/AbilityMenu/all_abilities.gd" id="2_aen7m"]
 [ext_resource type="PackedScene" uid="uid://50kq10yt60c5" path="res://Menu/AbilityMenu/draggable.tscn" id="2_r114o"]
-[ext_resource type="Script" path="res://Menu/AbilityMenu/secondaryabilities.gd" id="4_m0313"]
+[ext_resource type="PackedScene" uid="uid://by6l1qolxbvvx" path="res://Entities/Player/UI/player_UI.tscn" id="4_ttdkd"]
 [ext_resource type="Script" path="res://Menu/AbilityMenu/reset.gd" id="6_pt3ss"]
-[ext_resource type="Script" path="res://Menu/AbilityMenu/PopUp.gd" id="7_nathp"]
+[ext_resource type="PackedScene" uid="uid://dgm3poanoyyo3" path="res://Menu/AbilityMenu/tool_tip.tscn" id="7_x17df"]
 
 [node name="AbilityMenu" type="Control"]
 layout_mode = 3
@@ -15,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5iwtq")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -23,11 +24,15 @@ offset_bottom = 40.0
 
 [node name="AllAbilities" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 107.0
-offset_bottom = 307.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 150.0
+offset_right = 400.0
+offset_bottom = 350.0
 grow_horizontal = 2
+script = ExtResource("2_aen7m")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AllAbilities"]
 layout_mode = 2
@@ -58,62 +63,38 @@ layout_mode = 2
 [node name="Label" parent="AllAbilities/HBoxContainer/Draggable4/ColorRect" index="0"]
 text = "Knockback"
 
-[node name="PlayerAbilities" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(500, 150)
+[node name="PlayerAbilities" parent="." instance=ExtResource("4_ttdkd")]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -250.0
-offset_top = -242.0
-offset_right = 250.0
-offset_bottom = -92.0
-grow_horizontal = 2
-grow_vertical = 0
 
-[node name="BaseAbilities" type="PanelContainer" parent="PlayerAbilities"]
-layout_mode = 2
-script = ExtResource("2_il4ne")
+[node name="PossibleCombinations" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.229167
+anchor_right = 0.229167
+offset_left = 119.999
+offset_top = 350.0
+offset_right = 419.999
+offset_bottom = 524.0
+metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerAbilities/BaseAbilities"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Ability1" parent="PlayerAbilities/BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="VBoxContainer" type="VBoxContainer" parent="PossibleCombinations"]
 layout_mode = 2
 
-[node name="Ability2" parent="PlayerAbilities/BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="Title" type="RichTextLabel" parent="PossibleCombinations/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 21
+text = "Possible Ability Combinations"
+fit_content = true
 
-[node name="Ability3" parent="PlayerAbilities/BaseAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
+[node name="Combos" type="RichTextLabel" parent="PossibleCombinations/VBoxContainer"]
 layout_mode = 2
-
-[node name="SecondaryAbilities" type="PanelContainer" parent="PlayerAbilities"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-script = ExtResource("4_m0313")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerAbilities/SecondaryAbilities"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 20
-
-[node name="SecondaryAbility1" parent="PlayerAbilities/SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
-custom_minimum_size = Vector2(48, 32)
-layout_mode = 2
-
-[node name="SecondaryAbility2" parent="PlayerAbilities/SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
-custom_minimum_size = Vector2(48, 32)
-layout_mode = 2
-
-[node name="SecondaryAbility3" parent="PlayerAbilities/SecondaryAbilities/HBoxContainer" instance=ExtResource("2_ij4yn")]
-custom_minimum_size = Vector2(48, 32)
-layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "Slash + Bomb
+Dash + Slash
+Dash + Bomb
+Knockback + Dash
+Slash + Bomb"
+fit_content = true
 
 [node name="Continue" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(100, 0)
@@ -155,30 +136,15 @@ layout_mode = 2
 text = "Reset"
 script = ExtResource("6_pt3ss")
 
-[node name="PopUp" type="PanelContainer" parent="."]
-visible = false
-custom_minimum_size = Vector2(200, 100)
+[node name="ToolTip" parent="." instance=ExtResource("7_x17df")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 250.0
-offset_top = -59.0
-offset_right = 450.0
-offset_bottom = 41.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_nathp")
-
-[node name="Label" type="Label" parent="PopUp"]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 2
-size_flags_vertical = 1
-autowrap_mode = 3
+offset_left = 1110.0
+offset_top = 350.0
+offset_right = 1360.0
+offset_bottom = 450.0
 
 [editable path="AllAbilities/HBoxContainer/Draggable"]
 [editable path="AllAbilities/HBoxContainer/Draggable2"]
 [editable path="AllAbilities/HBoxContainer/Draggable3"]
 [editable path="AllAbilities/HBoxContainer/Draggable4"]
+[editable path="PlayerAbilities"]

@@ -12,3 +12,4 @@ func enter(_msg := {}) -> void:
 func transition_to_start():
 	get_tree().change_scene_to_file("res://Menu/MainMenu/Menu.tscn")
 
+

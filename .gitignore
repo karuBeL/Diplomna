@@ -4,3 +4,4 @@ exe
 addons
 README.md
 export_presets.cfg
+*.tmp

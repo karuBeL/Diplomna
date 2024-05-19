@@ -3,6 +3,7 @@ extends Node
 var player
 var playerStateMachine : StateMachine
 var timer : Timer
+var cooldown = 5
 
 func _ready():
 	timer = $Timer
@@ -13,5 +14,5 @@ func execute():
 	if !timer.is_stopped():
 		playerStateMachine.transition_to("Run")
 		return
-	timer.start(5)
+	timer.start(cooldown)
 	playerStateMachine.transition_to("DashBomb")

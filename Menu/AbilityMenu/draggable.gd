@@ -8,6 +8,3 @@ func _ready():
 
 func _get_drag_data(_at_position):
 	return {"self": self, "text": ability_name.text}
-
-
-

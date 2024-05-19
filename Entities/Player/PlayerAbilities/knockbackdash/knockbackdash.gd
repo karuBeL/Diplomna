@@ -9,6 +9,7 @@ var buff_timer : Timer
 var old_speed
 var base_speed_boost = 3
 var bonus_speed_boost = 1
+var cooldown = 5
 
 func _ready():
 	cooldown_timer = $Timer as Timer
@@ -24,7 +25,7 @@ func execute():
 	if !cooldown_timer.is_stopped():
 		playerStateMachine.transition_to("Run")
 		return
-	cooldown_timer.start(5)
+	cooldown_timer.start(cooldown)
 	var bodies = knockback_coll.get_overlapping_bodies()
 	knockback_anim.play("knockback")
 	buff_timer.start(3)

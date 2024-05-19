@@ -10,6 +10,7 @@ var left_duration = 0.05
 var right_duration = 0.15
 var origin_duration = 0.05
 var original_position
+var cooldown = 1
 
 func _ready():
 	cooldown_timer = $Timer
@@ -25,7 +26,7 @@ func execute():
 	if !cooldown_timer.is_stopped():
 		playerStateMachine.transition_to("Run")
 		return
-	cooldown_timer.start(1)
+	cooldown_timer.start(cooldown)
 	collision.get_collisions()
 	slash_animation()
 	

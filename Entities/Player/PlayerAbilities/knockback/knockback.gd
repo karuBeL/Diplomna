@@ -5,6 +5,7 @@ var playerStateMachine : StateMachine
 var knockback_coll : Area3D
 var knockback_anim : AnimationPlayer
 var cooldown_timer : Timer
+var cooldown = 3
 
 func _ready():
 	player = get_tree().get_nodes_in_group("player")[0]
@@ -17,7 +18,7 @@ func execute():
 	if !cooldown_timer.is_stopped(): 
 		playerStateMachine.transition_to("Run")
 		return
-	cooldown_timer.start()
+	cooldown_timer.start(cooldown)
 	var bodies = knockback_coll.get_overlapping_bodies()
 	knockback_anim.play("knockback")
 	for body : EnemyClass in bodies:
